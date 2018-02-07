@@ -1,24 +1,24 @@
-% $Id: template.tex 11 2007-04-03 22:25:53Z jpeltier $
-
-\documentclass{vgtc}                          % final (conference style)
-%\documentclass[review]{vgtc}                 % review
+\documentclass[journal]{vgtc}                % final (journal style)
+%\documentclass[review,journal]{vgtc}         % review (journal style)
 %\documentclass[widereview]{vgtc}             % wide-spaced review
-%\documentclass[preprint]{vgtc}               % preprint
-%\documentclass[electronic]{vgtc}             % electronic version
+%\documentclass[preprint,journal]{vgtc}       % preprint (journal style)
 
 %% Uncomment one of the lines above depending on where your paper is
 %% in the conference process. ``review'' and ``widereview'' are for review
 %% submission, ``preprint'' is for pre-publication, and the final version
-%% doesn't use a specific qualifier. Further, ``electronic'' includes
-%% hyperreferences for more convenient online viewing.
+%% doesn't use a specific qualifier.
 
 %% Please use one of the ``review'' options in combination with the
 %% assigned online id (see below) ONLY if your paper uses a double blind
 %% review process. Some conferences, like IEEE Vis and InfoVis, have NOT
 %% in the past.
 
-%% Figures should be in CMYK or Grey scale format, otherwise, colour 
-%% shifting may occur during the printing process.
+%% Please note that the use of figures other than the optional teaser is not permitted on the first page
+%% of the journal version.  Figures should begin on the second page and be
+%% in CMYK or Grey scale format, otherwise, colour shifting may occur
+%% during the printing process.  Papers submitted with figures other than the optional teaser on the
+%% first page will be refused. Also, the teaser figure should only have the
+%% width of the abstract as the template enforces it.
 
 %% These few lines make a distinction between latex and pdflatex calls and they
 %% bring in essential packages for graphics and font handling.
@@ -40,7 +40,7 @@
 \fi%
 
 %% it is recomended to use ``\autoref{sec:bla}'' instead of ``Fig.~\ref{sec:bla}''
-\graphicspath{{figures/}{pictures/}{images/}{./}} % where to search for the images
+\graphicspath{{gfx/}{./}} % where to search for the images
 
 \usepackage{microtype}                 % use micro-typography (slightly more compact, better to read)
 \PassOptionsToPackage{warn}{textcomp}  % to address font issues with \textrightarrow
@@ -55,6 +55,8 @@
 %% throughout the proceedings. However, if you encounter conflicts
 %% with other math-related packages, you may want to disable it.
 
+%% In preprint mode you may define your own headline.
+%\preprinttext{To appear in IEEE Transactions on Visualization and Computer Graphics.}
 
 %% If you are submitting a paper to a conference for review with a double
 %% blind reviewing process, please replace the value ``0'' below with your
@@ -63,69 +65,68 @@
 
 %% declare the category of your paper, only shown in review mode
 \vgtccategory{Research}
-
-%% allow for this line if you want the electronic option to work properly
-\vgtcinsertpkg
-
-%% In preprint mode you may define your own headline.
-%\preprinttext{To appear in an IEEE VGTC sponsored conference.}
+%% please declare the paper type of your paper to help reviewers, only shown in review mode
+%% choices:
+%% * algorithm/technique
+%% * application/design study
+%% * evaluation
+%% * system
+%% * theory/model
+\vgtcpapertype{theory/model}
 
 %% Paper title.
+\title{Experiments of Cleveland and McGill for Machine Perception}
 
-\title{Machine Perception?}
+%% This is how authors are specified in the journal style
 
-%% This is how authors are specified in the conference style
+%% indicate IEEE Member or Student Member in form indicated below
+\author{Daniel Haehn, \textit{Member, IEEE}, James Tompkin, and Hanspeter Pfister}
+\authorfooter{
+%% insert punctuation at end of each item
+\item Daniel Haehn, and Hanspeter Pfister are with the Paulson School of Engineering and Applied Sciences at Harvard University. \\
+E-mail: \{haehn,pfister\}@seas.harvard.edu.
+%
+\item James Tompkin is with the Thomas J. Watson Sr. Center for Information Technology at Brown University. \\E-mail: james\_tompkin@brown.edu.
+}
 
-%% Author and Affiliation (single author).
-%%\author{Roy G. Biv\thanks{e-mail: roy.g.biv@aol.com}}
-%%\affiliation{\scriptsize Allied Widgets Research}
-
-%% Author and Affiliation (multiple authors with single affiliations).
-%%\author{Roy G. Biv\thanks{e-mail: roy.g.biv@aol.com} %
-%%\and Ed Grimley\thanks{e-mail:ed.grimley@aol.com} %
-%%\and Martha Stewart\thanks{e-mail:martha.stewart@marthastewart.com}}
-%%\affiliation{\scriptsize Martha Stewart Enterprises \\ Microsoft Research}
-
-%% Author and Affiliation (multiple authors with multiple affiliations)
-\author{Roy G. Biv\thanks{e-mail: roy.g.biv@aol.com}\\ %
-        \scriptsize Starbucks Research %
-\and Ed Grimley\thanks{e-mail: ed.grimley@aol.com}\\ %
-     \scriptsize Grimley Widgets, Inc. %
-\and Martha Stewart\thanks{e-mail: martha.stewart@marthastewart.com}\\ %
-     \parbox{1.4in}{\scriptsize \centering Martha Stewart Enterprises \\ Microsoft Research}}
-
-%% A teaser figure can be included as follows, but is not recommended since
-%% the space is now taken up by a full width abstract.
-%\teaser{
-%  \includegraphics[width=1.5in]{sample.eps}
-%  \caption{Lookit! Lookit!}
-%}
+%other entries to be set up for journal
+\shortauthortitle{Haehn \MakeLowercase{\textit{et al.}}: Experiments of Cleveland and McGill applied to Machine Perception}
+%\shortauthortitle{Firstauthor \MakeLowercase{\textit{et al.}}: Paper Title}
 
 %% Abstract section.
 \abstract{TODO%
 } % end of abstract
 
-%% ACM Computing Classification System (CCS). 
-%% See <http://www.acm.org/about/class> for details.
-%% We recommend the 2012 system <http://www.acm.org/about/class/class/2012>
-%% For the 2012 system use the ``\CCScatTwelve'' which command takes four arguments.
-%% The 1998 system <http://www.acm.org/about/class/class/2012> is still possible
-%% For the 1998 system use the ``\CCScat'' which command takes four arguments.
-%% In both cases the last two arguments (1998) or last three (2012) can be empty.
+%% Keywords that describe your work. Will show as 'Index Terms' in journal
+%% please capitalize first letter and insert punctuation after last keyword
+\keywords{Machine Perception, Deep Learning}
 
-\CCScatlist{
-  \CCScatTwelve{Human-centered computing}{Visu\-al\-iza\-tion}{Visu\-al\-iza\-tion techniques}{Treemaps};
-  \CCScatTwelve{Human-centered computing}{Visu\-al\-iza\-tion}{Visualization design and evaluation methods}{}
+%% ACM Computing Classification System (CCS). 
+%% See <http://www.acm.org/class/1998/> for details.
+%% The ``\CCScat'' command takes four arguments.
+
+%\CCScatlist{ % not used in journal version
+% \CCScat{K.6.1}{Management of Computing and Information Systems}%
+%{Project and People Management}{Life Cycle};
+% \CCScat{K.7.m}{The Computing Profession}{Miscellaneous}{Ethics}
+%}
+
+%% Uncomment below to include a teaser figure.
+\teaser{
+  \centering
+  \includegraphics[width=\linewidth]{fish.jpg}
+  \caption{Here is a fish.}
+	\label{fig:teaser}
 }
 
-%\CCScatlist{
-  %\CCScat{H.5.2}{User Interfaces}{User Interfaces}{Graphical user interfaces (GUI)}{};
-  %\CCScat{H.5.m}{Information Interfaces and Presentation}{Miscellaneous}{}{}
-%}
+%% Uncomment below to disable the manuscript note
+%\renewcommand{\manuscriptnotetxt}{}
 
 %% Copyright space is enabled by default as required by guidelines.
 %% It is disabled by the 'review' option or via the following command:
 % \nocopyrightspace
+
+\vgtcinsertpkg
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%% START OF THE PAPER %%%%%%%%%%%%%%%%%%%%%%
@@ -137,19 +138,17 @@
 %% ``\begin{document}'' command. It prepares and prints the title block.
 
 %% the only exception to this rule is the \firstsection command
-\firstsection{Introduction}
+
+\input{00_introduction.tex}
 
 \maketitle
 
-
-\section{Related Work}
-
-Pineo et al.~\cite{Pineo2012} present a method to automatically evaluating and optimizing visualizations using a computational model of human vision, based on a neural network simulation of the early perceptual processing in the retina and primary visual cortex. [JT] Copied from their abstract.
+\input{01_related_work.tex}
 
 %% if specified like this the section will be committed in review mode
 %\acknowledgments{
 %The authors wish to thank A, B, and C. This work was supported in part by
-%a grant from XYZ.}
+%a grant from XYZ (\# 12345-67890).}
 
 %\bibliographystyle{abbrv}
 \bibliographystyle{abbrv-doi}
@@ -159,3 +158,4 @@ Pineo et al.~\cite{Pineo2012} present a method to automatically evaluating and o
 
 \bibliography{paper.bib}
 \end{document}
+

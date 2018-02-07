@@ -1,31 +1,27 @@
 Created by Torsten Moeller (vis@cs.sfu.ca), April 6 2004
-modified by $Author: jpeltier $ $Date: 2007-04-03 16:51:34 -0700 (Tue, 03 Apr 2007) $
+modified by Steven Bergner and Torsten Moeller, June 30 2006
+modified by James Peltier and Torsten Moeller, March 28, 2007
+modified by Bernhard Finkbeiner, July 5, 2010
+modified by Tobias Isenberg, January 2016
+modified by Filip Sadlo, March 2016
 modified by Tobias Isenberg, July 2016
 
-This distribution provides a document class for formatting papers
-according to the specifications for submission to conferences sponsored
-by the IEEE Visualization & Graphics Technical Committee (VGTC). This
-includes:
+This distribution provides a document class for formatting papers according to the specifications for submission to conferences sponsored by the IEEE Visualization & Graphics Technical Committee (VGTC).
 
-Conferences that use the 'conf' document option:
-- IEEE Virtual Reality
-- IEEE Symposium on 3D User Interfaces
-- Symposium on Haptic Interfaces for Virtual Environment and Teleoperator Systems
-- IEEE Symposium on Asia Pacific Visualisation
-- IEEE Symposium on Interactive Ray Tracing
-- IEEE Symposium on Visual Analytics Science and Technology
-- IEEE Symposium on Visual Analytics Science and Technology
-- IEEE Visualization Conference (Posters Only)
-- IEEE Information Visualization Conference (Posters Only)
-- IEEE Symposium on Volume Graphics
+Conferences that use the 'journal' document option:
+- IEEE Visualization Conference (VIS, incl. InfoVis, SciVis, VAST)
+- IEEE Virtual Reality (VR)
+- IEEE International Symposium on Mixed and Augmented Reality (ISMAR)
 
-It contains 11 files/directories:
+It contains 13 files/directories:
 
 README          - this file
+diamondrule.eps - abstract and body separator
+diamondrule.pdf - its PDF version
 vgtc.cls        - the VGTC class file, which should be placed, somewhere in the TeX search path (or in the local directory)
 template.tex    - an example paper
 template.bib    - a small bibliography file used by the example
-template.pdf    - an example proper pdf output in default conference mode
+template.pdf    - an example proper pdf output in default journal mode
 abbrv-doi*.bst  - four different versions to generate the bibliography including DOI output, with and without hyperref support, with and without narrow rendering of DOIs
 makefile        - makefile including bibtex compilation and proper PDF generation
 pictures/       - subdirectory with sample images, both in EPS and in direct pixel/vector format

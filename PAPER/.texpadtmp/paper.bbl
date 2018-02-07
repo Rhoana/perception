@@ -1,3 +1,23 @@
-\begin{thebibliography}{}
+\begin{thebibliography}{1}
+
+\bibitem{cleveland_mcgill}
+W.~S. Cleveland and R.~McGill.
+\newblock Graphical perception: Theory, experimentation, and application to the
+  development of graphical methods.
+\newblock {\em Journal of the American statistical association},
+  79(387):531--554, 1984.
+
+\bibitem{linegraph_vs_scatterplot}
+Y.~Wang, F.~Han, L.~Zhu, O.~Deussen, and B.~Chen.
+\newblock Line graph or scatter plot? automatic selection of methods for
+  visualizing trends in time series.
+\newblock {\em IEEE Transactions on Visualization and Computer Graphics},
+  24(2):1141--1154, Feb 2018. doi: {{%
+10\hspace{.1pt}\discretionary{.}{%
+}{.}\hspace{.4pt}1109\discretionary{/}{%
+}{/}TVCG\hspace{.1pt}\discretionary{.}{%
+}{.}\hspace{.4pt}2017\hspace{.1pt}\discretionary{.}{%
+}{.}\hspace{.4pt}2653106}}
+
 
 \end{thebibliography}
