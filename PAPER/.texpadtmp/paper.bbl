@@ -1,4 +1,23 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
+
+\bibitem{borkin2011arteries}
+M.~Borkin, K.~Gajos, A.~Peters, D.~Mitsouras, S.~Melchionna, F.~Rybicki,
+  C.~Feldman, and H.~Pfister.
+\newblock Evaluation of artery visualizations for heart disease diagnosis.
+\newblock {\em IEEE transactions on visualization and computer graphics},
+  17(12):2479--2488, 2011.
+
+\bibitem{open_vs_closed_shapes}
+D.~Burlinson, K.~Subramanian, and P.~Goolkasian.
+\newblock Open vs. closed shapes: New perceptual categories?
+\newblock {\em IEEE Transactions on Visualization and Computer Graphics},
+  24(1):574--583, Jan 2018. doi: {{%
+10\hspace{.1pt}\discretionary{.}{%
+}{.}\hspace{.4pt}1109\discretionary{/}{%
+}{/}TVCG\hspace{.1pt}\discretionary{.}{%
+}{.}\hspace{.4pt}2017\hspace{.1pt}\discretionary{.}{%
+}{.}\hspace{.4pt}2745086}}
+
 
 \bibitem{cleveland_mcgill}
 W.~S. Cleveland and R.~McGill.
@@ -7,7 +26,81 @@ W.~S. Cleveland and R.~McGill.
 \newblock {\em Journal of the American statistical association},
   79(387):531--554, 1984.
 
-\bibitem{Pineo2012}
+\bibitem{mckenzie_2d_3d}
+A.~Cockburn and B.~McKenzie.
+\newblock Evaluating the effectiveness of spatial memory in 2d and 3d physical
+  and virtual environments.
+\newblock In {\em Proceedings of the SIGCHI Conference on Human Factors in
+  Computing Systems}, CHI '02, pp. 203--210. ACM, New York, NY, USA, 2002. doi:
+  {{%
+10\hspace{.1pt}\discretionary{.}{%
+}{.}\hspace{.4pt}1145\discretionary{/}{%
+}{/}503376\hspace{.1pt}\discretionary{.}{%
+}{.}\hspace{.4pt}503413}}
+
+
+\bibitem{heer2017blackhat}
+M.~Correll and J.~Heer.
+\newblock Black hat visualization.
+\newblock In {\em Workshop on Dealing with Cognitive Biases in Visualisations
+  (DECISIVe), IEEE VIS}, 2017.
+
+\bibitem{forsberg2009comparing_3d_vector}
+A.~Forsberg, J.~Chen, and D.~Laidlaw.
+\newblock Comparing 3d vector field visualization methods: A user study.
+\newblock {\em IEEE Transactions on Visualization and Computer Graphics},
+  15(6), 2009.
+
+\bibitem{harrison2014_webers_law_rank}
+L.~Harrison, F.~Yang, S.~Franconeri, and R.~Chang.
+\newblock Ranking visualizations of correlation using weber's law.
+\newblock {\em IEEE Transactions on Visualization and Computer Graphics},
+  20(12):1943--1952, Dec 2014. doi: {{%
+10\hspace{.1pt}\discretionary{.}{%
+}{.}\hspace{.4pt}1109\discretionary{/}{%
+}{/}TVCG\hspace{.1pt}\discretionary{.}{%
+}{.}\hspace{.4pt}2014\hspace{.1pt}\discretionary{.}{%
+}{.}\hspace{.4pt}2346979}}
+
+
+\bibitem{herr2009timeseries}
+J.~Heer, N.~Kong, and M.~Agrawala.
+\newblock Sizing the horizon: The effects of chart size and layering on the
+  graphical perception of time series visualizations.
+\newblock In {\em Proceedings of the SIGCHI Conference on Human Factors in
+  Computing Systems}, CHI '09, pp. 1303--1312. ACM, New York, NY, USA, 2009.
+  doi: {{%
+10\hspace{.1pt}\discretionary{.}{%
+}{.}\hspace{.4pt}1145\discretionary{/}{%
+}{/}1518701\hspace{.1pt}\discretionary{.}{%
+}{.}\hspace{.4pt}1518897}}
+
+
+\bibitem{kindlmann2002color}
+G.~Kindlmann, E.~Reinhard, and S.~Creem.
+\newblock Face-based luminance matching for perceptual colormap generation.
+\newblock In {\em Proceedings of the Conference on Visualization '02}, VIS '02,
+  pp. 299--306. IEEE Computer Society, Washington, DC, USA, 2002.
+
+\bibitem{laidlaw_2d_vector}
+D.~H. Laidlaw, R.~M. Kirby, C.~D. Jackson, J.~S. Davidson, T.~S. Miller,
+  M.~da~Silva, W.~H. Warren, and M.~J. Tarr.
+\newblock Comparing 2d vector field visualization methods: a user study.
+\newblock {\em IEEE Transactions on Visualization and Computer Graphics},
+  11(1):59--70, Jan 2005. doi: {{%
+10\hspace{.1pt}\discretionary{.}{%
+}{.}\hspace{.4pt}1109\discretionary{/}{%
+}{/}TVCG\hspace{.1pt}\discretionary{.}{%
+}{.}\hspace{.4pt}2005\hspace{.1pt}\discretionary{.}{%
+}{.}\hspace{.4pt}4}}
+
+
+\bibitem{munzner2015visualization}
+T.~Munzner.
+\newblock {\em Visualization Analysis and Design}.
+\newblock AK Peters Visualization Series. CRC Press, 2015.
+
+\bibitem{Pineo2012_computational_perception}
 D.~Pineo and C.~Ware.
 \newblock Data visualization optimization via computational modeling of
   perception.
@@ -20,7 +113,19 @@ D.~Pineo and C.~Ware.
 }{.}\hspace{.4pt}52}}
 
 
-\bibitem{linegraph_vs_scatterplot}
+\bibitem{rheingans1992color}
+P.~Rheingans.
+\newblock Color, change, and control of quantitative data display.
+\newblock In {\em Visualization, 1992. Visualization'92, Proceedings., IEEE
+  Conference on}, pp. 252--259. IEEE, 1992.
+
+\bibitem{Rogowitz2001_colormaps}
+B.~E. Rogowitz and A.~D. Kalvin.
+\newblock The "which blair project": a quick visual method for evaluating
+  perceptual color maps.
+\newblock {\em Proceedings Visualization, 2001. VIS '01.}, pp. 183--556, 2001.
+
+\bibitem{Wang_linegraph_vs_scatterplot}
 Y.~Wang, F.~Han, L.~Zhu, O.~Deussen, and B.~Chen.
 \newblock Line graph or scatter plot? automatic selection of methods for
   visualizing trends in time series.
@@ -32,5 +137,11 @@ Y.~Wang, F.~Han, L.~Zhu, O.~Deussen, and B.~Chen.
 }{.}\hspace{.4pt}2017\hspace{.1pt}\discretionary{.}{%
 }{.}\hspace{.4pt}2653106}}
 
+
+\bibitem{ware1988color}
+C.~Ware.
+\newblock Color sequences for univariate maps: Theory, experiments and
+  principles.
+\newblock {\em IEEE Computer Graphics and Applications}, 8(5):41--49, 1988.
 
 \end{thebibliography}
