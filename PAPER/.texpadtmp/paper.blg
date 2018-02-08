@@ -4,44 +4,44 @@ The top-level auxiliary file: /Users/d/Projects/CP/PAPER/.texpadtmp/paper.aux
 The style file: ../abbrv-doi.bst
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Database file #1: ../paper.bib.bib
-You've used 2 entries,
+You've used 3 entries,
             2598 wiz_defined-function locations,
-            610 strings with 4853 characters,
-and the built_in function-call counts, 1639 in all, are:
-= -- 331
-> -- 41
-< -- 50
-+ -- 66
-- -- 15
-* -- 76
-:= -- 249
-add.period$ -- 6
-call.type$ -- 2
-change.case$ -- 13
+            618 strings with 4996 characters,
+and the built_in function-call counts, 2632 in all, are:
+= -- 559
+> -- 54
+< -- 90
++ -- 111
+- -- 20
+* -- 109
+:= -- 394
+add.period$ -- 9
+call.type$ -- 3
+change.case$ -- 18
 chr.to.int$ -- 0
-cite$ -- 2
-duplicate$ -- 22
-empty$ -- 59
-format.name$ -- 14
-if$ -- 414
+cite$ -- 3
+duplicate$ -- 33
+empty$ -- 87
+format.name$ -- 18
+if$ -- 679
 int.to.chr$ -- 0
-int.to.str$ -- 2
-missing$ -- 2
-newline$ -- 19
-num.names$ -- 4
-pop$ -- 9
+int.to.str$ -- 3
+missing$ -- 3
+newline$ -- 30
+num.names$ -- 6
+pop$ -- 12
 preamble$ -- 1
-purify$ -- 11
+purify$ -- 15
 quote$ -- 0
-skip$ -- 15
+skip$ -- 23
 stack$ -- 0
-substring$ -- 113
-swap$ -- 2
-text.length$ -- 27
+substring$ -- 180
+swap$ -- 3
+text.length$ -- 49
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 8
+type$ -- 12
 warning$ -- 0
-while$ -- 9
-width$ -- 3
-write$ -- 54
+while$ -- 14
+width$ -- 4
+write$ -- 90
