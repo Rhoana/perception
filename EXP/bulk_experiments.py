@@ -22,10 +22,10 @@ FRAMED = sys.argv[4] # 'Framed'
 #
 #
 #
-print 'Running', EXPERIMENT, 'on dataset', DATASET, 'with', FEATUREGENERATOR
+print 'Running', EXPERIMENT, 'on dataset', DATASET, FRAMED, 'with', FEATUREGENERATOR
 
 
-EPOCHS = 3
+EPOCHS = 2
 FRAMED = (FRAMED == 'Framed')
 NO_SPLITS = 10
 NO_REPEATS = 10
@@ -130,7 +130,8 @@ for train, test in kfold.split(X, y):
   MLP.add(layers.Dropout(0.5))
   MLP.add(layers.Dense(2, activation='softmax'))
 
-  MLP.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['acc'])
+  sgd = optimizers.SGD(lr=0.0001, decay=1e-6, momentum=0.9, nesterov=True)
+  MLP.compile(loss='categorical_crossentropy', optimizer=sgd, metrics=['acc'])
 
   history = MLP.fit(X[train], \
                     to_categorical(y[train]), \
@@ -141,6 +142,8 @@ for train, test in kfold.split(X, y):
 
   scores = MLP.evaluate(X[test], to_categorical(y[test]), verbose=True)
 
+  y_pred = MLP.predict(X[test])
+
   stats = dict(history.history)
 
   stats['test_loss'] = scores[0]
@@ -148,6 +151,9 @@ for train, test in kfold.split(X, y):
 
   fit_time = time.time() - t0
   stats['time'] = feature_time + fit_time
+
+  stats['y_test'] = y[test]
+  stats['y_pred'] = y_pred
   
   results.append(stats)
 

@@ -305,11 +305,11 @@ class Figure12:
 
     assert np.array_equal(labels, framed_labels) is True
 
-    INDEX = np.random.randint(len(datapoints))
-    print 'Datapoint', INDEX
-    print 'Label', labels[INDEX]
-
     if preview:
+      INDEX = np.random.randint(len(datapoints))
+      print 'Datapoint', INDEX
+      print 'Label', labels[INDEX]
+
       plt.imshow(images[INDEX])
       plt.figure()
       plt.imshow(framed_images[INDEX])
