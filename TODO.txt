@@ -1,0 +1,16 @@
+-> fix fig 12 (old code)
+-> create fixed testset
+-> restructure IPY
+-> create possibility to run on cluster
+-> create classifiers
+ -> Random Forest on parametrization
+ -> NN
+ -> CNN
+ -> ResNet50
+-> experiment with random width
+
+-> create simple encodings for figure 1 of cleveland mcgill
+
+-> create multi regression problem
+
+->
