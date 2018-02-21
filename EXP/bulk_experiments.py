@@ -28,7 +28,7 @@ print 'Running', EXPERIMENT, 'on dataset', DATASET, FRAMED, 'with', FEATUREGENER
 EPOCHS = 2
 FRAMED = (FRAMED == 'Framed')
 NO_SPLITS = 10
-NO_REPEATS = 10
+NO_REPEATS = 2
 BATCH_SIZE = 32
 
 FEATUREGENERATORS = {'MLP': 'Just MLP',
@@ -71,46 +71,28 @@ if EXPERIMENT == 'Figure12':
 #
 #
 feature_time = 0
-if FEATUREGENERATOR == 'MLP':
-  
-  oshape = X.shape
-  # we now need to flatten the data
-  X = X.reshape(X.shape[0], oshape[1]*oshape[2]*oshape[3])
 
+if FEATUREGENERATOR != 'LeNet':
+  # either pre-classifier or MLP
+  if FEATUREGENERATOR != 'MLP':
+    
+    classifier = FEATUREGENERATORS[FEATUREGENERATOR](include_top=False, weights='imagenet', input_shape=(100,100,3))
 
-elif FEATUREGENERATOR == 'LeNet':
-  
-  #
-  # SETUP LENET
-  #
-  classifier = models.Sequential()
-  classifier.add(layers.Convolution2D(20, 5, 5, border_mode="same",
-      input_shape=(100, 100, 3)))
-  classifier.add(layers.Activation("relu"))
-  classifier.add(layers.MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
-  classifier.add(layers.Dropout(0.2))
-  classifier.add(layers.Convolution2D(50, 5, 5, border_mode="same"))
-  classifier.add(layers.Activation("relu"))
-  classifier.add(layers.MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
-  classifier.add(layers.Dropout(0.2))
+    t0 = time.time()
 
-  oshape = classifier.output_shape
-  classifier.add(layers.Flatten())
+    features = classifier.predict(X, verbose=True)
 
-else:
+    feature_time = time.time() - t0
 
-  classifier = FEATUREGENERATORS[FEATUREGENERATOR](include_top=False, weights='imagenet', input_shape=(100,100,3))
+    oshape = classifier.output_shape
 
-  t0 = time.time()
+    X = features.reshape(X.shape[0], oshape[1]*oshape[2]*oshape[3])
 
-  features = classifier.predict(X, verbose=True)
-
-  feature_time = time.time() - t0
-
-  oshape = classifier.output_shape
-
-  X = features.reshape(X.shape[0], oshape[1]*oshape[2]*oshape[3])
-
+  else:
+    # MLP case.. no feature generation here!
+    oshape = X.shape
+    # we now need to flatten the data
+    X = X.reshape(X.shape[0], oshape[1]*oshape[2]*oshape[3])
 
 results = []
 
@@ -120,10 +102,23 @@ for train, test in kfold.split(X, y):
   t0 = time.time()
   
   if FEATUREGENERATOR == 'LeNet':
-    # we already have a model
+    # the LeNet 5
+    classifier = models.Sequential()
+    classifier.add(layers.Convolution2D(20, 5, 5, border_mode="same", input_shape=(100, 100, 3)))
+    classifier.add(layers.Activation("relu"))
+    classifier.add(layers.MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
+    classifier.add(layers.Dropout(0.2))
+    classifier.add(layers.Convolution2D(50, 5, 5, border_mode="same"))
+    classifier.add(layers.Activation("relu"))
+    classifier.add(layers.MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
+    classifier.add(layers.Dropout(0.2))
+
+    oshape = classifier.output_shape
+    classifier.add(layers.Flatten())
+
     MLP = classifier
   else:
-    # create a new one
+    # create a new MLP
     MLP = models.Sequential()
 
   MLP.add(layers.Dense(256, activation='relu', input_dim=oshape[1]*oshape[2]*oshape[3]))
@@ -160,6 +155,11 @@ for train, test in kfold.split(X, y):
 #
 #
 #
+if FRAMED:
+  FRAMED = 'Framed'
+else:
+  FRAMED = 'NoFramed'
+
 outputfile = OUTPUT_DIRECTORY + '/' + EXPERIMENT + '_' + str(DATASET) + '_' + FEATUREGENERATOR + '_' + FRAMED + '_results.p'
 with open(outputfile, 'w') as f:
   pickle.dump(results, f)
