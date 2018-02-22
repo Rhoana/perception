@@ -25,10 +25,10 @@ FRAMED = sys.argv[4] # 'Framed'
 print 'Running', EXPERIMENT, 'on dataset', DATASET, FRAMED, 'with', FEATUREGENERATOR
 
 
-EPOCHS = 2
+EPOCHS = 10
 FRAMED = (FRAMED == 'Framed')
 NO_SPLITS = 10
-NO_REPEATS = 2
+NO_REPEATS = 4
 BATCH_SIZE = 32
 
 FEATUREGENERATORS = {'MLP': 'Just MLP',
