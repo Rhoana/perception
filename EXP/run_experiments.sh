@@ -40,4 +40,3 @@ python bulk_experiments.py Figure12 4 Xception Framed
 python bulk_experiments.py Figure12 4 Xception NotFramed
 #python bulk_experiments.py Figure12 4 DenseNet201 Framed
 #python bulk_experiments.py Figure12 4 DenseNet201 NotFramed
-
