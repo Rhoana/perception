@@ -26,7 +26,7 @@ print 'Running', EXPERIMENT, 'on dataset', DATASET, FRAMED, 'with', FEATUREGENER
 
 
 EPOCHS = 10
-FRAMED = (FRAMED == 'Framed')
+FRAMED_BOOL = (FRAMED == 'Framed')
 NO_SPLITS = 10
 NO_REPEATS = 4
 BATCH_SIZE = 32
@@ -40,10 +40,12 @@ FEATUREGENERATORS = {'MLP': 'Just MLP',
 
 #
 #
+# We store now a folder structure:
+#   RESULTS/Experiment/Dataset/FeatureGenerator/Framed/EPOCHS_NOSPLITS_NOREPEATS_INDEX.p
 #
+# INDEX is the index of the current run
 #
-#
-OUTPUT_DIRECTORY = '../RESULTS/'
+OUTPUT_DIRECTORY = os.path.join('../RESULTS_NEW/', EXPERIMENT, str(DATASET), FEATUREGENERATOR, FRAMED)
 if not os.path.exists(OUTPUT_DIRECTORY):
   os.makedirs(OUTPUT_DIRECTORY)
 
@@ -56,7 +58,7 @@ if not os.path.exists(OUTPUT_DIRECTORY):
 if EXPERIMENT == 'Figure12':
   images, framed_images, labels = C.Figure12.load(dataset=int(DATASET),preview=False)
 
-  if FRAMED:
+  if FRAMED_BOOL:
     X = framed_images
   else:
     X = images
@@ -94,8 +96,7 @@ if FEATUREGENERATOR != 'LeNet':
     # we now need to flatten the data
     X = X.reshape(X.shape[0], oshape[1]*oshape[2]*oshape[3])
 
-results = []
-
+INDEX = 0
 kfold = RepeatedStratifiedKFold(n_splits=NO_SPLITS, n_repeats=NO_REPEATS)
 for train, test in kfold.split(X, y):
 
@@ -150,20 +151,21 @@ for train, test in kfold.split(X, y):
   stats['y_test'] = y[test]
   stats['y_pred'] = y_pred
   
-  results.append(stats)
+  #
+  # Every sample we create two files
+  #   a) the stats file as a lil pickle
+  #   b) and the network weights so we can re-run any experiment without retraining
+  stats_outputfile = OUTPUT_DIRECTORY + '/' + str(EPOCHS) + '_' + str(NO_SPLITS) + '_' + str(NO_REPEATS) + '_' + str(INDEX) + '_results.p'
+  with open(stats_outputfile, 'w') as f:
+    pickle.dump(stats, f)
+  mlp_outputfile = OUTPUT_DIRECTORY + '/' + str(EPOCHS) + '_' + str(NO_SPLITS) + '_' + str(NO_REPEATS) + '_' + str(INDEX) + '_mlp.hdf5'
+  MLP.save(mlp_outputfile)
 
-#
-#
-#
-if FRAMED:
-  FRAMED = 'Framed'
-else:
-  FRAMED = 'NoFramed'
+  print 'Stored', stats_outputfile
+  print '...and', mlp_outputfile
 
-outputfile = OUTPUT_DIRECTORY + '/' + EXPERIMENT + '_' + str(DATASET) + '_' + FEATUREGENERATOR + '_' + FRAMED + '_results.p'
-with open(outputfile, 'w') as f:
-  pickle.dump(results, f)
-print 'Stored', outputfile
+  INDEX += 1
+
 
 
 
