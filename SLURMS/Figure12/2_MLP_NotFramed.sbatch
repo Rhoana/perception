@@ -1,4 +1,3 @@
-
 #!/bin/bash
 #SBATCH -p cox
 #SBATCH -n 1 # Number of cores

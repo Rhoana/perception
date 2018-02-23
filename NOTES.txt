@@ -41,7 +41,7 @@ conda env create -f CONDAENV
 
 #
 # #LAUNCH THE JOBS WITH:
-# #for f in *.slurm; do sbatch $f; done
+# #for f in *.sbatch; do sbatch $f; done
 #
 #
 # add all other SBATCH directives here...
