@@ -1,0 +1,70 @@
+-> fix fig 12 (old code)
+-> create fixed testset
+-> restructure IPY
+-> create possibility to run on cluster
+-> create classifiers
+ -> Random Forest on parametrization
+ -> NN
+ -> CNN
+ -> ResNet50
+-> experiment with random width
+
+-> create simple encodings for figure 1 of cleveland mcgill
+
+-> create multi regression problem
+
+->
+
+
+
+
+
+
+
+
+
+
+
+
+#
+# thats how we create the virtualenv
+#
+conda env create -f CONDAENV
+
+
+
+
+#### SLURM TEMPLATE
+
+
+#!/bin/bash
+
+#
+# #LAUNCH THE JOBS WITH:
+# #for f in *.slurm; do sbatch $f; done
+#
+#
+# add all other SBATCH directives here...
+#
+#SBATCH -p serial_requeue
+#SBATCH -n 1 # Number of cores
+#SBATCH -N 1 # Ensure that all cores are on one machine
+#SBATCH --mem=220000
+#SBATCH -t 1-12:00
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=haehn@seas.harvard.edu
+#SBATCH -o /n/home05/haehn/SLURM/gp/out-merger.txt
+#SBATCH -e /n/home05/haehn/SLURM/gp/err-merger.txt
+
+# add additional commands needed for Lmod and module loads here
+source new-modules.sh
+
+module load Anaconda/5.0.1-fasrc01
+
+source activate CP
+
+
+
+
+
+
