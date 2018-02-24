@@ -137,9 +137,15 @@ for train, test in kfold.split(X, y):
                     validation_split=0.25,
                     verbose=True)
 
+  print 'Training done!'
+
   scores = MLP.evaluate(X[test], to_categorical(y[test]), verbose=True)
 
+  print 'Scoring done!'
+
   y_pred = MLP.predict(X[test])
+
+  print 'Prediction done!'
 
   stats = dict(history.history)
 
@@ -152,6 +158,8 @@ for train, test in kfold.split(X, y):
   stats['y_test'] = y[test]
   stats['y_pred'] = y_pred
   
+  print 'Created stats..'
+
   #
   # Every sample we create two files
   #   a) the stats file as a lil pickle

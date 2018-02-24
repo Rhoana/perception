@@ -289,7 +289,7 @@ class Figure12:
 
 
   @staticmethod
-  def load(DATA_DIR='../DATA/Figure12/', dataset=1, preview=True):
+  def load(DATA_DIR='../DATA/Figure12/', dataset=1, preview=True, images=True):
     '''
     '''
     with open(os.path.join(DATA_DIR, 'datapoints_'+str(dataset)+'.p'), 'r') as f:
@@ -298,6 +298,10 @@ class Figure12:
     with open(os.path.join(DATA_DIR, 'labels_'+str(dataset)+'.p'), 'r') as f:
       labels = pickle.load(f)  
       
+    if not images:
+      # return just the datapoints
+      return datapoints, labels
+
     fig = Figure12()
     fig.create()
     images, labels = fig.render_many(datapoints, framed=False)
