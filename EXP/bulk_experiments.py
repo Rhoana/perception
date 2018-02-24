@@ -106,11 +106,11 @@ for train, test in kfold.split(X, y):
   if FEATUREGENERATOR == 'LeNet':
     # the LeNet 5
     classifier = models.Sequential()
-    classifier.add(layers.Convolution2D(20, 5, 5, border_mode="same", input_shape=(100, 100, 3)))
+    classifier.add(layers.Convolution2D(20, (5, 5), border_mode="same", input_shape=(100, 100, 3)))
     classifier.add(layers.Activation("relu"))
     classifier.add(layers.MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
     classifier.add(layers.Dropout(0.2))
-    classifier.add(layers.Convolution2D(50, 5, 5, border_mode="same"))
+    classifier.add(layers.Convolution2D(50, (5, 5), border_mode="same"))
     classifier.add(layers.Activation("relu"))
     classifier.add(layers.MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
     classifier.add(layers.Dropout(0.2))
