@@ -64,6 +64,7 @@ if EXPERIMENT == 'Figure12':
     X = images
 
   X = np.stack((X,)*3, -1) # make sure we have RGB
+  X = X.astype(np.float32)-.5 # normalize
   y = labels
 
 
