@@ -49,6 +49,13 @@ OUTPUT_DIRECTORY = os.path.join('../RESULTS_NEW/', EXPERIMENT, str(DATASET), FEA
 if not os.path.exists(OUTPUT_DIRECTORY):
   os.makedirs(OUTPUT_DIRECTORY)
 
+#
+# CHECK IF THIS EXPERIMENT WAS COMPLETED ALREADY!
+#
+if len(os.listdir(OUTPUT_DIRECTORY)) >= (NO_SPLITS * NO_REPEATS * 2):
+  # this was done!
+  print 'Already done!'
+  sys.exit(0)
 
 #
 #
@@ -139,13 +146,13 @@ for train, test in kfold.split(X, y):
 
   print 'Training done!'
 
-  scores = MLP.evaluate(X[test], to_categorical(y[test]), verbose=True)
-
-  print 'Scoring done!'
-
   y_pred = MLP.predict(X[test])
 
   print 'Prediction done!'
+
+  scores = MLP.evaluate(X[test], to_categorical(y[test]), verbose=True)
+
+  print 'Scoring done!'
 
   stats = dict(history.history)
 
