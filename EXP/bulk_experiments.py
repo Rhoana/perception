@@ -45,7 +45,13 @@ FEATUREGENERATORS = {'MLP': 'Just MLP',
 #
 # INDEX is the index of the current run
 #
-OUTPUT_DIRECTORY = os.path.join('../RESULTS_NEW/', EXPERIMENT, str(DATASET), FEATUREGENERATOR, FRAMED)
+if os.path.abspath('~').startswith('/n/'):
+  # we are on the cluster
+  PREFIX = '/n/regal/pfister_lab/PERCEPTION/'
+else:
+  PREFIX = '/home/d/Projects/CP/'
+  
+OUTPUT_DIRECTORY = os.path.join(PREFIX, 'RESULTS_NEW', EXPERIMENT, str(DATASET), FEATUREGENERATOR, FRAMED)
 if not os.path.exists(OUTPUT_DIRECTORY):
   os.makedirs(OUTPUT_DIRECTORY)
 
@@ -150,14 +156,14 @@ for train, test in kfold.split(X, y):
 
   print 'Prediction done!'
 
-  scores = MLP.evaluate(X[test], to_categorical(y[test]), verbose=True)
+  # scores = MLP.evaluate(X[test], to_categorical(y[test]), verbose=True)
 
-  print 'Scoring done!'
+  # print 'Scoring done!'
 
   stats = dict(history.history)
 
-  stats['test_loss'] = scores[0]
-  stats['test_acc'] = scores[1]
+  # stats['test_loss'] = scores[0]
+  # stats['test_acc'] = scores[1]
 
   fit_time = time.time() - t0
   stats['time'] = feature_time + fit_time
