@@ -18,6 +18,15 @@
 
 
 
+#
+# CHECK IF CROSSVALIDATION COMPLETED
+#
+#
+#>>> import os
+#>>> for root, a,b in os.walk('/n/regal/pfister_lab/PERCEPTION/RESULTS_NEW'):
+#...   if root.endswith('Framed') and len(os.listdir(root)) < 80:
+#...     print root
+#... 
 
 
 
