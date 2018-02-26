@@ -114,6 +114,16 @@ INDEX = 0
 kfold = RepeatedStratifiedKFold(n_splits=NO_SPLITS, n_repeats=NO_REPEATS)
 for train, test in kfold.split(X, y):
 
+  #
+  # Let's check if we have some partial results here
+  #
+  current_output = OUTPUT_DIRECTORY + '/' + str(EPOCHS) + '_' + str(NO_SPLITS) + '_' + str(NO_REPEATS) + '_' + str(INDEX) + '_results.p'
+  if os.path.exists(current_output):
+    print current_output, 'exists.. skipping this run!'
+    INDEX += 1
+    continue
+
+
   t0 = time.time()
   
   if FEATUREGENERATOR == 'LeNet':
