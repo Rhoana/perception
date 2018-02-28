@@ -50,12 +50,12 @@ class Figure1_Position_Common_Scale:
     #
     # Y is always variable since it encodes our value
     #
-    Y, p = Util.parameter(self._delta, self._size[0]-self._delta)
+    Y, p = Util.parameter(self._delta, self._size[0]-self._delta + 1)
     parameters *= p
 
     X = self._size[1] / 2
     if self._variable_x:
-      X, p = Util.parameter(self._delta, self._size[1]-self._delta)
+      X, p = Util.parameter(self._delta, self._size[1]-self._delta + 1)
       parameters *= p
 
     spot_size = 5
