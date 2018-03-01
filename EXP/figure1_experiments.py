@@ -228,7 +228,8 @@ for train, test in kfold.split(X, y):
   if CLASSIFIER != 'RF' and CLASSIFIER != 'RF_Image':
     predictor.save(mlp_outputfile)
   else:
-    with open(mlp_outputfile, 'w') as f:
+    with open(mlp_outputfile.replace('hdf5','p'), 'w') as f:
+      # RANDOM FORESTS ARE PICKLED
       pickle.dump(predictor, f)
 
   print 'Stored', stats_outputfile
