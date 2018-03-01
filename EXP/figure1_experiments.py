@@ -36,7 +36,7 @@ if os.path.abspath('~').startswith('/n/'):
   # we are on the cluster
   PREFIX = '/n/regal/pfister_lab/PERCEPTION/'
 else:
-  PREFIX = '/home/d/Projects/CP/'
+  PREFIX = '/home/d/PERCEPTION/'
 
 
 #
