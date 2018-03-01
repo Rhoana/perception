@@ -72,8 +72,13 @@ module load Anaconda/5.0.1-fasrc01
 
 source activate CP
 
-
-
-
+#
+#
+#
+srun --pty -t 7-00:00 --export=ALL --ntasks=1 -p cox --tunnel=44433:44433 --mem=20000 /bin/bash
+# now on my machine
+ssh -g -L 0.0.0.0:44433:localhost:44433 haehn@odyssey.fas.harvard.edu
+# and then there
+ssh -L 44433:localhost:44433 coxgpu04
 
 
