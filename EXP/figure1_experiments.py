@@ -74,13 +74,13 @@ elif CLASSIFIER == 'VGG19':
   '''
   Load VGG19 features. 
   '''
-  X = np.load(DATAPATH + 'vgg19_features_'+str(DATASET)+'.npy', mmap_mode='r')
+  X = np.load(DATAPATH + 'vgg19_features'+str(DATASET)+'.npy', mmap_mode='r')
 
 elif CLASSIFIER == 'Xception':
   '''
   Load Xception features.
   '''
-  X = np.load(DATAPATH + 'xception_features_'+str(DATASET)+'.npy', mmap_mode='r')
+  X = np.load(DATAPATH + 'xception_features'+str(DATASET)+'.npy', mmap_mode='r')
 
 #
 #
