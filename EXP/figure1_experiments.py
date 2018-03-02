@@ -5,6 +5,7 @@ from keras import models
 from keras import layers
 from keras import optimizers
 import keras.applications
+from keras import backend as K
 from keras.utils.np_utils import to_categorical
 
 import cPickle as pickle
@@ -122,7 +123,8 @@ for train, test in kfold.split(X, y):
     # setup random forest
     #
 
-    rf = RandomForestRegressor(n_estimators=128)
+    MLP = None
+    rf = RandomForestRegressor(n_estimators=128, n_jobs=-1)
 
     y_normalized = y[train] / NORMALIZATION_FACTOR
     rf.fit(X[train], y_normalized)
@@ -199,6 +201,8 @@ for train, test in kfold.split(X, y):
 
     stats = dict(history.history)
 
+    del history
+
     print 'Training done!'
 
     predictor = MLP
@@ -239,6 +243,11 @@ for train, test in kfold.split(X, y):
 
   print 'Stored', stats_outputfile
   print '...and', mlp_outputfile
+
+  print 'Freeing memory..'
+  del MLP
+  del predictor
+  K.clear_session()
 
   INDEX += 1
 

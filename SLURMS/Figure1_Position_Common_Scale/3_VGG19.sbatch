@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH -p cox
-#SBATCH -n 1 # Number of cores
+#SBATCH -n 4 # Number of cores
 #SBATCH -N 1 # Ensure that all cores are on one machine
 #SBATCH --gres=gpu
 #SBATCH --mem=16000
