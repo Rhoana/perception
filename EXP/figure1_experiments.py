@@ -127,6 +127,8 @@ for train, test in kfold.split(X, y):
     y_normalized = y[train] / NORMALIZATION_FACTOR
     rf.fit(X[train], y_normalized)
 
+    X_test_ready = X[test]
+
     stats = {}
     predictor = rf
 
@@ -152,6 +154,7 @@ for train, test in kfold.split(X, y):
 
       print 'reshaping'
       X_ready = X[train].reshape(len(train), 100, 100, 1)
+      X_test_ready = X[test].reshape(len(test), 100, 100, 1)
       print 'reshaping done!'
 
       MLP = classifier
@@ -163,6 +166,7 @@ for train, test in kfold.split(X, y):
       MLP = models.Sequential()
 
       X_ready = X[train]
+      X_test_ready = X[test]
 
 
     elif CLASSIFIER == 'VGG19' or CLASSIFIER == 'Xception':
@@ -172,6 +176,7 @@ for train, test in kfold.split(X, y):
       MLP = models.Sequential()
 
       X_ready = X[train].reshape(len(train), oshape)
+      X_test_ready = X[test].reshape(len(test), oshape)
 
     MLP.add(layers.Dense(256, activation='relu', input_dim=oshape))
     MLP.add(layers.Dropout(0.5))
@@ -203,7 +208,7 @@ for train, test in kfold.split(X, y):
   #
   fit_time = time.time() - t0
 
-  y_pred = predictor.predict(X[test])
+  y_pred = predictor.predict(X_test_ready)
   print 'Prediction done!'  
 
   y_test_normalized = y[test] / NORMALIZATION_FACTOR
