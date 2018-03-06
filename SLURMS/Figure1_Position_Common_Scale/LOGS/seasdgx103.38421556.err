@@ -1,0 +1,23 @@
+Using TensorFlow backend.
+2018-03-02 14:46:10.903032: I tensorflow/core/platform/cpu_feature_guard.cc:137] Your CPU supports instructions that this TensorFlow binary was not compiled to use: SSE4.1 SSE4.2 AVX AVX2 FMA
+2018-03-02 14:46:15.590711: E tensorflow/core/common_runtime/direct_session.cc:170] Internal: failed initializing StreamExecutor for CUDA device ordinal 0: Internal: failed call to cuDevicePrimaryCtxRetain: CUDA_ERROR_UNKNOWN
+Traceback (most recent call last):
+  File "figure1_experiments.py", line 200, in <module>
+    verbose=True)
+  File "/n/home05/haehn/.conda/envs/CP/lib/python2.7/site-packages/keras/models.py", line 965, in fit
+    validation_steps=validation_steps)
+  File "/n/home05/haehn/.conda/envs/CP/lib/python2.7/site-packages/keras/engine/training.py", line 1669, in fit
+    validation_steps=validation_steps)
+  File "/n/home05/haehn/.conda/envs/CP/lib/python2.7/site-packages/keras/engine/training.py", line 1206, in _fit_loop
+    outs = f(ins_batch)
+  File "/n/home05/haehn/.conda/envs/CP/lib/python2.7/site-packages/keras/backend/tensorflow_backend.py", line 2473, in __call__
+    session = get_session()
+  File "/n/home05/haehn/.conda/envs/CP/lib/python2.7/site-packages/keras/backend/tensorflow_backend.py", line 176, in get_session
+    _SESSION = tf.Session(config=config)
+  File "/n/home05/haehn/.conda/envs/CP/lib/python2.7/site-packages/tensorflow/python/client/session.py", line 1482, in __init__
+    super(Session, self).__init__(target, graph, config=config)
+  File "/n/home05/haehn/.conda/envs/CP/lib/python2.7/site-packages/tensorflow/python/client/session.py", line 622, in __init__
+    self._session = tf_session.TF_NewDeprecatedSession(opts, status)
+  File "/n/home05/haehn/.conda/envs/CP/lib/python2.7/site-packages/tensorflow/python/framework/errors_impl.py", line 473, in __exit__
+    c_api.TF_GetCode(self.status.status))
+tensorflow.python.framework.errors_impl.InternalError: Failed to create session.

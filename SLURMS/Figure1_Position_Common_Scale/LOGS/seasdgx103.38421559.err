@@ -1,0 +1,3 @@
+Using TensorFlow backend.
+slurmstepd: error: *** JOB 38421559 ON seasdgx103 CANCELLED AT 2018-03-05T14:39:58 DUE TO NODE FAILURE, SEE SLURMCTLD LOG FOR DETAILS ***
+slurmstepd: error: Detected 1 oom-kill event(s) in step 38421559.batch cgroup.
