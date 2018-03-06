@@ -51,6 +51,12 @@ A.~Forsberg, J.~Chen, and D.~Laidlaw.
 \newblock {\em IEEE Transactions on Visualization and Computer Graphics},
   15(6), 2009.
 
+\bibitem{goodfellow_book}
+I.~Goodfellow, Y.~Bengio, and A.~Courville.
+\newblock {\em Deep Learning}.
+\newblock MIT Press, 2016.
+\newblock \url{http://www.deeplearningbook.org}.
+
 \bibitem{harrison2014_webers_law_rank}
 L.~Harrison, F.~Yang, S.~Franconeri, and R.~Chang.
 \newblock Ranking visualizations of correlation using weber's law.
@@ -62,6 +68,18 @@ L.~Harrison, F.~Yang, S.~Franconeri, and R.~Chang.
 }{.}\hspace{.4pt}2014\hspace{.1pt}\discretionary{.}{%
 }{.}\hspace{.4pt}2346979}}
 
+
+\bibitem{hassabis2017neuroscience}
+D.~Hassabis, D.~Kumaran, C.~Summerfield, and M.~Botvinick.
+\newblock Neuroscience-inspired artificial intelligence.
+\newblock {\em Neuron}, 95(2):245--258, 2017.
+
+\bibitem{HeerBostock2010}
+J.~Heer and M.~Bostock.
+\newblock Crowdsourcing graphical perception: using mechanical turk to assess
+  visualization design.
+\newblock In {\em Proceedings of the SIGCHI conference on human factors in
+  computing systems}, pp. 203--212. ACM, 2010.
 
 \bibitem{herr2009timeseries}
 J.~Heer, N.~Kong, and M.~Agrawala.
@@ -81,6 +99,13 @@ G.~Kindlmann, E.~Reinhard, and S.~Creem.
 \newblock Face-based luminance matching for perceptual colormap generation.
 \newblock In {\em Proceedings of the Conference on Visualization '02}, VIS '02,
   pp. 299--306. IEEE Computer Society, Washington, DC, USA, 2002.
+
+\bibitem{krizhevsky_imagenet2012}
+A.~Krizhevsky, I.~Sutskever, and G.~E. Hinton.
+\newblock Imagenet classification with deep convolutional neural networks.
+\newblock In F.~Pereira, C.~J.~C. Burges, L.~Bottou, and K.~Q. Weinberger,
+  eds., {\em Advances in Neural Information Processing Systems 25}, pp.
+  1097--1105. Curran Associates, Inc., 2012.
 
 \bibitem{laidlaw_2d_vector}
 D.~H. Laidlaw, R.~M. Kirby, C.~D. Jackson, J.~S. Davidson, T.~S. Miller,
@@ -125,6 +150,21 @@ B.~E. Rogowitz and A.~D. Kalvin.
   perceptual color maps.
 \newblock {\em Proceedings Visualization, 2001. VIS '01.}, pp. 183--556, 2001.
 
+\bibitem{deeplearning_blackbox2017}
+R.~Shwartz{-}Ziv and N.~Tishby.
+\newblock Opening the black box of deep neural networks via information.
+\newblock {\em CoRR}, abs/1703.00810, 2017.
+
+\bibitem{simonyan_very_deep2014}
+K.~Simonyan and A.~Zisserman.
+\newblock Very deep convolutional networks for large-scale image recognition.
+\newblock {\em CoRR}, abs/1409.1556, 2014.
+
+\bibitem{szegedy2015}
+C.~Szegedy, V.~Vanhoucke, S.~Ioffe, J.~Shlens, and Z.~Wojna.
+\newblock Rethinking the inception architecture for computer vision.
+\newblock {\em CoRR}, abs/1512.00567, 2015.
+
 \bibitem{Wang_linegraph_vs_scatterplot}
 Y.~Wang, F.~Han, L.~Zhu, O.~Deussen, and B.~Chen.
 \newblock Line graph or scatter plot? automatic selection of methods for
@@ -143,5 +183,10 @@ C.~Ware.
 \newblock Color sequences for univariate maps: Theory, experiments and
   principles.
 \newblock {\em IEEE Computer Graphics and Applications}, 8(5):41--49, 1988.
+
+\bibitem{yamins2016using}
+D.~L. Yamins and J.~J. DiCarlo.
+\newblock Using goal-driven deep learning models to understand sensory cortex.
+\newblock {\em Nature neuroscience}, 19(3):356, 2016.
 
 \end{thebibliography}
