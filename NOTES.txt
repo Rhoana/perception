@@ -86,3 +86,17 @@ ssh -g -L 0.0.0.0:44433:localhost:44433 haehn@odyssey.fas.harvard.edu
 ssh -L 44433:localhost:44433 coxgpu04
 
 
+
+#
+# more related work
+# CLEVELAND MCGILL
+#
+# chart generator: http://codementum.org/cleveland-mcgill/
+#
+## https://link.springer.com/chapter/10.1007/978-3-642-14600-8_46
+## https://www.perceptualedge.com/articles/b-eye/data_visualization_bookshelf.pdf
+## http://flowingdata.com/2010/03/20/graphical-perception-learn-the-fundamentals-first/
+## https://github.com/tidyverse/ggplot2/wiki/Recommended-Reading
+##
+## https://webpages.uncc.edu/~ltharri1/files/chi_13.pdf
+
