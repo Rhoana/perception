@@ -7,37 +7,22 @@ import sys
 sys.path.append('../')
 from util import Util
 
-class Figure1_Position_Nonaligned_Scale:
+from figure1_position_common_scale import Figure1_Position_Common_Scale
 
-  def __init__(self, variable_x=False, \
+class Figure1_Position_Nonaligned_Scale(Figure1_Position_Common_Scale):
+
+  def __init__(self, variable_y=False, \
+                     variable_x=False, \
                      variable_spot_size=False, \
+                     variable_origin=True, \
                      constrain = True):
 
-    '''
-    '''
-    self.X = None
-    self.Y = None
-    self.ORIGIN = [0, 0]
-    self.SPOT_SIZE = None
+    self._variable_y = variable_y
+    self._variable_origin = True
 
-    self.label = None
-
-    self._delta = 20 # we use a bit larger delta here, it needs to be bigger
-    # than the max. spot size / 2. for sure
-
-    self._size = (100,100)
-    self._spot_sizes = [1, 3, 5, 7, 9, 11]
-
-    #
-    # variability switches
-    #
-    #  stage 1: var. Y
-    #  stage 2: var. WIDTH
-    #  stage 3: var. X
-    #    
-    self._variable_x = variable_x
-    self._variable_spot_size = variable_spot_size
-    self._constrain = constrain
+    super(Figure1_Position_Nonaligned_Scale, self).__init__(variable_x=variable_x, \
+                                                            variable_spot_size=variable_spot_size, \
+                                                            constrain=constrain)
 
 
   def create(self, verbose=False):
@@ -50,8 +35,10 @@ class Figure1_Position_Nonaligned_Scale:
     #
     # Y is always variable since it encodes our value
     #
-    Y, p = Util.parameter(self._delta, self._size[0]-self._delta + 1)
-    parameters *= p
+    Y = self._size[0] / 2
+    if self._variable_y:
+      Y, p = Util.parameter(self._delta, self._size[0]-self._delta + 1)
+      parameters *= p
 
     X = self._size[1] / 2
     if self._variable_x:
@@ -64,35 +51,42 @@ class Figure1_Position_Nonaligned_Scale:
       parameters *= len(self._spot_sizes)
 
     origin = [0, 0]
+    if self._variable_origin:
+      origin_y, p = Util.parameter(0, self._delta/2)
+      parameters *= p
+
+      origin[0] = origin_y
+      #
+      # NOTE: we do not support origin_x changes (not applicable here!)
+      #
+
 
     # update the label
     self.X = X
     self.Y = Y
     self.ORIGIN = origin
     self.SPOT_SIZE = spot_size
-    self.label = Y # label is the same as Y
+    self.label = Y - self.ORIGIN[0]# label is the same as Y
 
-
-  def to_sparse(self):
-    '''
-    Convert to sparse representation
-      [X, Y, origin, spot_size], label
-    '''
-    return [self.X, self.Y, self.ORIGIN, self.SPOT_SIZE], self.label
-
+    if verbose:
+      print '# Parameters', parameters
 
   @staticmethod
   def from_sparse(sparse_representation, \
+                  variable_y=False, \
                   variable_x=False, \
                   variable_spot_size=False, \
+                  variable_origin=True, \
                   constrain = True):
     '''
     From sparse:
       [X, Y, origin, spot_size]
     '''
 
-    fig = Figure1_Position_Nonaligned_Scale(variable_x=variable_x, \
+    fig = Figure1_Position_Nonaligned_Scale(variable_y=variable_y, \
+                                            variable_x=variable_x, \
                                             variable_spot_size = variable_spot_size, \
+                                            variable_origin=variable_origin, \
                                             constrain = constrain)
 
     fig.X = sparse_representation[0]
@@ -101,27 +95,9 @@ class Figure1_Position_Nonaligned_Scale:
     fig.SPOT_SIZE = sparse_representation[3]
 
     # update the label
-    fig.label = fig.Y
+    fig.label = fig.Y - fig.ORIGIN[0]
 
     return fig
-
-  def to_image(self):
-    '''
-    '''
-    image = np.zeros(self._size, dtype=np.bool)
-
-    half_ss = self.SPOT_SIZE / 2 # this always floors
-
-    image[self.Y-half_ss:self.Y+half_ss+1, self.X-half_ss:self.X+half_ss+1] = 1
-
-    return image
-
-  def show(self):
-    '''
-    '''
-    print 'Label', self.label
-    plt.figure()
-    plt.imshow(self.to_image())
 
 
   def render_many(self, datapoints, framed=False):
@@ -137,6 +113,7 @@ class Figure1_Position_Nonaligned_Scale:
     for n in range(N):
 
       current = Figure1_Position_Nonaligned_Scale.from_sparse(datapoints[n], \
+                                                              variable_y=self._variable_y, \
                                                               variable_x=self._variable_x, \
                                                               variable_spot_size=self._variable_spot_size, \
                                                               constrain=self._constrain)
@@ -158,6 +135,7 @@ class Figure1_Position_Nonaligned_Scale:
     for n in range(N):
 
       current = Figure1_Position_Nonaligned_Scale.from_sparse(datapoints[n], \
+                                                              variable_y=self._variable_y, \
                                                               variable_x=self._variable_x, \
                                                               variable_spot_size=self._variable_spot_size, \
                                                               constrain=self._constrain)
@@ -179,10 +157,11 @@ class Figure1_Position_Nonaligned_Scale:
 
     for n in range(N):
 
-      current = Figure1_Position_Nonaligned_Scale(variable_x=self._variable_x, \
+      current = Figure1_Position_Nonaligned_Scale(variable_y=self._variable_y, \
+                                                  variable_x=self._variable_x, \
                                                   variable_spot_size=self._variable_spot_size, \
                                                   constrain=self._constrain)
- 
+
       current.create()
 
       datapoint, label = current.to_sparse()
@@ -191,16 +170,6 @@ class Figure1_Position_Nonaligned_Scale:
       labels.append(label)
 
     return datapoints, labels
-
-
-
-
-
-
-
-
-
-
 
 
 

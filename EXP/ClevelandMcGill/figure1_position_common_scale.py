@@ -7,7 +7,7 @@ import sys
 sys.path.append('../')
 from util import Util
 
-class Figure1_Position_Common_Scale:
+class Figure1_Position_Common_Scale(object):
 
   def __init__(self, variable_x=False, \
                      variable_spot_size=False, \
@@ -70,7 +70,10 @@ class Figure1_Position_Common_Scale:
     self.Y = Y
     self.ORIGIN = origin
     self.SPOT_SIZE = spot_size
-    self.label = Y # label is the same as Y
+    self.label = Y - self.ORIGIN[0]# label is the same as Y
+
+    if verbose:
+      print '# Parameters', parameters
 
 
   def to_sparse(self):
@@ -101,7 +104,7 @@ class Figure1_Position_Common_Scale:
     fig.SPOT_SIZE = sparse_representation[3]
 
     # update the label
-    fig.label = fig.Y
+    fig.label = fig.Y - fig.ORIGIN[0]
 
     return fig
 
