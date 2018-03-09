@@ -85,6 +85,15 @@ ssh -g -L 0.0.0.0:44433:localhost:44433 haehn@odyssey.fas.harvard.edu
 # and then there
 ssh -L 44433:localhost:44433 coxgpu04
 
+# seasdgx104
+
+
+#
+# SSHFS
+#
+ssh -f haehn@odyssey.rc.fas.harvard.edu -L 3333:0.0.0.0:22 -N
+sshfs -p 3333 haehn@127.0.0.1:/n/home05/haehn/Projects/CP CP_cluster/
+
 
 
 #
@@ -103,3 +112,63 @@ ssh -L 44433:localhost:44433 coxgpu04
 
 CURVATURE
 http://members.chello.at/easyfilter/Bresenham.pdf
+
+
+
+
+
+
+
+
+
+
+pos common scale
+  var y, 
+  var x, 
+  var spot size
+
+pos non-aligned scale
+  var origin
+  var y
+  var x
+  var spot size
+
+length
+  var length
+  var x 
+  var y
+  var width
+
+direction
+  var direction
+  var x 
+  var y
+
+angle
+  var angle
+  var x
+  var y
+
+area
+  var area
+  var x, 
+  var y
+
+volume
+  var volume
+  var x
+  var y
+
+curvature
+  var curvature
+  var x
+  var y
+
+shading
+  var percent_complete
+  var x
+  var y
+
+  
+
+
