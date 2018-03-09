@@ -100,3 +100,6 @@ ssh -L 44433:localhost:44433 coxgpu04
 ##
 ## https://webpages.uncc.edu/~ltharri1/files/chi_13.pdf
 
+
+CURVATURE
+http://members.chello.at/easyfilter/Bresenham.pdf
