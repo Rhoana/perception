@@ -7,18 +7,19 @@ import sys
 sys.path.append('../')
 from util import Util
 
-class Figure1_Position_Common_Scale(object):
+class Figure1_Length(object):
 
   def __init__(self, variable_x=False, \
-                     variable_spot_size=False, \
+                     variable_y=False, \
+                     variable_width=False, \
                      constrain = True):
 
     '''
     '''
     self.X = None
     self.Y = None
-    self.ORIGIN = [0, 0]
-    self.SPOT_SIZE = None
+    self.LENGTH = None
+    self.WIDTH = None
 
     self.label = None
 
@@ -26,17 +27,18 @@ class Figure1_Position_Common_Scale(object):
     # than the max. spot size / 2. for sure
 
     self._size = (100,100)
-    self._spot_sizes = [1, 3, 5, 7, 9, 11]
+    self._widths = [1, 3, 5, 7, 9, 11]
 
     #
     # variability switches
     #
-    #  stage 1: var. Y
-    #  stage 2: var. WIDTH
-    #  stage 3: var. X
+    #  stage 1: var. X
+    #  stage 2: var. Y
+    #  stage 3: var. WIDTH
     #    
     self._variable_x = variable_x
-    self._variable_spot_size = variable_spot_size
+    self._variable_y = variable_y
+    self._variable_width = variable_width
     self._constrain = constrain
 
 
@@ -47,30 +49,30 @@ class Figure1_Position_Common_Scale(object):
 
     parameters = 1
 
-    #
-    # Y is always variable since it encodes our value
-    #
-    Y, p = Util.parameter(self._delta, self._size[0]-self._delta + 1)
+    length, p = Util.parameter(1,41)
     parameters *= p
+
+    Y = self._size[0] / 2
+    if self._variable_y:
+      Y, p = Util.parameter(self._delta, self._size[0]-self._delta + 1)
+      parameters *= p
 
     X = self._size[1] / 2
     if self._variable_x:
       X, p = Util.parameter(self._delta, self._size[1]-self._delta + 1)
       parameters *= p
 
-    spot_size = 5
-    if self._variable_spot_size:
-      spot_size = np.random.choice(self._spot_sizes)
-      parameters *= len(self._spot_sizes)
-
-    origin = [0, 0]
+    width = 1
+    if self._variable_width:
+      width = np.random.choice(self._widths)
+      parameters *= len(self._widths)
 
     # update the label
     self.X = X
     self.Y = Y
-    self.ORIGIN = origin
-    self.SPOT_SIZE = spot_size
-    self.label = Y - self.ORIGIN[0]# label is the same as Y
+    self.LENGTH = length
+    self.WIDTH = width
+    self.label = length
 
     if verbose:
       print '# Parameters', parameters
@@ -81,30 +83,32 @@ class Figure1_Position_Common_Scale(object):
     Convert to sparse representation
       [X, Y, origin, spot_size], label
     '''
-    return [self.X, self.Y, self.ORIGIN, self.SPOT_SIZE], self.label
+    return [self.X, self.Y, self.LENGTH, self.WIDTH], self.label
 
 
   @staticmethod
   def from_sparse(sparse_representation, \
                   variable_x=False, \
-                  variable_spot_size=False, \
+                  variable_y=False, \
+                  variable_width=False, \
                   constrain = True):
     '''
     From sparse:
-      [X, Y, origin, spot_size]
+      [X, Y, length, width]
     '''
 
-    fig = Figure1_Position_Common_Scale(variable_x=variable_x, \
-                                        variable_spot_size = variable_spot_size, \
-                                        constrain = constrain)
+    fig = Figure1_Length(variable_x=variable_x, \
+                         variable_y=variable_y, \
+                         variable_width = variable_width, \
+                         constrain = constrain)
 
     fig.X = sparse_representation[0]
     fig.Y = sparse_representation[1]
-    fig.ORIGIN = sparse_representation[2]
-    fig.SPOT_SIZE = sparse_representation[3]
+    fig.LENGTH = sparse_representation[2]
+    fig.WIDTH = sparse_representation[3]
 
     # update the label
-    fig.label = fig.Y - fig.ORIGIN[0]
+    fig.label = fig.LENGTH
 
     return fig
 
@@ -113,9 +117,10 @@ class Figure1_Position_Common_Scale(object):
     '''
     image = np.zeros(self._size, dtype=np.bool)
 
-    half_ss = self.SPOT_SIZE / 2 # this always floors
+    half_width = self.WIDTH / 2 # this always floors
+    half_length = self.LENGTH / 2
 
-    image[self.Y-half_ss:self.Y+half_ss+1, self.X-half_ss:self.X+half_ss+1] = 1
+    image[self.Y-half_length:self.Y+half_length+1, self.X-half_width:self.X+half_width+1] = 1
 
     return image
 
@@ -139,10 +144,11 @@ class Figure1_Position_Common_Scale(object):
 
     for n in range(N):
 
-      current = Figure1_Position_Common_Scale.from_sparse(datapoints[n], \
-                                                          variable_x=self._variable_x, \
-                                                          variable_spot_size=self._variable_spot_size, \
-                                                          constrain=self._constrain)
+      current = Figure1_Length.from_sparse(datapoints[n], \
+                                            variable_x=self._variable_x, \
+                                            variable_y=self._variable_y, \
+                                            variable_width=self._variable_width, \
+                                            constrain=self._constrain)
 
       images[n] = current.to_image()
 
@@ -160,10 +166,11 @@ class Figure1_Position_Common_Scale(object):
 
     for n in range(N):
 
-      current = Figure1_Position_Common_Scale.from_sparse(datapoints[n], \
-                                                          variable_x=self._variable_x, \
-                                                          variable_spot_size=self._variable_spot_size, \
-                                                          constrain=self._constrain)
+      current = Figure1_Length.from_sparse(datapoints[n], \
+                                            variable_x=self._variable_x, \
+                                            variable_y=self._variable_y, \
+                                            variable_width=self._variable_width, \
+                                            constrain=self._constrain)
 
 
 
@@ -182,9 +189,10 @@ class Figure1_Position_Common_Scale(object):
 
     for n in range(N):
 
-      current = Figure1_Position_Common_Scale(variable_x=self._variable_x, \
-                                              variable_spot_size=self._variable_spot_size, \
-                                              constrain=self._constrain)
+      current = Figure1_Length(variable_x=self._variable_x, \
+                               variable_y=self._variable_y, \
+                               variable_width=self._variable_width, \
+                               constrain=self._constrain)
 
       current.create()
 

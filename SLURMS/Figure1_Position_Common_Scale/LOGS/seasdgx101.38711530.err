@@ -1,1 +1,2 @@
 Using TensorFlow backend.
+slurmstepd: error: *** JOB 38711530 ON seasdgx101 CANCELLED AT 2018-03-08T10:36:11 DUE TO PREEMPTION ***

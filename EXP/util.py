@@ -26,5 +26,5 @@ class Util:
 
     if filename:
 
-      plt.savefig(filename)
+      plt.savefig(filename, bbox_inches='tight', transparent=True,)
     
