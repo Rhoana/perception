@@ -211,7 +211,7 @@ if CLASSIFIER == 'VGG19' or CLASSIFIER == 'XCEPTION':
 
   if CLASSIFIER == 'VGG19':  
     feature_generator = keras.applications.VGG19(include_top=False, weights='imagenet', input_shape=(100,100,3))
-  elif CLASSIFIER == 'Xception':
+  elif CLASSIFIER == 'XCEPTION':
     feature_generator = keras.applications.Xception(include_top=False, weights='imagenet', input_shape=(100,100,3))
   elif CLASSIFIER == 'RESNET50':
     print 'Not yet - we need some padding and so on!!!'
