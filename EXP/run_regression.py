@@ -263,6 +263,8 @@ elif CLASSIFIER == 'MLP':
   X_train = X_train.reshape(len(X_train), 100*100)
   X_val = X_val.reshape(len(X_val), 100*100)
   X_test = X_test.reshape(len(X_test), 100*100)
+
+  feature_shape = 100*100
   ##
 
 #
