@@ -55,7 +55,11 @@ RESULTS_DIR = PREFIX + 'RESULTS/'
 
 OUTPUT_DIR = RESULTS_DIR + EXPERIMENT + '/' + str(DATASET) + '/' + CLASSIFIER + '/'
 if not os.path.exists(OUTPUT_DIR):
-  os.makedirs(OUTPUT_DIR)
+  # here can be a race condition
+  try:
+    os.makedirs(OUTPUT_DIR)
+  except:
+    print 'Race condition!', os.path.exists(OUTPUT_DIR)
 
 STATSFILE = OUTPUT_DIR + str(JOB_INDEX).zfill(2) + SUFFIX + 'p'
 MODELFILE = OUTPUT_DIR + str(JOB_INDEX).zfill(2) + SUFFIX + 'h5'
