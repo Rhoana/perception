@@ -164,25 +164,27 @@ print 'Done', time.time()-t0, 'seconds (', all_counter, 'iterations)'
 
 #
 #
-# NORMALIZE DATA IN-PLACE
+# NORMALIZE DATA IN-PLACE (BUT SEPERATELY)
 #
 #
-X_min = min(X_train.min(), X_val.min(), X_test.min())
-X_max = max(X_train.max(), X_val.max(), X_test.max())
-y_min = min(y_train.min(), y_val.min(), y_test.min())
-y_max = max(y_train.max(), y_val.max(), y_test.max())
+X_min = X_train.min()
+X_max = X_train.max()
+y_min = y_train.min()
+y_max = y_train.max()
 
 # scale in place
 X_train -= X_min
 X_train /= (X_max - X_min)
-X_val -= X_min
-X_val /= (X_max - X_min)
-X_test -= X_min
-X_test /= (X_max - X_min)
 y_train -= y_min
 y_train /= (y_max - y_min)
+
+X_val -= X_min
+X_val /= (X_max - X_min)
 y_val -= y_min
 y_val /= (y_max - y_min)
+
+X_test -= X_min
+X_test /= (X_max - X_min)
 y_test -= y_min
 y_test /= (y_max - y_min)
 
