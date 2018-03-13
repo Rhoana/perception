@@ -108,6 +108,8 @@ sshfs -p 3333 haehn@127.0.0.1:/n/home05/haehn/Projects/CP CP_cluster/
 ## https://github.com/tidyverse/ggplot2/wiki/Recommended-Reading
 ##
 ## https://webpages.uncc.edu/~ltharri1/files/chi_13.pdf
+#
+# last year's VADL workshop: https://vadl2017.github.io/
 
 
 CURVATURE

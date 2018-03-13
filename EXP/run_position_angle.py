@@ -17,9 +17,9 @@ import ClevelandMcGill as C
 
 
 EXPERIMENT = sys.argv[1] # f.e. Angle
-CLASSIFIER = sys.argv[3] # 'LeNet'
-NOISE = sys.argv[4] # True
-JOB_INDEX = int(sys.argv[5])
+CLASSIFIER = sys.argv[2] # 'LeNet'
+NOISE = sys.argv[3] # True
+JOB_INDEX = int(sys.argv[4])
 
 #
 #
