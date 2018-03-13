@@ -8,8 +8,8 @@
 #SBATCH -t 3-00:00
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=haehn@seas.harvard.edu
-#SBATCH -o /n/home05/haehn/Projects/CP/SLURMS/Figure1/LOGS/%A_%a.out
-#SBATCH -e /n/home05/haehn/Projects/CP/SLURMS/Figure1/LOGS/%A_%a.err
+#SBATCH -o /n/home05/haehn/Projects/CP/SLURMS/Figure3/LOGS/%A_%a.out
+#SBATCH -e /n/home05/haehn/Projects/CP/SLURMS/Figure3/LOGS/%A_%a.err
 
 # Print this sub-job's task ID
 echo "My SLURM_ARRAY_TASK_ID: " $SLURM_ARRAY_TASK_ID
