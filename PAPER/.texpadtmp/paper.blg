@@ -1,12 +1,12 @@
-This is BibTeX, Version 0.99d (TeX Live 2016)
-Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
-The top-level auxiliary file: /Users/d/Projects/CP/PAPER/.texpadtmp/paper.aux
+This is BibTeX, Version 0.99d (TeX Live 2017)
+Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
+The top-level auxiliary file: /Users/d/Projects/CP_viper/PAPER/.texpadtmp/paper.aux
 The style file: ../abbrv-doi.bst
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Database file #1: ../paper.bib.bib
 You've used 24 entries,
             2598 wiz_defined-function locations,
-            767 strings with 9554 characters,
+            767 strings with 9566 characters,
 and the built_in function-call counts, 14561 in all, are:
 = -- 2522
 > -- 448
