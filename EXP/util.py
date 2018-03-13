@@ -12,9 +12,11 @@ class Util:
     return value, parameters
 
   @staticmethod
-  def imshow_nicely(image, filename=None):
+  def imshow_nicely(image, filename=None, new_figure=True):
 
-    plt.figure()
+    if new_figure:
+      plt.figure()
+      
     plt.imshow(image, cmap='Greys', interpolation='nearest')
     ax = plt.gca()
     ax.set_xticklabels('')
