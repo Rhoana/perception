@@ -145,9 +145,66 @@ E-mail: \{haehn,pfister\}@seas.harvard.edu.
 
 \section{Experimental Setup}
 
+The experiments shown in this paper are either regression or classification tasks. We formulate any estimation of quantities (e.g. angles, positions, lengths etc.) as a regression problem between $0$ and $1$. The output indicates the percentage in regards to the degrees of freedom of the individual experiment. If the experiment involves a choice, we formulate it as a classification problem.
+
 \subsection{Measures}
 
+\textbf{Accuracy.} We use the same metric as Cleveland McGill to measure accuracy.
+\begin{equation}
+	\log_2( | \textnormal{predicted percent} - \textnormal{true percent} | + .125)
+\end{equation}
+
+\noindent{\textbf{Efficiency.}} We use the convergence rate based on the decrease of loss per training epoch as an indicator for the efficiency of the classifier in combination with a visual encoding. For regression tasks the loss is defined as mean squared error (MSE) and for classification tasks the loss is categorical cross-entropy.
+
 \subsection{Classifiers}
+
+Our classifiers are built upon a multilayer perceptron (MLP) which is a feedforward artificial neural network. We combine this MLP with different convolutional neural networks (CNNs) for preprocessing and feature generation. These include the traditional LeNet trained from scratch, as well as VGG19 and Xception trained using ImageNet.
+\\~\\
+\noindent{\textbf{Multilayer Perceptron.}} The multilayer perceptron in this paper has $256$ neurons which are activated as rectified linear units. We then add a dropout layer to prevent overfitting and compute linear regression or classification (softmax).
+\\~\\
+\noindent{\textbf{Convolutional Neural Networks.}} We use CNNs to generate additional features as input to the MLP. For this, we train a \emph{LeNet} classifier with different samples for each experiment. 
+
+All networks are trained with the same parameters.
+
+%\begin{table}[t]
+%\caption{Training parameters, cost, and results of our guided proofreading classifier versus focused proofreading by Plaza~\cite{focused_proofreading}. Both methods were trained on the same mouse brain dataset using the same hardware (Tesla X GPU).}%While the training of our classifier is more expensive, testing accuracy is superior. }
+%
+%\small{
+%\begin{tabular}{lll}
+%	\toprule
+%	Classifier & Parameters & Layers
+%	\begin{tabular}{l}
+%		\vspace{0.2mm} \\
+%		\midrule
+%		\emph{Results---Test Set} \\ \midrule Cost [m]: 383 \\ Val. loss: 0.0845 \\ Val. acc.: 0.969 \\ Test. acc.: 0.94 \\ Prec./Recall: 0.94/0.94 \\ F1 Score: 0.94 \\ ~ \\
+%	\end{tabular}
+%\end{tabular}
+%
+%\vspace{0.5mm}
+%\begin{tabular}{ll}
+%	\toprule
+%	\begin{tabular}{l}
+%		\textbf{Focused Proofreading}\\ \midrule
+%		\emph{Parameters} \\ \midrule
+%		Iterations: 3 \\
+%		Learning strategy: 2\\
+%		Mito agglomeration: Off~~~~~~ \\  % Crappy alignment spacing
+%		Threshold: 0.0\\~\\
+%	\end{tabular}
+%	&
+%	\begin{tabular}{l}
+%		\vspace{0.2mm} \\
+%		\midrule
+%		\emph{Results---Test Set} \\ \midrule Cost [m]: 217 \\ Val. acc.: 0.99 \\ Test. acc.: 0.68 \\ Prec./Recall: 0.58/0.56 \\ F1 Score: 0.54 \\
+%	\end{tabular}
+%%	\bottomrule
+%\end{tabular}
+%\hrule
+%}
+%\label{tab:parameters}
+%\vspace{-4mm}
+%\end{table}
+
 
 \begin{figure}[t]
 	  \includegraphics[width=\linewidth]{fish.jpg}
@@ -196,10 +253,22 @@ This is the one where we estimate two selected bars compared to the longest one
 
 \section{Results and Discussion}
 
-\begin{figure*}[t]
+\begin{figure*}[h]
 	  \includegraphics[width=\linewidth]{figure1.pdf}
-  \caption{The Bars and Framed Rectangles Experiment}
-	\label{fig:bars_and_framed_rectangles_experiment}
+  \caption{Log absolute error means and 95\% confidence intervals for computed perception of different classifiers on the \emph{elementary perceptual tasks} introduced by Cleveland and McGill 1984~\cite{cleveland_mcgill}. We test the performance of a Multi-layer Perceptron (MLP), the LeNet Convolutional Neural Network, as well as feature generation using the VGG19 and Xception networks trained on ImageNet.}
+	\label{fig:figure1_results}
+\end{figure*}
+
+\begin{figure}[t]
+	  \includegraphics[width=\linewidth]{figure3_val_loss.pdf}
+  \caption{Mean Square Error (MSE) loss for the \emph{position-angle experiment} as described by Cleveland and McGill~\cite{cleveland_mcgill} which compares the visualization of pie charts and bar charts. We report the MSE measure for both encodings of four different classifier on previously unseen validation data.}
+	\label{fig:position_angle_results}
+\end{figure}
+
+\begin{figure*}[t]
+	  \includegraphics[width=\linewidth]{figure3_mlae.pdf}
+  \caption{Log absolute error means and 95\% confidence intervals for the \emph{position-angle experiment} as described by Cleveland and McGill~\cite{cleveland_mcgill}. We test the performance of a Multi-layer Perceptron (MLP), the LeNet Convolutional Neural Network, as well as feature generation using the VGG19 and Xception networks trained on ImageNet.}
+	\label{fig:position_angle_results}
 \end{figure*}
 
 Cleveland McGills Ranking - can we observe something similar?
