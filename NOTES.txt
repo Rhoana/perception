@@ -79,7 +79,7 @@ source activate CP
 #
 #
 #
-srun --pty -t 7-00:00 --export=ALL --ntasks=1 -p cox --tunnel=44433:44433 --mem=20000 /bin/bash
+srun --pty -t 3-00:00 --export=ALL --ntasks=1 -p seas_dgx1 --gres=gpu --tunnel=44433:44433 --mem=32000 /bin/bash
 # now on my machine
 ssh -g -L 0.0.0.0:44433:localhost:44433 haehn@odyssey.fas.harvard.edu
 # and then there
