@@ -51,6 +51,9 @@
 \usepackage{cite}                      % needed to automatically sort the references
 \usepackage{tabu}                      % only used for the table example
 \usepackage{booktabs}                  % only used for the table example
+\usepackage{makecell}
+\usepackage{multirow}
+
 %% We encourage the use of mathptmx for consistent usage of times font
 %% throughout the proceedings. However, if you encounter conflicts
 %% with other math-related packages, you may want to disable it.
@@ -160,55 +163,45 @@ The experiments shown in this paper are either regression or classification task
 
 Our classifiers are built upon a multilayer perceptron (MLP) which is a feedforward artificial neural network. We combine this MLP with different convolutional neural networks (CNNs) for preprocessing and feature generation. These include the traditional LeNet trained from scratch, as well as VGG19 and Xception trained using ImageNet.
 \\~\\
-\noindent{\textbf{Multilayer Perceptron.}} The multilayer perceptron in this paper has $256$ neurons which are activated as rectified linear units. We then add a dropout layer to prevent overfitting and compute linear regression or classification (softmax).
+\noindent{\textbf{Multilayer Perceptron.}} The multilayer perceptron in this paper has $256$ neurons which are activated as rectified linear units~(Fig.~\ref{fig:classifiers}). We then add a dropout layer to prevent overfitting and compute linear regression or classification (softmax).
 \\~\\
-\noindent{\textbf{Convolutional Neural Networks.}} We use CNNs to generate additional features as input to the MLP. For this, we train a \emph{LeNet} classifier with different samples for each experiment. 
+\noindent{\textbf{Convolutional Neural Networks.}} We use CNNs to generate additional features as input to the MLP. We train the \emph{LeNet} classifier with tune it specifically towards each visualization. For \emph{VGG19} and \emph{Xception}, we generate features using previously trained weights on ImageNet.
+\\~\\
+\noindent{\textbf{Optimization.}} All networks are optimized using stochastic gradient descent with Nesterov momentum using fixed parameters (Table \ref{tab:parameters}). We train for $1000$ epochs but stop early if the loss does not decrease for ten epochs.
 
-All networks are trained with the same parameters.
+\begin{table}[t]
+\centering
+\caption{We use different feature generators as input to a multilayer perceptron which performs linear regression or the classification task. This yields different sets of trainable parameters. We also train the MLP directly on the visualizations without any additional feature generation.}
+\resizebox{\linewidth}{!}{
+\begin{tabular}{lrl}
+%	\toprule
+%	\makecell{Classifier} & \makecell{Convolutional\\Layers} & \makecell{Trainable\\Parameters} \\
+%	\midrule
+%	MLP & $0$ & $2,560,513$ \\
+%	\emph{LeNet} + MLP & $2$ & $8,026,083$ \\
+%	\emph{VGG19} + MLP & $16$ & $21,204,545$ \\
+%	\emph{Xception} + MLP & $36$ & $25,580,585$ \\
+%	\bottomrule
+	\toprule
+	Classifier & \makecell{Trainable\\Parameters} & Optimization \\
+	\midrule
+	MLP & $2,560,513$ & SGD (Nesterov momentum)\\
+	\emph{LeNet} + MLP & $8,026,083$ & Learning rate: $0.0001$\\
+	\emph{VGG19} + MLP & $21,204,545$ & Momentum: $0.9$ \\
+	\emph{Xception} + MLP & $25,580,585$ & \makecell[tl]{Batchsize: 32\\Epochs: $1000$ (Early Stopping)}\\
+	\bottomrule
+\end{tabular}
+}
+\label{tab:parameters}
+\vspace{-4mm}
+\end{table}
 
-%\begin{table}[t]
-%\caption{Training parameters, cost, and results of our guided proofreading classifier versus focused proofreading by Plaza~\cite{focused_proofreading}. Both methods were trained on the same mouse brain dataset using the same hardware (Tesla X GPU).}%While the training of our classifier is more expensive, testing accuracy is superior. }
-%
-%\small{
-%\begin{tabular}{lll}
-%	\toprule
-%	Classifier & Parameters & Layers
-%	\begin{tabular}{l}
-%		\vspace{0.2mm} \\
-%		\midrule
-%		\emph{Results---Test Set} \\ \midrule Cost [m]: 383 \\ Val. loss: 0.0845 \\ Val. acc.: 0.969 \\ Test. acc.: 0.94 \\ Prec./Recall: 0.94/0.94 \\ F1 Score: 0.94 \\ ~ \\
-%	\end{tabular}
-%\end{tabular}
-%
-%\vspace{0.5mm}
-%\begin{tabular}{ll}
-%	\toprule
-%	\begin{tabular}{l}
-%		\textbf{Focused Proofreading}\\ \midrule
-%		\emph{Parameters} \\ \midrule
-%		Iterations: 3 \\
-%		Learning strategy: 2\\
-%		Mito agglomeration: Off~~~~~~ \\  % Crappy alignment spacing
-%		Threshold: 0.0\\~\\
-%	\end{tabular}
-%	&
-%	\begin{tabular}{l}
-%		\vspace{0.2mm} \\
-%		\midrule
-%		\emph{Results---Test Set} \\ \midrule Cost [m]: 217 \\ Val. acc.: 0.99 \\ Test. acc.: 0.68 \\ Prec./Recall: 0.58/0.56 \\ F1 Score: 0.54 \\
-%	\end{tabular}
-%%	\bottomrule
-%\end{tabular}
-%\hrule
-%}
-%\label{tab:parameters}
-%\vspace{-4mm}
-%\end{table}
 
 
 \begin{figure}[t]
-	  \includegraphics[width=\linewidth]{fish.jpg}
-  \caption{The Classifiers...}
+	\centering
+	  \includegraphics[width=.8\linewidth]{classifiers.pdf}
+  \caption{The multilayer perceptron (MLP) in our experiments has 256 neurons which are activated as rectified linear units (ReLU). We use Dropout regularization to prevent overfitting. We learn categorical and unordered dependent variables using the softmax function and perform linear regression for continuous variables. The MLP can learn the visualizations directly but we also learn features generated by LeNet (2 conv. layers, filter size $5\time5$), VGG19 trained on ImageNet (16 conv. layers, filter size $3\times3$), or Xception trained on ImageNet (36 conv. layers, filter size $3\times3$) to increase the number of trainable parameters.}
 	\label{fig:classifiers}
 \end{figure}
 
