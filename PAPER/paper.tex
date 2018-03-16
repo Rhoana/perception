@@ -170,6 +170,8 @@ Our classifiers are built upon a multilayer perceptron (MLP) which is a feedforw
 \noindent{\textbf{Convolutional Neural Networks.}} We use CNNs to generate additional features as input to the MLP. We train the \emph{LeNet} classifier with tune it specifically towards each visualization. For \emph{VGG19} and \emph{Xception}, we generate features using previously trained weights on ImageNet.
 \\~\\
 \noindent{\textbf{Optimization.}} All networks are optimized using stochastic gradient descent with Nesterov momentum using fixed parameters (Table \ref{tab:parameters}). We train for $1000$ epochs but stop early if the loss does not decrease for ten epochs.
+\\~\\
+\noindent{\textbf{Environment.}} We run all experiments on an NVIDIA DGX1 machine with Tesla V100 graphical processing units. We use the KERAS framework with tensorflow.
 
 \begin{table}[t]
 \centering
@@ -212,7 +214,6 @@ We create all visualizations as parametrized rasterized images without interpola
 \noindent\textbf{Training/Validation/Test Splits.} We specify the size of each split set as follows: 60,000 training images, 20,000 validation images, and 20,000 test images. We then randomly add parameterized visualizations to the sets while guaranteeing that each set is disjunct from each other in terms of encoded variables. This eliminates leakage during training and evaluation. We also scale each set independently: images to the range of $-.5$ to $.5$ and labels to the range of $0.0$ to $1.0$. 
 \\~\\
 \noindent\textbf{Cross-classifier variability.} We also evaluate classifiers previously trained with one visualization on the same type of visualizations with different parameters by decreasing and increasing the variability of the generated images.
-
 
 \section{Elementary Perceptual Tasks}
 
