@@ -103,8 +103,8 @@ while train_counter < train_target or val_counter < val_target or test_counter <
   
   sparse, image, label, parameters = DATATYPE(FLAGS)
   
-  if label == 0:
-    break
+  # if label == 0:
+  #   break
   
   # we need float
   image = image.astype(np.float32)
