@@ -3,7 +3,7 @@
 #SBATCH -n 1 # Number of cores
 #SBATCH -N 1 # Ensure that all cores are on one machine
 #SBATCH --gres=gpu
-#SBATCH --array=5-10
+#SBATCH --array=3
 #SBATCH --mem=8000
 #SBATCH -t 3-00:00
 #SBATCH --mail-type=ALL
