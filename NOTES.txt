@@ -83,7 +83,7 @@ srun --pty -t 3-00:00 --export=ALL --ntasks=1 -p seas_dgx1 --gres=gpu --tunnel=4
 # now on my machine
 ssh -g -L 0.0.0.0:44433:localhost:44433 haehn@odyssey.fas.harvard.edu
 # and then there
-ssh -L 44433:localhost:44433 coxgpu04
+ssh -L 44433:localhost:44433 seasdgx104
 
 # seasdgx104
 
