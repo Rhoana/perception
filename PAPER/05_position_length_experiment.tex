@@ -1,0 +1,27 @@
+\section{Position-Length Experiment}
+
+This is the one where we estimate two selected bars compared to the longest one - very similar to the previous one but, not yet done. We basically test divided versus grouped barchart and we estimate one relation between two marked quanitities: what percent the smaller is of the larger.
+
+There are five types: type 1-3 this is a position judgement along a common scale. (btw all classifiers seem to do that extremely well in the elementary tasks so we assume this will work well here too). Types 4-5 are length judgements and we know that the classifiers struggle with that quite a bit.
+
+The setup from Cleveland McGill is first a classification task: which one is smaller? and then a regression task: how much smaller. So we have to see how to encode this.
+
+
+\subsection{Hypotheses}
+
+We proposed two hypotheses entering the elementary perceptual task experiment:
+
+\begin{itemize}
+	\item \textbf{H3.1} \textbf{Grouped bar charts are better computational perceivable than divided bar charts.} A grouped bar chart involves judging a position while a divided bar chart most likely (if not the bottom is looked at) requires length judgements. Classifiers are better at judging position than at judging length so grouped bar charts are easier to grasp in terms of computational perception.
+	\item \textbf{H3.2} \textbf{not yet} Any ideas?
+\end{itemize}
+
+
+\begin{figure}[t]
+	  \includegraphics[width=\linewidth]{position_length_original1.png}
+	  \includegraphics[width=\linewidth]{position_length_original2.png}
+	  
+  \caption{\textbf{Position-Length Experiment.} (Not yet) Rasterized versions of the graphs of Cleveland and McGill's position-length experiment. The perceptual task involves comparing. the two dot-marked quantities across five different visual encodings of either grouped or divided bar charts. We evaluate which type of bar chart performs better with our neural networks as a combined classification and regression problem. The first task is to select which of the marked quantities is smaller (classification) and the second task is to specify how much smaller it is (regression).}
+	\label{fig:position_length_experiment}
+\end{figure}
+
