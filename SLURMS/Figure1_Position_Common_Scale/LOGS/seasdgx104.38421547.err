@@ -1,2 +1,0 @@
-Using TensorFlow backend.
-slurmstepd: error: *** JOB 38421547 ON seasdgx104 CANCELLED AT 2018-03-05T14:39:58 DUE TO NODE FAILURE, SEE SLURMCTLD LOG FOR DETAILS ***
