@@ -1,3 +1,4 @@
+import math
 import numpy as np
 import os
 import skimage.draw
@@ -443,6 +444,8 @@ class Figure1:
     DEPTH = np.random.randint(1, DOF+1)
     parameters *= DOF
 
+    print 'DEPTH', DEPTH
+
     Y_RANGE = (Figure1.DELTA_MAX-20, Figure1.DELTA_MAX)
     X_RANGE = (0, Figure1.DELTA_MIN*2)
 
@@ -459,7 +462,11 @@ class Figure1:
     WIDTH = 60
     if var_width:
       WIDTH, p = Util.parameter(20, 60)
-      parameters *= p
+      # we only support even width
+      WIDTH = int(math.ceil(WIDTH / 2.) * 2)
+      parameters *= (p/2) # only half of the parameters 
+
+    print 'WIDTH', WIDTH
 
     start = (Y, X)
     mid = (DEPTH, X+WIDTH/2)
@@ -481,7 +488,7 @@ class Figure1:
 
     sparse = [Y, X, DEPTH, WIDTH]
 
-    label = curvature
+    label = np.round(curvature, 3)
 
     return sparse, img, label, parameters
 
