@@ -64,7 +64,7 @@ class Figure1:
 
 
   @staticmethod
-  def position_non_aligned_scale(flags=[False, False, False]):
+  def position_non_aligned_scale(flags=[False, False, False], pre_offset=None):
 
     var_y = flags[0]
     var_x = flags[1]
@@ -75,9 +75,12 @@ class Figure1:
     label = None
     parameters = 1
 
-    OFFSET, p = Util.parameter(1, 11)
+    OFFSET, p = Util.parameter(-9, 11)
     # print 'OFFSET', OFFSET
     parameters *= p
+
+    if pre_offset:
+      OFFSET = pre_offset
 
     Y_RANGE = (Figure1.DELTA_MIN-OFFSET, Figure1.DELTA_MAX-OFFSET)
     X_RANGE = (Figure1.DELTA_MIN, Figure1.DELTA_MAX)

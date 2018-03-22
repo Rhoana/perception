@@ -73,7 +73,7 @@ if os.path.exists(STATSFILE) and os.path.exists(MODELFILE):
   sys.exit(0)
 
 
-#
+
 #
 # DATA GENERATION
 #
@@ -81,6 +81,18 @@ if os.path.exists(STATSFILE) and os.path.exists(MODELFILE):
 train_target = 60000
 val_target = 20000
 test_target = 20000
+
+# get global min and max
+global_min = np.inf
+global_max = -np.inf
+for N in range(train_target+val_target+test_target):
+  
+  sparse, image, label, parameters = DATATYPE(FLAGS)
+  
+  global_min = min(label, global_min)
+  global_max = max(label, global_max)
+# end of global min max
+
 
 X_train = np.zeros((train_target, 100, 100), dtype=np.float32)
 y_train = np.zeros((train_target), dtype=np.float32)
@@ -96,6 +108,9 @@ test_counter = 0
 
 t0 = time.time()
 
+min_label = np.inf
+max_label = -np.inf
+
 all_counter = 0
 while train_counter < train_target or val_counter < val_target or test_counter < test_target:
   
@@ -109,8 +124,18 @@ while train_counter < train_target or val_counter < val_target or test_counter <
   # we need float
   image = image.astype(np.float32)
   
-  pot = np.random.choice(3, p=([.6,.2,.2]))
-
+  pot = np.random.choice(3)#, p=([.6,.2,.2]))
+  
+  #
+  #
+  # special: to allow normalizations, we make sure the global min
+  # and the global max for sure go into pot 0
+  # this biases in a very slight way towards the mean with 2/n
+  # this is ok.
+  #
+  if label == global_min or label == global_max:
+    pot = 0 # for sure training
+  
   if pot == 0 and train_counter < train_target:
     # a training candidate
     if label in y_val or label in y_test:
