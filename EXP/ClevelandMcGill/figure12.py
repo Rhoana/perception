@@ -61,6 +61,18 @@ class Figure12:
 
     return data, labels, parameters
 
+  @staticmethod 
+  def data_to_bars(data):
+    '''
+    '''
+    return Figure12.data_to_image(data, framed=False)
+
+  @staticmethod 
+  def data_to_framed_rectangles(data):
+    '''
+    '''
+    return Figure12.data_to_image(data, framed=True)
+
 
   @staticmethod
   def data_to_image(data, framed=True):
