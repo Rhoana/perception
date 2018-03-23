@@ -1,4 +1,4 @@
-import matploblib
+import matplotlib
 matplotlib.use('agg')
 from matplotlib.pyplot import imshow
 import matplotlib.pyplot as plt    
