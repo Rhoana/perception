@@ -24,7 +24,7 @@ NETWORK_INDEX = sys.argv[3]#4
 DATATYPE = eval(EXPERIMENT)
 
 
-RESULTS_DIR = '/n/regal/pfister_lab/PERCEPTION/RESULTS/' + EXPERIMENT
+RESULTS_DIR = '/n/regal/pfister_lab/PERCEPTION/RESULTS/' + EXPERIMENT + '/'
 OUTPUT_DIR = '/n/regal/pfister_lab/PERCEPTION/CROSSNETWORK/' + EXPERIMENT +'/'
 if not os.path.exists(OUTPUT_DIR):
   # here can be a race condition
