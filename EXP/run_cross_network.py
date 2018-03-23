@@ -6,13 +6,14 @@ import matplotlib.pyplot as plt
 import os, glob, sys
 import cPickle as pickle
 
+import numpy as np
+
 from keras.models import load_model
 from keras import backend as K
 import sklearn.metrics
 import keras.applications
 
 import ClevelandMcGill as C
-
 from util import Util
 
 

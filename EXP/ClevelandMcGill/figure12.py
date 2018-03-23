@@ -38,9 +38,9 @@ class Figure12:
     parameters *= p
 
     # VALUE B
-    value_B = value_A
-    while value_B == value_A:
-      value_B, p = Util.parameter(48, 60)
+    # value_B = value_A
+    # while value_B == value_A:
+    value_B, p = Util.parameter(48, 60)
     parameters *= p
 
     # POS A
@@ -50,9 +50,9 @@ class Figure12:
 
     # POS B
     x_B = 60
-    y_B = y_A
-    while y_B == y_A:
-      y_B, p = Util.parameter(10, 30)
+    # y_B = y_A
+    # while y_B == y_A:
+    y_B, p = Util.parameter(10, 30)
     parameters *= p
 
     data = [x_A, y_A, value_A, x_B, y_B, value_B]
