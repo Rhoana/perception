@@ -157,7 +157,7 @@ for data in range(DATASETS):
   results[data] = network_results
 
 
-pickle_file = OUTPUT_DIR + '/' + str(CLASSIFIER)+'_'+str(NETWORK_INDEX)+'.pdf'
+pickle_file = OUTPUT_DIR + '/' + str(CLASSIFIER)+'_'+str(NETWORK_INDEX)+'.p'
 with open(pickle_file, 'w') as f:
   pickle.dump(results, f)
 print 'Stored', pickle_file
