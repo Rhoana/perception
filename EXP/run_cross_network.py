@@ -12,6 +12,7 @@ from keras.models import load_model
 from keras import backend as K
 import sklearn.metrics
 import keras.applications
+import itertools
 
 import ClevelandMcGill as C
 from util import Util
