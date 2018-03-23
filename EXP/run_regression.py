@@ -342,7 +342,7 @@ y_pred = MLP.predict(X_test)
 #
 #
 # CLEVELAND MCGILL ERROR
-#  MIDMEANDS OF LOG ABSOLUTE ERRORS (MLAEs)
+#  MEANS OF LOG ABSOLUTE ERRORS (MLAEs)
 #
 MLAE = np.log2(sklearn.metrics.mean_absolute_error(y_pred*100, y_test*100)+.125)
 

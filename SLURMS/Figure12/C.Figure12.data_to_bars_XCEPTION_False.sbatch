@@ -4,7 +4,7 @@
 #SBATCH -N 1 # Ensure that all cores are on one machine
 #SBATCH --gres=gpu
 #SBATCH --array=1-4
-#SBATCH --mem=20000
+#SBATCH --mem=32000
 #SBATCH -t 3-00:00
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=haehn@seas.harvard.edu
@@ -22,7 +22,7 @@ cd /n/home05/haehn/Projects/CP/EXP/
 
 source activate CP
 
-python run_position_angle.py C.Figure3.data_to_barchart VGG19 True $SLURM_ARRAY_TASK_ID
+python run_bar_framed_rectangle.py C.Figure12.data_to_bars XCEPTION False $SLURM_ARRAY_TASK_ID
 
 # end
 exit 0;

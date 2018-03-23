@@ -22,7 +22,7 @@ cd /n/home05/haehn/Projects/CP/EXP/
 
 source activate CP
 
-python run_position_angle.py C.Figure3.data_to_barchart VGG19 True $SLURM_ARRAY_TASK_ID
+python run_bar_framed_rectangle.py C.Figure12.data_to_framed_rectangles VGG19 False $SLURM_ARRAY_TASK_ID
 
 # end
 exit 0;

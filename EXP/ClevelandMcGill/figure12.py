@@ -34,13 +34,13 @@ class Figure12:
     parameters = 1
 
     # VALUE A
-    value_A, p = Util.parameter(48, 60)
+    value_A, p = Util.parameter(49, 61)
     parameters *= p
 
     # VALUE B
     value_B = value_A
     while value_B == value_A:
-      value_B, p = Util.parameter(48, 60)
+      value_B, p = Util.parameter(49, 61)
     parameters *= p
 
     # POS A

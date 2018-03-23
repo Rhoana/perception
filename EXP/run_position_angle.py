@@ -74,27 +74,27 @@ if os.path.exists(STATSFILE) and os.path.exists(MODELFILE):
 # DATA GENERATION
 #
 #
-def in_array(haystack, needle):
-  for h in haystack:
-    if np.array_equal(needle, h):
-      return True
-  return False
 
+train_counter = 0
+val_counter = 0
+test_counter = 0
 train_target = 60000
 val_target = 20000
 test_target = 20000
 
+train_labels = []
+val_labels = []
+test_labels = []
+
+
 X_train = np.zeros((train_target, 100, 100), dtype=np.float32)
 y_train = np.zeros((train_target, 5), dtype=np.float32)
-train_counter = 0
 
 X_val = np.zeros((val_target, 100, 100), dtype=np.float32)
 y_val = np.zeros((val_target, 5), dtype=np.float32)
-val_counter = 0
 
 X_test = np.zeros((test_target, 100, 100), dtype=np.float32)
 y_test = np.zeros((test_target, 5), dtype=np.float32)
-test_counter = 0
 
 t0 = time.time()
 
@@ -103,20 +103,23 @@ while train_counter < train_target or val_counter < val_target or test_counter <
   
   all_counter += 1
   
-  data, label = C.Figure3.generate_datapoint()
-  
-  
-
-  
+  data, label, parameters = C.Figure3.generate_datapoint()
   
   pot = np.random.choice(3)
-
+  
+  # sometimes we know which pot is right
+  if label in train_labels:
+    pot = 0
+  if label in val_labels:
+    pot = 1
+  if label in test_labels:
+    pot = 2
+  
   if pot == 0 and train_counter < train_target:
-    # a training candidate
-    if in_array(y_val, label) or in_array(y_test, label):
-      # no thank you
-      continue
-      
+
+    if label not in train_labels:
+      train_labels.append(label)
+    
     #
     image = DATATYPE(data)
     image = image.astype(np.float32)
@@ -131,12 +134,10 @@ while train_counter < train_target or val_counter < val_target or test_counter <
     train_counter += 1
     
   elif pot == 1 and val_counter < val_target:
-    # a validation candidate
-    if in_array(y_test, label) or in_array(y_train, label):
-      # no thank you
-      continue
+
+    if label not in val_labels:
+      val_labels.append(label)
       
-    #
     image = DATATYPE(data)
     image = image.astype(np.float32)
       
@@ -144,18 +145,16 @@ while train_counter < train_target or val_counter < val_target or test_counter <
     if NOISE:
       image += np.random.uniform(0, 0.05,(100,100))
       
-    # safe to add to validation
+    # safe to add to training
     X_val[val_counter] = image
     y_val[val_counter] = label
     val_counter += 1
-  
+    
   elif pot == 2 and test_counter < test_target:
-    # a test candidate
-    if in_array(y_val, label) or in_array(y_train, label):
-      # no thank you
-      continue
+
+    if label not in test_labels:
+      test_labels.append(label)
       
-    #
     image = DATATYPE(data)
     image = image.astype(np.float32)
       
@@ -163,13 +162,11 @@ while train_counter < train_target or val_counter < val_target or test_counter <
     if NOISE:
       image += np.random.uniform(0, 0.05,(100,100))
       
-    # safe to add to test
+    # safe to add to training
     X_test[test_counter] = image
     y_test[test_counter] = label
     test_counter += 1
-  
-  
-  
+    
 print 'Done', time.time()-t0, 'seconds (', all_counter, 'iterations)'
 #
 #
@@ -331,7 +328,7 @@ y_pred = MLP.predict(X_test)
 #
 #
 # CLEVELAND MCGILL ERROR
-#  MIDMEANDS OF LOG ABSOLUTE ERRORS (MLAEs)
+#  MEANS OF LOG ABSOLUTE ERRORS (MLAEs)
 #
 MLAE = np.log2(sklearn.metrics.mean_absolute_error(y_pred*100, y_test*100)+.125)
 

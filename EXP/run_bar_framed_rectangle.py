@@ -16,16 +16,15 @@ import time
 import ClevelandMcGill as C
 
 
-EXPERIMENT = sys.argv[1] # f.e. Angle
-DATASET = int(sys.argv[2]) # How many TRUE flags to pass to data generation
-CLASSIFIER = sys.argv[3] # 'LeNet'
-NOISE = sys.argv[4] # True
-JOB_INDEX = int(sys.argv[5])
+EXPERIMENT = sys.argv[1] # f.e. C.Figure12.data_to_framed_rectangles
+CLASSIFIER = sys.argv[2] # 'LeNet'
+NOISE = sys.argv[3] # True
+JOB_INDEX = int(sys.argv[4])
 
 #
 #
 #
-print 'Running', EXPERIMENT, 'on dataset', DATASET, 'with', CLASSIFIER, 'Noise:', NOISE, 'Job Index', JOB_INDEX
+print 'Running', EXPERIMENT, 'with', CLASSIFIER, 'Noise:', NOISE, 'Job Index', JOB_INDEX
 
 #
 #
@@ -41,9 +40,6 @@ else:
 
 DATATYPE = eval(EXPERIMENT)
 
-FLAGS = [False] * 10 # never more than 10 flags
-for f in range(DATASET):
-  FLAGS[f] = True
 
 
 if os.path.abspath('~').startswith('/n/'):
@@ -53,7 +49,7 @@ else:
   PREFIX = '/home/d/PERCEPTION/'
 RESULTS_DIR = PREFIX + 'RESULTS/'
 
-OUTPUT_DIR = RESULTS_DIR + EXPERIMENT + '/' + str(DATASET) + '/' + CLASSIFIER + '/'
+OUTPUT_DIR = RESULTS_DIR + EXPERIMENT + '/' + CLASSIFIER + '/'
 if not os.path.exists(OUTPUT_DIR):
   # here can be a race condition
   try:
@@ -72,27 +68,32 @@ if os.path.exists(STATSFILE) and os.path.exists(MODELFILE):
   print 'WAIT A MINUTE!! WE HAVE DONE THIS ONE BEFORE!'
   sys.exit(0)
 
-
 #
 #
 # DATA GENERATION
 #
 #
+
+train_counter = 0
+val_counter = 0
+test_counter = 0
 train_target = 60000
 val_target = 20000
 test_target = 20000
 
+train_labels = []
+val_labels = []
+test_labels = []
+
+
 X_train = np.zeros((train_target, 100, 100), dtype=np.float32)
-y_train = np.zeros((train_target), dtype=np.float32)
-train_counter = 0
+y_train = np.zeros((train_target, 2), dtype=np.float32)
 
 X_val = np.zeros((val_target, 100, 100), dtype=np.float32)
-y_val = np.zeros((val_target), dtype=np.float32)
-val_counter = 0
+y_val = np.zeros((val_target, 2), dtype=np.float32)
 
 X_test = np.zeros((test_target, 100, 100), dtype=np.float32)
-y_test = np.zeros((test_target), dtype=np.float32)
-test_counter = 0
+y_test = np.zeros((test_target, 2), dtype=np.float32)
 
 t0 = time.time()
 
@@ -101,21 +102,26 @@ while train_counter < train_target or val_counter < val_target or test_counter <
   
   all_counter += 1
   
-  sparse, image, label, parameters = DATATYPE(FLAGS)
+  data, label, parameters = C.Figure12.generate_datapoint()
   
-  # if label == 0:
-  #   break
+  pot = np.random.choice(3)
   
-  # we need float
-  image = image.astype(np.float32)
+  # sometimes we know which pot is right
+  if label in train_labels:
+    pot = 0
+  if label in val_labels:
+    pot = 1
+  if label in test_labels:
+    pot = 2
   
-  pot = np.random.choice(3, p=([.6,.2,.2]))
-
   if pot == 0 and train_counter < train_target:
-    # a training candidate
-    if label in y_val or label in y_test:
-      # no thank you
-      continue
+
+    if label not in train_labels:
+      train_labels.append(label)
+    
+    #
+    image = DATATYPE(data)
+    image = image.astype(np.float32)
       
     # add noise?
     if NOISE:
@@ -127,35 +133,39 @@ while train_counter < train_target or val_counter < val_target or test_counter <
     train_counter += 1
     
   elif pot == 1 and val_counter < val_target:
-    # a validation candidate
-    if label in y_train or label in y_test:
-      # no thank you
-      continue
+
+    if label not in val_labels:
+      val_labels.append(label)
+      
+    image = DATATYPE(data)
+    image = image.astype(np.float32)
       
     # add noise?
     if NOISE:
       image += np.random.uniform(0, 0.05,(100,100))
       
-    # safe to add to validation
+    # safe to add to training
     X_val[val_counter] = image
     y_val[val_counter] = label
     val_counter += 1
-  
+    
   elif pot == 2 and test_counter < test_target:
-    # a test candidate
-    if label in y_train or label in y_val:
-      # no thank you
-      continue
+
+    if label not in test_labels:
+      test_labels.append(label)
+      
+    image = DATATYPE(data)
+    image = image.astype(np.float32)
       
     # add noise?
     if NOISE:
       image += np.random.uniform(0, 0.05,(100,100))
       
-    # safe to add to test
+    # safe to add to training
     X_test[test_counter] = image
     y_test[test_counter] = label
     test_counter += 1
-  
+    
 print 'Done', time.time()-t0, 'seconds (', all_counter, 'iterations)'
 #
 #
@@ -280,7 +290,7 @@ elif CLASSIFIER == 'MLP':
 #
 MLP.add(layers.Dense(256, activation='relu', input_dim=feature_shape))
 MLP.add(layers.Dropout(0.5))
-MLP.add(layers.Dense(1, activation='linear')) # REGRESSION
+MLP.add(layers.Dense(2, activation='linear')) # REGRESSION
 
 sgd = optimizers.SGD(lr=0.0001, decay=1e-6, momentum=0.9, nesterov=True)
 MLP.compile(loss='mean_squared_error', optimizer=sgd, metrics=['mse', 'mae']) # MSE for regression
@@ -317,7 +327,7 @@ y_pred = MLP.predict(X_test)
 #
 #
 # CLEVELAND MCGILL ERROR
-#  MIDMEANDS OF LOG ABSOLUTE ERRORS (MLAEs)
+#  MEANS OF LOG ABSOLUTE ERRORS (MLAEs)
 #
 MLAE = np.log2(sklearn.metrics.mean_absolute_error(y_pred*100, y_test*100)+.125)
 
