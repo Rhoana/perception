@@ -181,7 +181,7 @@ def plot_cross_network(cm, classes, title, cmap=plt.cm.Blues, c_name='', e_name=
     plt.tight_layout()
     plt.ylabel('Dataset')
     plt.xlabel(c_name+' Training')
-    plt.savefig('../PAPER/gfx/cn_'+str(e_name)+'_'+str(c_name)+'_'+str(c_index)+'.pdf', bbox_inches='tight', pad_inches=0)
+    plt.savefig('../PAPER/SUPPLEMENTAL/gfx/cn_'+str(e_name)+'_'+str(c_name)+'_'+str(c_index)+'.pdf', bbox_inches='tight', pad_inches=0)
     
 plt.figure()
 plot_cross_network(np.array(results), classes=all_labels[EXPERIMENT],
