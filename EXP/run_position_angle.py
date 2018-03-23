@@ -103,7 +103,7 @@ while train_counter < train_target or val_counter < val_target or test_counter <
   
   all_counter += 1
   
-  data, label, parameters = C.Figure3.generate_datapoint()
+  data, label = C.Figure3.generate_datapoint()
   
   pot = np.random.choice(3)
   
