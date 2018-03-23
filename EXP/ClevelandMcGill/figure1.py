@@ -447,7 +447,7 @@ class Figure1:
     DEPTH = np.random.randint(1, DOF+1)
     parameters *= DOF
 
-    print 'DEPTH', DEPTH
+    # print 'DEPTH', DEPTH
 
     Y_RANGE = (Figure1.DELTA_MAX-20, Figure1.DELTA_MAX)
     X_RANGE = (0, Figure1.DELTA_MIN*2)
@@ -469,7 +469,7 @@ class Figure1:
       WIDTH = int(math.ceil(WIDTH / 2.) * 2)
       parameters *= (p/2) # only half of the parameters 
 
-    print 'WIDTH', WIDTH
+    # print 'WIDTH', WIDTH
 
     start = (Y, X)
     mid = (DEPTH, X+WIDTH/2)

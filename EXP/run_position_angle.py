@@ -109,7 +109,7 @@ while train_counter < train_target or val_counter < val_target or test_counter <
 
   
   
-  pot = np.random.choice(3, p=([.6,.2,.2]))
+  pot = np.random.choice(3)
 
   if pot == 0 and train_counter < train_target:
     # a training candidate
