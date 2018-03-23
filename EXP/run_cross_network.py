@@ -63,8 +63,11 @@ for x in range(DATASETS):
 
 # generate images
 N = 20000
-X = [np.zeros((N, 100, 100), dtype=np.float32)] * DATASETS
-y = [np.zeros((N), dtype=np.float32)] * DATASETS
+X = [None] * DATASETS
+y = [None] * DATASETS
+for x in range(DATASETS):
+  X[x] = np.zeros((N, 100, 100), dtype=np.float32)
+  y[x] = np.zeros((N), dtype=np.float32)
 
 for x in range(DATASETS):
     FLAGS = [False] * 10 # never more than 10 flags
