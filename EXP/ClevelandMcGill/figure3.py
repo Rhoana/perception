@@ -79,7 +79,7 @@ class Figure3:
     #
     labels = np.roll(labels, 5-np.where(labels==1)[0])
 
-    return data, labels
+    return data, list(labels)
 
 
   @staticmethod
