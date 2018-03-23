@@ -52,6 +52,13 @@ all_labels = {'C.Figure1.position_common_scale': ['Position Y', '+ Position X', 
 DATASETS = len(all_labels[EXPERIMENT])
 
 
+pickle_file = OUTPUT_DIR + '/' + str(CLASSIFIER)+'_'+str(NETWORK_INDEX)+'.p'
+if os.path.exists(pickle_file):
+
+  print 'This one is doooone!'
+  sys.exit(0)
+
+
 networks = []
 
 for x in range(DATASETS):
@@ -163,7 +170,6 @@ for data in range(DATASETS):
   results[data] = network_results
 
 
-pickle_file = OUTPUT_DIR + '/' + str(CLASSIFIER)+'_'+str(NETWORK_INDEX)+'.p'
 with open(pickle_file, 'w') as f:
   pickle.dump(results, f)
 print 'Stored', pickle_file
