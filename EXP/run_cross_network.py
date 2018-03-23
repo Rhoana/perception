@@ -125,6 +125,9 @@ for data in range(DATASETS):
 
     elif CLASSIFIER == 'VGG19':
 
+      # make 3d
+      X_new = np.stack((X[data],)*3, -1)
+
       feature_generator = keras.applications.VGG19(include_top=False, weights='imagenet', input_shape=(100,100,3))
       X_test_3D_features = feature_generator.predict(X_new, verbose=True)
       
