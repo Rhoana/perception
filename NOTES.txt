@@ -174,3 +174,43 @@ shading
   
 
 
+#
+# VIDEO
+
+
+# Which chart would you choose? Probably the bar chart. 
+#
+# The difference was first studied by Cleveland and McGill.
+#
+# Nowadays not only us as humans perceive the world: many computer vision tasks are handled by CNNs
+#
+# Would CNNs prefer the bar chart?
+#
+# We tested multiple classifiers by replicating the experiments of cleveland mcgill:
+#
+# elementary perceptual tasks such as the measurement of curvature, angles, length and positions
+#
+# and the position-angle experiment which compares pie and bar charts
+#
+# as well as the position-length experiment 
+#
+# and the bar framed rectangles experiment built upon webers law of just noticable differences
+#
+# after careful quantitative evaluation as one result, we propose a ranking of visual encodings best suited towards modern CNNs
+#
+# all our code, data, and results are publicly available on github
+
+
+#
+# Which chart would you choose? Hopefully the bar chart!
+#
+# This was first studied by Cleveland and McGill.
+#
+# But now, not only humans see the world. In fact many computer vision tasks are handled by CNNs.
+#
+# Can CNNs measure curvature and angles? Can they judge lengths or find positions on a common scale?
+#
+# Would they prefer bar charts over pie charts?
+#
+# please come to our talk to find out
+#
