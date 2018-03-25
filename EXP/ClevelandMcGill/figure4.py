@@ -265,7 +265,15 @@ class Figure4:
     below_last_sum2 = below_last_sum
     above_last_sum2 = above_last_sum
 
+    # print below_last_sum, above_last_sum
+
+    ctr = 0
+
     while below_last_sum2 == below_last_sum or above_last_sum2 == above_last_sum:
+
+      if ctr == 20:
+        # this happens around 10 times in 100.000 samples.. so not really important
+        raise Exception()
 
       current_max = 93-data[1]
 
@@ -283,6 +291,8 @@ class Figure4:
 
       current_max = np.sum(all_values[5:])
       above_last_sum2 = current_max
+
+      ctr += 1 # exception counter
 
     # draw left, right of the left stacked barchart
     rr, cc = skimage.draw.line(99, 60, 99-int(current_max), 60)
