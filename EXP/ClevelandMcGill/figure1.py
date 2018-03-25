@@ -14,7 +14,7 @@ class Figure1:
   SIZE = (100, 100)
 
   @staticmethod
-  def position_common_scale(flags=[False, False]):
+  def position_common_scale(flags=[False, False], preset=None):
     '''
     '''
     var_x = flags[0]
@@ -32,6 +32,9 @@ class Figure1:
 
     Y, p = Util.parameter(Y_RANGE[0], Y_RANGE[1])
     parameters *= p
+
+    if preset:
+      Y = preset
 
     X = Figure1.SIZE[1] / 2
     if var_x:
@@ -64,7 +67,7 @@ class Figure1:
 
 
   @staticmethod
-  def position_non_aligned_scale(flags=[False, False, False], pre_offset=None):
+  def position_non_aligned_scale(flags=[False, False, False], preset=None):
 
     var_y = flags[0]
     var_x = flags[1]
@@ -79,8 +82,8 @@ class Figure1:
     # print 'OFFSET', OFFSET
     parameters *= p
 
-    if pre_offset:
-      OFFSET = pre_offset
+    if preset:
+      OFFSET = preset
 
     Y_RANGE = (Figure1.DELTA_MIN-OFFSET, Figure1.DELTA_MAX-OFFSET)
     X_RANGE = (Figure1.DELTA_MIN, Figure1.DELTA_MAX)
@@ -123,7 +126,7 @@ class Figure1:
 
 
   @staticmethod
-  def length(flags=[False, False, False]):
+  def length(flags=[False, False, False], preset=None):
 
     var_y = flags[0]
     var_x = flags[1]
@@ -140,6 +143,9 @@ class Figure1:
 
     LENGTH, p = Util.parameter(1, Y_RANGE[1]-Y_RANGE[0]+1) # 1..60
     parameters *= p
+
+    if preset:
+      LENGTH = preset
 
     MAX_LENGTH = Y_RANGE[1]-Y_RANGE[0]
     # print 'Max length', MAX_LENGTH
@@ -179,7 +185,7 @@ class Figure1:
 
 
   @staticmethod
-  def direction(flags=[False, False]):
+  def direction(flags=[False, False], preset=None):
 
     var_y = flags[0]
     var_x = flags[1]
@@ -196,8 +202,15 @@ class Figure1:
     DOF = 360
     DIRECTION = np.random.randint(DOF)
     parameters *= DOF
+
+    if preset:
+      DIRECTION = preset
+
+
     theta = -(np.pi / 180.0) * DIRECTION
     LENGTH = Figure1.DELTA_MIN
+
+
 
     X = Figure1.SIZE[1] / 2
     if var_x:
@@ -230,7 +243,7 @@ class Figure1:
 
 
   @staticmethod
-  def angle(flags=[False,False]):
+  def angle(flags=[False,False], preset=None):
 
 
     var_y = flags[0]
@@ -249,6 +262,9 @@ class Figure1:
     DOF = 90
     ANGLE = np.random.randint(1, DOF+1)
     parameters *= DOF
+
+    if preset:
+      ANGLE=preset
 
     LENGTH = Figure1.DELTA_MIN
 
@@ -285,7 +301,7 @@ class Figure1:
 
 
   @staticmethod
-  def area(flags=[False, False]):
+  def area(flags=[False, False], preset=None):
 
 
 
@@ -305,6 +321,9 @@ class Figure1:
     DOF = 40
     RADIUS = np.random.randint(1, DOF+1)
     parameters *= DOF
+
+    if preset:
+      RADIUS = preset
 
     X = Figure1.SIZE[1] / 2
     if var_x:
@@ -331,7 +350,7 @@ class Figure1:
 
 
   @staticmethod
-  def volume(flags=[False, False]):
+  def volume(flags=[False, False], preset=None):
 
 
 
@@ -348,6 +367,9 @@ class Figure1:
     DOF = 20
     DEPTH = np.random.randint(1, DOF+1)
     parameters *= DOF
+
+    if preset:
+      DEPTH = preset
 
     Y_RANGE = (Figure1.DELTA_MIN+DOF, Figure1.DELTA_MAX-DOF)
     X_RANGE = (Figure1.DELTA_MIN+DOF, Figure1.DELTA_MAX-DOF)
@@ -428,7 +450,7 @@ class Figure1:
 
 
   @staticmethod
-  def curvature(flags=[False,False,False]):
+  def curvature(flags=[False,False,False], preset=None):
 
 
 
@@ -446,6 +468,9 @@ class Figure1:
     DOF = 80
     DEPTH = np.random.randint(1, DOF+1)
     parameters *= DOF
+
+    if preset:
+      DEPTH = preset
 
     # print 'DEPTH', DEPTH
 
@@ -498,7 +523,7 @@ class Figure1:
 
 
   @staticmethod
-  def shading(flags=[False, False]):
+  def shading(flags=[False, False], preset=None):
 
 
     var_y = flags[0]
@@ -517,6 +542,9 @@ class Figure1:
     COVERED = np.random.randint(1, DOF+1)
     parameters *= DOF
 
+
+    if preset:
+      COVERED = preset
 
     img = np.zeros((100,100), dtype=np.bool)
 

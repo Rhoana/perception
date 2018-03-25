@@ -45,9 +45,12 @@ class Weber:
 
 
   @staticmethod
-  def generate(base=10, to_add=10):
+  def generate(base=10, to_add=10, label=1):
 
     image = np.zeros((100,100), dtype=np.bool)
+
+    if label != 1:
+      image = np.zeros((100,100), dtype=np.uint8)
 
     for p in range(base):
       
@@ -62,7 +65,7 @@ class Weber:
       if image[y,x] == 1:
         continue
 
-      image[y, x] = 1
+      image[y, x] = label
       added += 1
 
     return image
