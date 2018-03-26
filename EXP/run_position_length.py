@@ -43,13 +43,16 @@ if EXPERIMENT == 'C.Figure4.multi':
   #
   # one classifier with all different types
   #
-  def DATATYPE():
+  def DATATYPE(data):
     '''
     '''
+    
     choices = ['C.Figure4.data_to_type1', 'C.Figure4.data_to_type2',\
               'C.Figure4.data_to_type3', 'C.Figure4.data_to_type4', 'C.Figure4.data_to_type5']
 
-    return eval(np.random.choice(choices))
+    choice = np.random.choice(choices)
+    
+    return eval(choice)(data)
 
 
 else: 
