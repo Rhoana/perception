@@ -1,49 +1,23 @@
 \section{Previous Work}
 
-\textbf{Graphical Perception.} Cleveland and McGill~\cite{cleveland_mcgill} introduced the concept of \emph{graphical perception} and investigated how different visual attributes and encodings are perceivable by humans. They define \emph{elementary perceptual tasks} as mental-visual stimuli to understand encodings in visualizations. 
+\textbf{Graphical Perception.} Cleveland and McGill~\cite{cleveland_mcgill} introduce the fundamental concept of \emph{graphical perception} and investigate how different visual attributes and encodings are perceivable by humans. They define \emph{elementary perceptual tasks} as mental-visual stimuli to understand encodings in visualizations. Based on these definitions, the authors propose and perform different experiments such as the \emph{position-angle} experiment which compares bar charts and pie charts, the \emph{position-length} experiment where users judge relations between encoded values in grouped and divided bar charts, and the \emph{bars-and-framed-rectangles} experiment to evaluate Weber's law. Heer and Bostock later reproduced the Cleveland-McGill experiments crowd-sourced on Mechanical Turk~\cite{HeerBostock2010} which lead to follow-up work from Harrison \textit{et al.}~\cite{harrison2013influencing} who replicated the experiments while observing emotional states. Both papers report similar results to Cleveland and McGill which increased our motivation to mimmick their pioneering work. Our experimental setup replicates the original setup of Cleveland and McGill - just instead of humans, we use convolutional neural networks due to the connection with the human visual system. While we focus on Cleveland and McGill's work from 1984, many other excellent articles from the last decades target low-level visual encoding~\cite{bertin1967semiologie,cleveland1985graphical,treisman1988feature, wilkinson2006grammar, carpendale2003considering,widgor_perception2007,munzner2015visualization}.
+\\~\\
+\textbf{Comparing Visual Encodings.} Different visual encodings have advantages or disadvantages and the community does a great job comparing them. Higher-level comparisons include 2D versus 3D vector field and rendering studies~\cite{mckenzie_2d_3d,forsberg2009comparing_3d_vector,laidlaw_2d_vector,borkin2011arteries}, timeseries~\cite{herr2009timeseries} and scatterplots~\cite{tremmel1995visual,Wang_linegraph_vs_scatterplot}. Lower-level experiments target - besides others - open versus closed encodings~\cite{open_vs_closed_shapes}, and several evaluations of color space~\cite{ware1988color,rheingans1992color,Rogowitz2001_colormaps,kindlmann2002color}. While we investigate lower-level visual encodings in this work, we delay colorspace experiments for future work.
 
+Interesting are also the rankings of correlation visualization using Weber's law~\cite{harrison2014_webers_law_rank}. This law defines the proportional relation between the initial distribution density and perceivable change. In this paper, we investigate with a simple experiment whether this holds for convolutional neural networks. 
+\\~\\
+\textbf{Visual Cortex Inspired Machine Learning.} Classifiers mimmicking the human visual system are a hot topic and many different architectures, models, and paradigms exist. Feed-forward neural networks 
 
-
-\cite{HeerBostock2010} Heer and Bostock, CHI 2010 --- Crowdsourcing Graphical Perception: Using Mechanical Turk to Assess Visualization Design
-
-
-\cite{Wang_linegraph_vs_scatterplot} Comparing linegraph vs. scatterplot
-
-
-\cite{mckenzie_2d_3d} \cite{forsberg2009comparing_3d_vector} \cite{laidlaw_2d_vector} 2D vs. 3D Evaluation (vector fields)
-
-
-\cite{kindlmann2002color} \cite{rheingans1992color} \cite{ware1988color} \cite{Rogowitz2001_colormaps} color maps
-
-2d vs. 3d + color \cite{borkin2011arteries}
-
-black hat vis \cite{heer2017blackhat}
-
-timeseries \cite{herr2009timeseries}
-
-munzner \cite{munzner2015visualization}
-
-open vs. closed shaped \cite{open_vs_closed_shapes}
-
-visualization ranking \cite{harrison2014_webers_law_rank}
-
-\textbf{Visual Cortex Inspired Machine Learning.} MLP, LeNet, VGG, ImageNet, XCeption, ResNets etc and work from THomas Serre
+MLP, LeNet, VGG, ImageNet, XCeption, ResNets etc and work from THomas Serre
 %
-%- chart generator: http://codementum.org/cleveland-mcgill/
 %
 %- https://link.springer.com/chapter/10.1007/978-3-642-14600-8_46
 %
-%- https://www.perceptualedge.com/articles/b-eye/data_visualization_bookshelf.pdf
-%
-%- http://flowingdata.com/2010/03/20/graphical-perception-learn-the-fundamentals-first/
-%
 %- https://github.com/tidyverse/ggplot2/wiki/Recommended-Reading
-%
-%- https://webpages.uncc.edu/~ltharri1/files/chi_13.pdf
 %
 %- last year's VADL workshop: https://vadl2017.github.io/
 
 \textbf{Computing Perception.}
 
 Pineo et al.~\cite{Pineo2012_computational_perception} present a method to automatically evaluate and optimize visualizations using a computational model of human vision, based on a neural network simulation of the early perceptual processing in the retina and primary visual cortex. [JT] Copied from their abstract.
-
+Zoya's work

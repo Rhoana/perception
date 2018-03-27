@@ -1,5 +1,10 @@
 \begin{thebibliography}{10}
 
+\bibitem{bertin1967semiologie}
+J.~Bertin and M.~Barbut.
+\newblock {\em Semiologie graphique: les diagrammes, les reseaux, les cartes}.
+\newblock Mouton, 1967.
+
 \bibitem{borkin2011arteries}
 M.~Borkin, K.~Gajos, A.~Peters, D.~Mitsouras, S.~Melchionna, F.~Rybicki,
   C.~Feldman, and H.~Pfister.
@@ -19,12 +24,29 @@ D.~Burlinson, K.~Subramanian, and P.~Goolkasian.
 }{.}\hspace{.4pt}2745086}}
 
 
+\bibitem{carpendale2003considering}
+M.~Carpendale.
+\newblock Considering visual variables as a basis for information
+  visualisation.
+\newblock 2003.
+
+\bibitem{xception}
+F.~Chollet.
+\newblock Xception: Deep learning with depthwise separable convolutions.
+\newblock In {\em {CVPR}}, pp. 1800--1807. {IEEE} Computer Society, 2017.
+
 \bibitem{cleveland_mcgill}
 W.~S. Cleveland and R.~McGill.
 \newblock Graphical perception: Theory, experimentation, and application to the
   development of graphical methods.
 \newblock {\em Journal of the American statistical association},
   79(387):531--554, 1984.
+
+\bibitem{cleveland1985graphical}
+W.~S. Cleveland and R.~McGill.
+\newblock Graphical perception and graphical methods for analyzing scientific
+  data.
+\newblock {\em Science}, 229(4716):828--833, 1985.
 
 \bibitem{mckenzie_2d_3d}
 A.~Cockburn and B.~McKenzie.
@@ -39,12 +61,6 @@ A.~Cockburn and B.~McKenzie.
 }{.}\hspace{.4pt}503413}}
 
 
-\bibitem{heer2017blackhat}
-M.~Correll and J.~Heer.
-\newblock Black hat visualization.
-\newblock In {\em Workshop on Dealing with Cognitive Biases in Visualisations
-  (DECISIVe), IEEE VIS}, 2017.
-
 \bibitem{forsberg2009comparing_3d_vector}
 A.~Forsberg, J.~Chen, and D.~Laidlaw.
 \newblock Comparing 3d vector field visualization methods: A user study.
@@ -56,6 +72,12 @@ I.~Goodfellow, Y.~Bengio, and A.~Courville.
 \newblock {\em Deep Learning}.
 \newblock MIT Press, 2016.
 \newblock \url{http://www.deeplearningbook.org}.
+
+\bibitem{harrison2013influencing}
+L.~Harrison, D.~Skau, S.~Franconeri, A.~Lu, and R.~Chang.
+\newblock Influencing visual judgment through affective priming.
+\newblock In {\em Proceedings of the SIGCHI Conference on Human Factors in
+  Computing Systems}, pp. 2949--2958. ACM, 2013.
 
 \bibitem{harrison2014_webers_law_rank}
 L.~Harrison, F.~Yang, S.~Franconeri, and R.~Chang.
@@ -94,13 +116,20 @@ J.~Heer, N.~Kong, and M.~Agrawala.
 }{.}\hspace{.4pt}1518897}}
 
 
+\bibitem{clevr}
+J.~Johnson, B.~Hariharan, L.~van~der Maaten, L.~Fei{-}Fei, C.~L. Zitnick, and
+  R.~B. Girshick.
+\newblock {CLEVR:} {A} diagnostic dataset for compositional language and
+  elementary visual reasoning.
+\newblock {\em CoRR}, abs/1612.06890, 2016.
+
 \bibitem{kindlmann2002color}
 G.~Kindlmann, E.~Reinhard, and S.~Creem.
 \newblock Face-based luminance matching for perceptual colormap generation.
 \newblock In {\em Proceedings of the Conference on Visualization '02}, VIS '02,
   pp. 299--306. IEEE Computer Society, Washington, DC, USA, 2002.
 
-\bibitem{krizhevsky_imagenet2012}
+\bibitem{imagenet}
 A.~Krizhevsky, I.~Sutskever, and G.~E. Hinton.
 \newblock Imagenet classification with deep convolutional neural networks.
 \newblock In F.~Pereira, C.~J.~C. Burges, L.~Bottou, and K.~Q. Weinberger,
@@ -119,6 +148,22 @@ D.~H. Laidlaw, R.~M. Kirby, C.~D. Jackson, J.~S. Davidson, T.~S. Miller,
 }{.}\hspace{.4pt}2005\hspace{.1pt}\discretionary{.}{%
 }{.}\hspace{.4pt}4}}
 
+
+\bibitem{lenet}
+Y.~Lecun, L.~Bottou, Y.~Bengio, and P.~Haffner.
+\newblock Gradient-based learning applied to document recognition.
+\newblock {\em Proceedings of the IEEE}, 86(11):2278--2324, Nov 1998. doi: {{%
+10\hspace{.1pt}\discretionary{.}{%
+}{.}\hspace{.4pt}1109\discretionary{/}{%
+}{/}5\hspace{.1pt}\discretionary{.}{%
+}{.}\hspace{.4pt}726791}}
+
+
+\bibitem{human_vs_machine_vision}
+D.~Linsley, S.~Eberhardt, T.~Sharma, P.~Gupta, and T.~Serre.
+\newblock What are the visual features underlying human versus machine vision?
+\newblock {\em 2017 IEEE International Conference on Computer Vision Workshops
+  (ICCVW)}, pp. 2706--2714, 2017.
 
 \bibitem{munzner2015visualization}
 T.~Munzner.
@@ -144,6 +189,11 @@ P.~Rheingans.
 \newblock In {\em Visualization, 1992. Visualization'92, Proceedings., IEEE
   Conference on}, pp. 252--259. IEEE, 1992.
 
+\bibitem{not_so_clevr}
+M.~{Ricci}, J.~{Kim}, and T.~{Serre}.
+\newblock {Not-So-CLEVR: Visual Relations Strain Feedforward Neural Networks}.
+\newblock {\em ArXiv e-prints}, Feb. 2018.
+
 \bibitem{Rogowitz2001_colormaps}
 B.~E. Rogowitz and A.~D. Kalvin.
 \newblock The "which blair project": a quick visual method for evaluating
@@ -165,6 +215,17 @@ C.~Szegedy, V.~Vanhoucke, S.~Ioffe, J.~Shlens, and Z.~Wojna.
 \newblock Rethinking the inception architecture for computer vision.
 \newblock {\em CoRR}, abs/1512.00567, 2015.
 
+\bibitem{treisman1988feature}
+A.~Treisman and S.~Gormican.
+\newblock Feature analysis in early vision: evidence from search asymmetries.
+\newblock {\em Psychological review}, 95(1):15, 1988.
+
+\bibitem{tremmel1995visual}
+L.~Tremmel.
+\newblock The visual separability of plotting symbols in scatterplots.
+\newblock {\em Journal of Computational and Graphical Statistics},
+  4(2):101--112, 1995.
+
 \bibitem{Wang_linegraph_vs_scatterplot}
 Y.~Wang, F.~Han, L.~Zhu, O.~Deussen, and B.~Chen.
 \newblock Line graph or scatter plot? automatic selection of methods for
@@ -183,6 +244,24 @@ C.~Ware.
 \newblock Color sequences for univariate maps: Theory, experiments and
   principles.
 \newblock {\em IEEE Computer Graphics and Applications}, 8(5):41--49, 1988.
+
+\bibitem{widgor_perception2007}
+D.~Wigdor, C.~Shen, C.~Forlines, and R.~Balakrishnan.
+\newblock Perception of elementary graphical elements in tabletop and
+  multi-surface environments.
+\newblock In {\em Proceedings of the SIGCHI Conference on Human Factors in
+  Computing Systems}, CHI '07, pp. 473--482. ACM, New York, NY, USA, 2007. doi:
+  {{%
+10\hspace{.1pt}\discretionary{.}{%
+}{.}\hspace{.4pt}1145\discretionary{/}{%
+}{/}1240624\hspace{.1pt}\discretionary{.}{%
+}{.}\hspace{.4pt}1240701}}
+
+
+\bibitem{wilkinson2006grammar}
+L.~Wilkinson.
+\newblock {\em The grammar of graphics}.
+\newblock Springer Science \& Business Media, 2006.
 
 \bibitem{yamins2016using}
 D.~L. Yamins and J.~J. DiCarlo.
