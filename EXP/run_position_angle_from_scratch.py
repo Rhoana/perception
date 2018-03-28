@@ -16,7 +16,7 @@ import time
 import ClevelandMcGill as C
 
 
-EXPERIMENT = sys.argv[1] # f.e. Typ1
+EXPERIMENT = sys.argv[1] # f.e. Angle
 CLASSIFIER = sys.argv[2] # 'LeNet'
 NOISE = sys.argv[3] # True
 JOB_INDEX = int(sys.argv[4])
@@ -38,25 +38,7 @@ if NOISE == 'True':
 else:
   NOISE = False
 
-if EXPERIMENT == 'C.Figure4.multi':
-
-  #
-  # one classifier with all different types
-  #
-  def DATATYPE(data):
-    '''
-    '''
-    
-    choices = ['C.Figure4.data_to_type1', 'C.Figure4.data_to_type2',\
-              'C.Figure4.data_to_type3', 'C.Figure4.data_to_type4', 'C.Figure4.data_to_type5']
-
-    choice = np.random.choice(choices)
-    
-    return eval(choice)(data)
-
-
-else: 
-  DATATYPE = eval(EXPERIMENT)
+DATATYPE = eval(EXPERIMENT)
 
 
 
@@ -121,8 +103,8 @@ while train_counter < train_target or val_counter < val_target or test_counter <
   
   all_counter += 1
   
-  data, label = C.Figure4.generate_datapoint()
-#   print data
+  data, label = C.Figure3.generate_datapoint()
+  
   pot = np.random.choice(3)
   
   # sometimes we know which pot is right
@@ -134,16 +116,13 @@ while train_counter < train_target or val_counter < val_target or test_counter <
     pot = 2
   
   if pot == 0 and train_counter < train_target:
-    
-    #
-    try:
-      image = DATATYPE(data)
-      image = image.astype(np.float32)
-    except:
-      continue
-      
+
     if label not in train_labels:
       train_labels.append(label)
+    
+    #
+    image = DATATYPE(data)
+    image = image.astype(np.float32)
       
     # add noise?
     if NOISE:
@@ -156,15 +135,11 @@ while train_counter < train_target or val_counter < val_target or test_counter <
     
   elif pot == 1 and val_counter < val_target:
 
-    #
-    try:
-      image = DATATYPE(data)
-      image = image.astype(np.float32)
-    except:
-      continue
-    
     if label not in val_labels:
       val_labels.append(label)
+      
+    image = DATATYPE(data)
+    image = image.astype(np.float32)
       
     # add noise?
     if NOISE:
@@ -177,15 +152,11 @@ while train_counter < train_target or val_counter < val_target or test_counter <
     
   elif pot == 2 and test_counter < test_target:
 
-    #
-    try:
-      image = DATATYPE(data)
-      image = image.astype(np.float32)
-    except:
-      continue
-    
     if label not in test_labels:
       test_labels.append(label)
+      
+    image = DATATYPE(data)
+    image = image.astype(np.float32)
       
     # add noise?
     if NOISE:
@@ -252,31 +223,78 @@ if CLASSIFIER == 'VGG19' or CLASSIFIER == 'XCEPTION':
   print 'memory usage', (X_train_3D.nbytes + X_val_3D.nbytes + X_test_3D.nbytes) / 1000000., 'MB'
 
   if CLASSIFIER == 'VGG19':  
-    feature_generator = keras.applications.VGG19(include_top=False, input_shape=(100,100,3))
+    feature_generator = keras.applications.VGG19(include_top=False, weights='imagenet', input_shape=(100,100,3))
   elif CLASSIFIER == 'XCEPTION':
-    feature_generator = keras.applications.Xception(include_top=False, input_shape=(100,100,3))
+    feature_generator = keras.applications.Xception(include_top=False, weights='imagenet', input_shape=(100,100,3))
   elif CLASSIFIER == 'RESNET50':
     print 'Not yet - we need some padding and so on!!!'
     sys.exit(1)
 
   t0 = time.time()
+  X_train_3D_features = feature_generator.predict(X_train_3D, verbose=True)
+  X_val_3D_features = feature_generator.predict(X_val_3D, verbose=True)
+  feature_time = time.time()-t0
 
+  X_test_3D_features = feature_generator.predict(X_test_3D, verbose=True)
+  print CLASSIFIER, 'features done after', time.time()-t0
+  print 'memory usage', (X_train_3D_features.nbytes + X_val_3D_features.nbytes + X_test_3D_features.nbytes) / 1000000., 'MB'
 
-  #
-  # THE MLP
-  #
-  #
+  # update the shape
+  feature_shape = X_train_3D_features.shape[1] * X_train_3D_features.shape[2] * X_train_3D_features.shape[3]
+
   MLP = models.Sequential()
-  MLP.add(layers.Flatten(input_shape=feature_generator.output_shape[1:]))
-  MLP.add(layers.Dense(256, activation='relu', input_dim=(100,100,3)))
-  MLP.add(layers.Dropout(0.5))
-  MLP.add(layers.Dense(5, activation='linear')) # REGRESSION
 
-  model = keras.Model(inputs=feature_generator.input, outputs=MLP(feature_generator.output))
+  X_train = X_train_3D_features.reshape(len(X_train_3D_features), feature_shape)
+  X_val = X_val_3D_features.reshape(len(X_val_3D_features), feature_shape)
+  X_test = X_test_3D_features.reshape(len(X_test_3D_features), feature_shape)
+  ##
 
-  sgd = optimizers.SGD(lr=0.0001, decay=1e-6, momentum=0.9, nesterov=True)
-  model.compile(loss='mean_squared_error', optimizer=sgd, metrics=['mse', 'mae']) # MSE for regression
+elif CLASSIFIER == 'LeNet':
 
+  ##
+  classifier = models.Sequential()
+  classifier.add(layers.Convolution2D(20, (5, 5), padding="same", input_shape=(100, 100, 1)))
+  classifier.add(layers.Activation("relu"))
+  classifier.add(layers.MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
+  classifier.add(layers.Dropout(0.2))
+  classifier.add(layers.Convolution2D(50, (5, 5), padding="same"))
+  classifier.add(layers.Activation("relu"))
+  classifier.add(layers.MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
+  classifier.add(layers.Dropout(0.2))
+  classifier.add(layers.Flatten())
+
+  feature_shape = classifier.output_shape
+  MLP = classifier
+
+  X_train = X_train.reshape(len(X_train), 100, 100, 1)
+  X_val = X_val.reshape(len(X_val), 100, 100, 1)
+  X_test = X_test.reshape(len(X_test), 100, 100, 1)
+  ##
+
+elif CLASSIFIER == 'MLP':
+
+  ##
+  MLP = models.Sequential()
+
+  # flatten the data
+  X_train = X_train.reshape(len(X_train), 100*100)
+  X_val = X_val.reshape(len(X_val), 100*100)
+  X_test = X_test.reshape(len(X_test), 100*100)
+
+  feature_shape = 100*100
+  ##
+
+#
+#
+# THE MLP
+#
+#
+MLP.add(layers.Dense(256, activation='relu', input_dim=feature_shape))
+MLP.add(layers.Dropout(0.5))
+MLP.add(layers.Dense(5, activation='linear')) # REGRESSION
+
+sgd = optimizers.SGD(lr=0.0001, decay=1e-6, momentum=0.9, nesterov=True)
+MLP.compile(loss='mean_squared_error', optimizer=sgd, metrics=['mse', 'mae']) # MSE for regression
 
 #
 #
@@ -287,13 +305,13 @@ t0 = time.time()
 callbacks = [keras.callbacks.EarlyStopping(monitor='val_loss', min_delta=0, patience=10, verbose=0, mode='auto'), \
              keras.callbacks.ModelCheckpoint(MODELFILE, monitor='val_loss', verbose=1, save_best_only=True, mode='min')]
 
-history = model.fit(X_train_3D, \
-                    y_train, \
-                    epochs=1000, \
-                    batch_size=32, \
-                    validation_data=(X_val_3D, y_val),
-                    callbacks=callbacks,
-                    verbose=True)
+history = MLP.fit(X_train, \
+                  y_train, \
+                  epochs=1000, \
+                  batch_size=32, \
+                  validation_data=(X_val, y_val),
+                  callbacks=callbacks,
+                  verbose=True)
 
 fit_time = time.time()-t0
 
