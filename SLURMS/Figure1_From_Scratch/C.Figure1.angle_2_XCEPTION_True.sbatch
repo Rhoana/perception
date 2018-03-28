@@ -9,7 +9,7 @@
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=haehn@seas.harvard.edu
 #SBATCH -o /n/home05/haehn/Projects/CP/SLURMS/Figure1_From_Scratch/LOGS/%A_%a.out
-#SBATCH -e /n/home05/haehn/Projects/CP/SLURMS/Figure1/Figure1_From_Scratch/%A_%a.err
+#SBATCH -e /n/home05/haehn/Projects/CP/SLURMS/Figure1_From_Scratch/LOGS/%A_%a.err
 
 # Print this sub-job's task ID
 echo "My SLURM_ARRAY_TASK_ID: " $SLURM_ARRAY_TASK_ID
