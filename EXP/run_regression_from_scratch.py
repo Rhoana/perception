@@ -51,7 +51,7 @@ if os.path.abspath('~').startswith('/n/'):
   PREFIX = '/n/regal/pfister_lab/PERCEPTION/'
 else:
   PREFIX = '/home/d/PERCEPTION/'
-RESULTS_DIR = PREFIX + 'RESULTS/'
+RESULTS_DIR = PREFIX + 'RESULTS_FROM_SCRATCH/'
 
 OUTPUT_DIR = RESULTS_DIR + EXPERIMENT + '/' + str(DATASET) + '/' + CLASSIFIER + '/'
 if not os.path.exists(OUTPUT_DIR):

@@ -146,3 +146,40 @@ class Figure3:
       random_direction -= current_angle
 
     return piechart
+
+  @staticmethod
+  def data_to_piechart_aa(data):
+    '''
+    '''
+    piechart = np.zeros((100,100), dtype=np.float32)
+    RADIUS = 30
+    rr,cc,val = skimage.draw.circle_perimeter_aa(50,50,RADIUS)
+    piechart[rr,cc] = val
+    random_direction = np.random.randint(360)
+    theta = -(np.pi / 180.0) * random_direction
+    END = (50 - RADIUS * np.cos(theta), 50 - RADIUS * np.sin(theta))
+    rr, cc, val = skimage.draw.line_aa(50, 50, int(np.round(END[0])), int(np.round(END[1])))
+    piechart[rr, cc] = val
+
+    for i,d in enumerate(data):
+
+      current_value = data[i]
+      current_angle = (current_value / 100.) * 360.
+      # print current_value, current_angle
+      # print 'from', random_direction, 'to', current_angle
+      theta = -(np.pi / 180.0) * (random_direction-current_angle)
+      END = (50 - RADIUS * np.cos(theta), 50 - RADIUS * np.sin(theta))
+      rr, cc,val = skimage.draw.line_aa(50, 50, int(np.round(END[0])), int(np.round(END[1])))
+      piechart[rr,cc] = val
+      
+      if d == np.max(data):
+        # this is the max spot
+        theta = -(np.pi / 180.0) * (random_direction-current_angle/2.)
+        END = (50 - RADIUS/2 * np.cos(theta), 50 - RADIUS/2 * np.sin(theta))
+        rr, cc,val = skimage.draw.line_aa(int(np.round(END[0])), int(np.round(END[1])), int(np.round(END[0])), int(np.round(END[1])))
+        piechart[rr,cc] = val
+      
+      random_direction -= current_angle
+
+    return piechart
+
