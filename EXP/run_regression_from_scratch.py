@@ -272,11 +272,11 @@ t0 = time.time()
 callbacks = [keras.callbacks.EarlyStopping(monitor='val_loss', min_delta=0, patience=10, verbose=0, mode='auto'), \
              keras.callbacks.ModelCheckpoint(MODELFILE, monitor='val_loss', verbose=1, save_best_only=True, mode='min')]
 
-history = model.fit(X_train, \
+history = model.fit(X_train_3D, \
                     y_train, \
                     epochs=1000, \
                     batch_size=32, \
-                    validation_data=(X_val, y_val),
+                    validation_data=(X_val_3D, y_val),
                     callbacks=callbacks,
                     verbose=True)
 
