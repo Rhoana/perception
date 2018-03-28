@@ -1,14 +1,38 @@
 \section{Previous Work}
 
 \textbf{Graphical Perception.} Cleveland and McGill~\cite{cleveland_mcgill} introduce the fundamental concept of \emph{graphical perception} and investigate how different visual attributes and encodings are perceivable by humans. They define \emph{elementary perceptual tasks} as mental-visual stimuli to understand encodings in visualizations. Based on these definitions, the authors propose and perform different experiments such as the \emph{position-angle} experiment which compares bar charts and pie charts, the \emph{position-length} experiment where users judge relations between encoded values in grouped and divided bar charts, and the \emph{bars-and-framed-rectangles} experiment to evaluate Weber's law. Heer and Bostock later reproduced the Cleveland-McGill experiments crowd-sourced on Mechanical Turk~\cite{HeerBostock2010} which lead to follow-up work from Harrison \textit{et al.}~\cite{harrison2013influencing} who replicated the experiments while observing emotional states. Both papers report similar results to Cleveland and McGill which increased our motivation to mimmick their pioneering work. Our experimental setup replicates the original setup of Cleveland and McGill - just instead of humans, we use convolutional neural networks due to the connection with the human visual system. While we focus on Cleveland and McGill's work from 1984, many other excellent articles from the last decades target low-level visual encoding~\cite{bertin1967semiologie,cleveland1985graphical,treisman1988feature, wilkinson2006grammar, carpendale2003considering,widgor_perception2007,munzner2015visualization}.
-\\~\\
-\textbf{Comparing Visual Encodings.} Different visual encodings have advantages or disadvantages and the community does a great job comparing them. Higher-level comparisons include 2D versus 3D vector field and rendering studies~\cite{mckenzie_2d_3d,forsberg2009comparing_3d_vector,laidlaw_2d_vector,borkin2011arteries}, timeseries~\cite{herr2009timeseries} and scatterplots~\cite{tremmel1995visual,Wang_linegraph_vs_scatterplot}. Lower-level experiments target - besides others - open versus closed encodings~\cite{open_vs_closed_shapes}, and several evaluations of color space~\cite{ware1988color,rheingans1992color,Rogowitz2001_colormaps,kindlmann2002color}. While we investigate lower-level visual encodings in this work, we delay colorspace experiments for future work.
 
-Interesting are also the rankings of correlation visualization using Weber's law~\cite{harrison2014_webers_law_rank}. This law defines the proportional relation between the initial distribution density and perceivable change. In this paper, we investigate with a simple experiment whether this holds for convolutional neural networks. 
+Interesting are also the rankings of correlation visualization using Weber's law~\cite{harrison2014_webers_law_rank}. This law defines the proportional relation between the initial distribution density and perceivable change. In this paper, we investigate with a simple experiment whether this holds for convolutional neural networks.
 \\~\\
-\textbf{Visual Cortex Inspired Machine Learning.} Classifiers mimmicking the human visual system are a hot topic and many different architectures, models, and paradigms exist. Feed-forward neural networks 
+%\textbf{Comparing Visual Encodings.} Different visual encodings have advantages or disadvantages and the community does a great job comparing them. Higher-level comparisons include 2D versus 3D vector field and rendering studies~\cite{mckenzie_2d_3d,forsberg2009comparing_3d_vector,laidlaw_2d_vector,borkin2011arteries}, timeseries~\cite{herr2009timeseries} and scatterplots~\cite{tremmel1995visual,Wang_linegraph_vs_scatterplot}. Lower-level experiments target - besides others - open versus closed encodings~\cite{open_vs_closed_shapes}, and several evaluations of color space~\cite{ware1988color,rheingans1992color,Rogowitz2001_colormaps,kindlmann2002color}. While we investigate lower-level visual encodings in this work, we delay colorspace experiments for future work.
 
-MLP, LeNet, VGG, ImageNet, XCeption, ResNets etc and work from THomas Serre
+\textbf{Computational Visualization Understanding.}
+
+Pineo \textit{et al.}~\cite{Pineo2012_computational_perception} create computational model of human vision based on neural networks and their experiments show that understanding visualization triggers neural activity in high-level areas of cognition. The authors suspect that this level of understanding is produced by low-level neurons performing elementary perceptional tasks. We are further investigating this suspision.
+Other work tries to parse infographics by finding higher-level saliency models~\cite{bylinskii2016should}, or by extracting text or key visual elements~\cite{diagram_understanding,kembhavi2016diagram,zoya_text_visual_tags}. However, none of these works focus on computational understanding of lower-level building blocks of visualizations such as curvature, lengths, or position.
+\\~\\
+\textbf{Visual Cortex Inspired Machine Learning.} 
+%Classifiers mimmicking the human visual system are a hot topic and many different architectures, models, and paradigms exist. Feed-forward neural networks 
+The human visual cortex is an extremely powerful system which allows the ability, and seemingly without effort, to recognize an enormous amount of distinct objects in the world. This visual system is organized in layers and has inspired the theory of computational classifiers based on multilayer neural networks. Fukushima and Miyake developed the Neocognitron quantitative model~\cite{fukushima1982neocognitron} that ultimately led to the important work of Hinton, Bengio, and LeCun: \textit{deep neural networks}~\cite{lecun2015deep}, visual cortex inspired machine learning.
+Nowadays, such classifiers exist with many different architectures. For this paper, we select the traditional \emph{LeNet-5}~\cite{lenet} which was designed to recognize hand-written digits, the VGG19~\cite{simonyan_very_deep2014} classifier with 16 convolutional layers, and the Xception~\cite{xception} classifier with 36 convolutional layers. Selecting these specific networks allows us to compare archtitectures with different depths.
+%Object detection is extremely difficult and therefore is especially impressive as light intensities can change by levels of magnitude and contrast between foreground and background is so often low. 
+%In addition, the visual scene changes every time the human body or human eyes move. 
+%This visual system exhibits a very noisy structure but because it is organized by layers it has inspired the mathematical theory of multilayer neural networks. 
+
+%In 1962 Hubel and Wiesel were the first to begin studying the visual cortex from the standpoint of a neuroscientist. Their experimental findings on cats and macaque monkeys suggested a hierarchy of cells with increasing complexity which was then later transferred to the hierarchical model of different layers. Twenty years later, this insight was translated to the Neocognitron quantitative model, by Fukushima and Miyake, which ultimately led to the important work of Hinton, Bengio, and LeCun in the 1980s. Their work on stochastic gradient descent approximation, and the availability of faster computer hardware then led to today’s deep learning networks. In the last decade, this field has exhibited rapid growth, constant evolution, and new applications in various domains.
+
+
+%The reported classification performance is superior to that of humans and the question in regards to their functionality opens an interesting research topic.
+%Visual cortex inspired machine learning classifiers exist with many different architectures. We select the traditional \emph{LeNet-5}~\cite{lenet} which was designed to recognize hand-written digits, the VGG19~\cite{simonyan_very_deep2014} classifier with 16 convolutional layers, and the Xception~\cite{xception} classifier with 36 convolutional layers. 
+%
+%What is remarkable is that even though current machine learning models do not resemble the complexity of its biological pendant, they inherently are able to generalize but only after learning thousands of examples. 
+%Neural networks trained on one specific task can be used to perform detection or segmentation of, seemingly, unrelated objects with relatively minor retraining~\cite{transfer_learning}. 
+%
+%
+%We think that the biological inspiration of modern convolutional neural networks yields the evaluation of principles of human perception with computers.
+%
+%
+%MLP, LeNet, VGG, ImageNet, XCeption, ResNets etc and work from THomas Serre
 %
 %
 %- https://link.springer.com/chapter/10.1007/978-3-642-14600-8_46
@@ -17,7 +41,4 @@ MLP, LeNet, VGG, ImageNet, XCeption, ResNets etc and work from THomas Serre
 %
 %- last year's VADL workshop: https://vadl2017.github.io/
 
-\textbf{Computing Perception.}
 
-Pineo et al.~\cite{Pineo2012_computational_perception} present a method to automatically evaluate and optimize visualizations using a computational model of human vision, based on a neural network simulation of the early perceptual processing in the retina and primary visual cortex. [JT] Copied from their abstract.
-Zoya's work
