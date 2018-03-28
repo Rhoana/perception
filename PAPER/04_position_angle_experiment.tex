@@ -18,3 +18,19 @@ We proposed four hypotheses entering the elementary perceptual task experiment:
 	\item \textbf{H2.2} \textbf{Classifiers can learn position faster than angles.} We assume that understanding bar charts is easier than understanding pie charts. We suspect that our classifiers learn encodings of positions faster than of angles resulting in more efficient training and faster convergence.
 \end{itemize}
 
+\subsection{Results}
+
+
+Bar charts are more accurate (Fig.~\ref{fig:figure3_mlae}) and networks converge faster (Fig.~\ref{fig:figure3_val_loss}). This is great.
+
+\begin{figure}[t]
+	  \includegraphics[width=\linewidth]{figure3_val_loss.pdf}
+  \caption{\textbf{Classifier Efficiency of the Position-Angle experiment.} Mean Square Error (MSE) loss for the \emph{position-angle experiment} as described by Cleveland and McGill~\cite{cleveland_mcgill} which compares the visualization of pie charts and bar charts. We report the MSE measure for both encodings of four different classifier on previously unseen validation data.}
+	\label{fig:figure3_val_loss}
+\end{figure}
+
+\begin{figure}[t]
+	  \includegraphics[width=\linewidth]{figure3_mlae_better.pdf}
+  \caption{\textbf{Computational results of the Position-Angle experiment.} Log absolute error means and 95\% confidence intervals for the \emph{position-angle experiment} as described by Cleveland and McGill~\cite{cleveland_mcgill}. We test the performance of a Multi-layer Perceptron (MLP), the LeNet Convolutional Neural Network, as well as feature generation using the VGG19 and Xception networks trained on ImageNet.}
+	\label{fig:figure3_mlae}
+\end{figure}

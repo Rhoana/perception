@@ -70,3 +70,39 @@ We proposed four hypotheses entering the elementary perceptual task experiment:
 	\item \textbf{H1.3} \textbf{Some visual encodings are better than others for computations.} Cleveland and McGill order the elementary perceptual tasks by accuracy. We investigate whether this order is also relevant for computing graphical perception.
 	\item \textbf{H1.4} \textbf{Classifiers trained on perceptual tasks can generalize to more or less complex variations of the same task.} Recent research suggests that convolutional neural networks generalize extremely well. While the underlying reasons are mainly yet unknown, this property allows them to perform on variations of a similar perceptual task.
 \end{itemize}
+
+\subsection{Results}
+
+
+some are good and some are bad.. why?
+
+\begin{figure*}[h]
+	\centering
+	  \includegraphics[width=.95\linewidth]{figure1.pdf}
+  \caption{\textbf{Computational results of Elementary Perceptual Tasks experiment.} Log absolute error means and 95\% confidence intervals for computed perception of different classifiers on the \emph{elementary perceptual tasks} introduced by Cleveland and McGill 1984~\cite{cleveland_mcgill}. We test the performance of a Multi-layer Perceptron (MLP), the LeNet Convolutional Neural Network, as well as feature generation using the VGG19 and Xception networks trained on ImageNet.}
+	\label{fig:figure1_results}
+\end{figure*}
+
+\textbf{Computational Perception Ranking.}
+
+Cleveland McGills Ranking - can we observe something similar?
+
+\begin{enumerate}
+	\item Position along a common scale e.g. scatter plot
+	\item Position on identical but nonaligned scales e.g. multiple scatter plots
+	\item Length e.g. bar chart
+	\item Angle \& Slope (tie) e.g. pie chart
+	\item Area e.g. bubbles
+	\item Volume, density, and color saturation (tie) e.g. heatmap
+	\item Color hue e.g. newsmap
+\end{enumerate}
+
+\noindent{\textbf{Cross-classifier variability.}}
+
+Can a neural network generalize on simple perceptual tasks?
+
+\begin{figure}[t]
+	  \includegraphics[width=\linewidth]{cross_network_small_VGG19.pdf}
+  \caption{\textbf{Cross-classifier variability for the perceptual task of measuring length.} We use predictions of LeNet classifiers trained on different parametrizations of the \emph{curvature} elementary perceptual task and measure the mean logistic absolute error (MLAE). The lower score, the better. Classifiers trained on curves with variable position can generalize even if the axis of translation varies. However, classifiers trained on fixed positions of curves are not able to measure translated curves.}
+	\label{fig:cross_network}
+\end{figure}

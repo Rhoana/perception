@@ -26,3 +26,14 @@ As identified by Cleveland and McGill, the bar and framed rectangle experiment i
   \caption{\textbf{Weber-Fechner Law.} The Weber-Fechner law states that the perceivable differences within a distribution is proportional to the initial size of the distribution. The lower square contains 10 more dots than the upper one on both sides. However, the difference is easily perceivable on the left while the squares on the right almost look the same. We generate rasterized visualizations similar to this setup and evaluate our classifiers.}
 	\label{fig:webers_law}
 \end{figure}
+
+\subsection{Results}
+
+First run indicates that framed rectangles perform better but we dont really know it yet.
+
+\begin{figure*}[t]
+	  \includegraphics[width=\linewidth]{figure12_mlae.pdf}
+  \caption{\textbf{Computational results of the Bars-and-Framed-Rectangles experiment.} Log absolute error means and 95\% confidence intervals for the \emph{bars-and-framed-rectangles experiment} as described by Cleveland and McGill~\cite{cleveland_mcgill}. We test the performance of a Multi-layer Perceptron (MLP), the LeNet Convolutional Neural Network, as well as feature generation using the VGG19 and Xception networks trained on ImageNet.}
+	\label{fig:figure12_mlae}
+\end{figure*}
+
