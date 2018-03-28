@@ -223,78 +223,31 @@ if CLASSIFIER == 'VGG19' or CLASSIFIER == 'XCEPTION':
   print 'memory usage', (X_train_3D.nbytes + X_val_3D.nbytes + X_test_3D.nbytes) / 1000000., 'MB'
 
   if CLASSIFIER == 'VGG19':  
-    feature_generator = keras.applications.VGG19(include_top=False, weights='imagenet', input_shape=(100,100,3))
+    feature_generator = keras.applications.VGG19(include_top=False, input_shape=(100,100,3))
   elif CLASSIFIER == 'XCEPTION':
-    feature_generator = keras.applications.Xception(include_top=False, weights='imagenet', input_shape=(100,100,3))
+    feature_generator = keras.applications.Xception(include_top=False, input_shape=(100,100,3))
   elif CLASSIFIER == 'RESNET50':
     print 'Not yet - we need some padding and so on!!!'
     sys.exit(1)
 
   t0 = time.time()
-  X_train_3D_features = feature_generator.predict(X_train_3D, verbose=True)
-  X_val_3D_features = feature_generator.predict(X_val_3D, verbose=True)
-  feature_time = time.time()-t0
 
-  X_test_3D_features = feature_generator.predict(X_test_3D, verbose=True)
-  print CLASSIFIER, 'features done after', time.time()-t0
-  print 'memory usage', (X_train_3D_features.nbytes + X_val_3D_features.nbytes + X_test_3D_features.nbytes) / 1000000., 'MB'
 
-  # update the shape
-  feature_shape = X_train_3D_features.shape[1] * X_train_3D_features.shape[2] * X_train_3D_features.shape[3]
-
+  #
+  # THE MLP
+  #
+  #
   MLP = models.Sequential()
+  MLP.add(layers.Flatten(input_shape=feature_generator.output_shape[1:]))
+  MLP.add(layers.Dense(256, activation='relu', input_dim=(100,100,3)))
+  MLP.add(layers.Dropout(0.5))
+  MLP.add(layers.Dense(5, activation='linear')) # REGRESSION
 
-  X_train = X_train_3D_features.reshape(len(X_train_3D_features), feature_shape)
-  X_val = X_val_3D_features.reshape(len(X_val_3D_features), feature_shape)
-  X_test = X_test_3D_features.reshape(len(X_test_3D_features), feature_shape)
-  ##
+  model = keras.Model(inputs=feature_generator.input, outputs=MLP(feature_generator.output))
 
-elif CLASSIFIER == 'LeNet':
+  sgd = optimizers.SGD(lr=0.0001, decay=1e-6, momentum=0.9, nesterov=True)
+  model.compile(loss='mean_squared_error', optimizer=sgd, metrics=['mse', 'mae']) # MSE for regression
 
-  ##
-  classifier = models.Sequential()
-  classifier.add(layers.Convolution2D(20, (5, 5), padding="same", input_shape=(100, 100, 1)))
-  classifier.add(layers.Activation("relu"))
-  classifier.add(layers.MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
-  classifier.add(layers.Dropout(0.2))
-  classifier.add(layers.Convolution2D(50, (5, 5), padding="same"))
-  classifier.add(layers.Activation("relu"))
-  classifier.add(layers.MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
-  classifier.add(layers.Dropout(0.2))
-  classifier.add(layers.Flatten())
-
-  feature_shape = classifier.output_shape
-  MLP = classifier
-
-  X_train = X_train.reshape(len(X_train), 100, 100, 1)
-  X_val = X_val.reshape(len(X_val), 100, 100, 1)
-  X_test = X_test.reshape(len(X_test), 100, 100, 1)
-  ##
-
-elif CLASSIFIER == 'MLP':
-
-  ##
-  MLP = models.Sequential()
-
-  # flatten the data
-  X_train = X_train.reshape(len(X_train), 100*100)
-  X_val = X_val.reshape(len(X_val), 100*100)
-  X_test = X_test.reshape(len(X_test), 100*100)
-
-  feature_shape = 100*100
-  ##
-
-#
-#
-# THE MLP
-#
-#
-MLP.add(layers.Dense(256, activation='relu', input_dim=feature_shape))
-MLP.add(layers.Dropout(0.5))
-MLP.add(layers.Dense(5, activation='linear')) # REGRESSION
-
-sgd = optimizers.SGD(lr=0.0001, decay=1e-6, momentum=0.9, nesterov=True)
-MLP.compile(loss='mean_squared_error', optimizer=sgd, metrics=['mse', 'mae']) # MSE for regression
 
 #
 #
@@ -305,13 +258,13 @@ t0 = time.time()
 callbacks = [keras.callbacks.EarlyStopping(monitor='val_loss', min_delta=0, patience=10, verbose=0, mode='auto'), \
              keras.callbacks.ModelCheckpoint(MODELFILE, monitor='val_loss', verbose=1, save_best_only=True, mode='min')]
 
-history = MLP.fit(X_train, \
-                  y_train, \
-                  epochs=1000, \
-                  batch_size=32, \
-                  validation_data=(X_val, y_val),
-                  callbacks=callbacks,
-                  verbose=True)
+history = model.fit(X_train_3D, \
+                    y_train, \
+                    epochs=1000, \
+                    batch_size=32, \
+                    validation_data=(X_val_3D, y_val),
+                    callbacks=callbacks,
+                    verbose=True)
 
 fit_time = time.time()-t0
 
