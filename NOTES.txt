@@ -214,3 +214,28 @@ shading
 #
 # please come to our talk to find out
 #
+
+
+
+####
+# POS LENGTH
+#
+# TYPE 1 
+    1.4 +- 0.14
+  TYPE 2
+    1.72 +- 0.2
+  TYPE 3
+    1.84 +- 0.16  
+  TYPE 4
+    2.35 +- 0.175
+  TYPE 5
+    2.72 +- 0.155
+#
+# POS ANGLE
+#
+# Type 1
+    1.035 +- 0.125
+  Type 2
+    2.05 +- 0.115
+
+
