@@ -106,13 +106,13 @@ test_labels = []
 
 
 X_train = np.zeros((train_target, 100, 100), dtype=np.float32)
-y_train = np.zeros((train_target, 1), dtype=np.float32)
+y_train = np.zeros((train_target, 5), dtype=np.float32)
 
 X_val = np.zeros((val_target, 100, 100), dtype=np.float32)
-y_val = np.zeros((val_target, 1), dtype=np.float32)
+y_val = np.zeros((val_target, 5), dtype=np.float32)
 
 X_test = np.zeros((test_target, 100, 100), dtype=np.float32)
-y_test = np.zeros((test_target, 1), dtype=np.float32)
+y_test = np.zeros((test_target, 5), dtype=np.float32)
 
 t0 = time.time()
 
