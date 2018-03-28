@@ -82,19 +82,15 @@ train_target = 60000
 val_target = 20000
 test_target = 20000
 
-train_labels = []
-val_labels = []
-test_labels = []
-
 
 X_train = np.zeros((train_target, 100, 100), dtype=np.float32)
-y_train = np.zeros((train_target, 5), dtype=np.float32)
+y_train = np.zeros((train_target, 1), dtype=np.float32)
 
 X_val = np.zeros((val_target, 100, 100), dtype=np.float32)
-y_val = np.zeros((val_target, 5), dtype=np.float32)
+y_val = np.zeros((val_target, 1), dtype=np.float32)
 
 X_test = np.zeros((test_target, 100, 100), dtype=np.float32)
-y_test = np.zeros((test_target, 5), dtype=np.float32)
+y_test = np.zeros((test_target, 1), dtype=np.float32)
 
 t0 = time.time()
 
@@ -103,27 +99,13 @@ while train_counter < train_target or val_counter < val_target or test_counter <
   
   all_counter += 1
   
-  data, label = C.Figure3.generate_datapoint()
+  image, label = DATATYPE()
+  image = image.astype(np.float32)
   
   pot = np.random.choice(3)
   
-  # sometimes we know which pot is right
-  if label in train_labels:
-    pot = 0
-  if label in val_labels:
-    pot = 1
-  if label in test_labels:
-    pot = 2
-  
   if pot == 0 and train_counter < train_target:
 
-    if label not in train_labels:
-      train_labels.append(label)
-    
-    #
-    image = DATATYPE(data)
-    image = image.astype(np.float32)
-      
     # add noise?
     if NOISE:
       image += np.random.uniform(0, 0.05,(100,100))
@@ -135,12 +117,6 @@ while train_counter < train_target or val_counter < val_target or test_counter <
     
   elif pot == 1 and val_counter < val_target:
 
-    if label not in val_labels:
-      val_labels.append(label)
-      
-    image = DATATYPE(data)
-    image = image.astype(np.float32)
-      
     # add noise?
     if NOISE:
       image += np.random.uniform(0, 0.05,(100,100))
@@ -152,12 +128,6 @@ while train_counter < train_target or val_counter < val_target or test_counter <
     
   elif pot == 2 and test_counter < test_target:
 
-    if label not in test_labels:
-      test_labels.append(label)
-      
-    image = DATATYPE(data)
-    image = image.astype(np.float32)
-      
     # add noise?
     if NOISE:
       image += np.random.uniform(0, 0.05,(100,100))
@@ -241,7 +211,7 @@ if CLASSIFIER == 'VGG19' or CLASSIFIER == 'XCEPTION':
   MLP.add(layers.Flatten(input_shape=feature_generator.output_shape[1:]))
   MLP.add(layers.Dense(256, activation='relu', input_dim=(100,100,3)))
   MLP.add(layers.Dropout(0.5))
-  MLP.add(layers.Dense(5, activation='linear')) # REGRESSION
+  MLP.add(layers.Dense(1, activation='linear')) # REGRESSION
 
   model = keras.Model(inputs=feature_generator.input, outputs=MLP(feature_generator.output))
 
