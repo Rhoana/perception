@@ -17,12 +17,39 @@ We proposed two hypotheses entering the elementary perceptual task experiment:
 \end{itemize}
 
 
-\begin{figure*}[t]
-	  \includegraphics[width=\linewidth]{figure4_overview.pdf}
-	  
-  \caption{\textbf{Position-Length Experiment.} (Not yet) Rasterized versions of the graphs of Cleveland and McGill's position-length experiment. The perceptual task involves comparing. the two dot-marked quantities across five different visual encodings of either grouped or divided bar charts. We evaluate which type of bar chart performs better with our neural networks as a combined classification and regression problem. The first task is to select which of the marked quantities is smaller (classification) and the second task is to specify how much smaller it is (regression).}
-	\label{fig:position_length_experiment}
-\end{figure*}
+%\begin{figure*}[t]
+%	  \includegraphics[width=\linewidth]{figure4_overview.pdf}
+%	  
+%  \caption{\textbf{Position-Length Experiment.} (Not yet) Rasterized versions of the graphs of Cleveland and McGill's position-length experiment. The perceptual task involves comparing. the two dot-marked quantities across five different visual encodings of either grouped or divided bar charts. We evaluate which type of bar chart performs better with our neural networks as a combined classification and regression problem. The first task is to select which of the marked quantities is smaller (classification) and the second task is to specify how much smaller it is (regression).}
+%	\label{fig:position_length_experiment}
+%\end{figure*}
+\begin{table}[h]
+\centering
+\caption{\textbf{Position-Length Experiment.} Rasterized versions of the graphs of Cleveland and McGill's position-length experiment. The perceptual task involves comparing the two dot-marked quantities across five different visual encodings of either grouped or divided bar charts. We evaluate which type of bar chart performs better with our neural networks. The two marked values are chosen from a set of ten pairs which defines the dual regression task. Since the other 8 values are chosen randomly, the parameter space for images of this experiment is massive.}
+\resizebox{\linewidth}{!}{
+\begin{tabular}{lllr}
+	\toprule
+	\multicolumn{2}{l}{~} & ~ & Permutations\\
+	\midrule
+	\raisebox{-.85\height}{\includegraphics[width=.5in]{figure4_type_1.pdf}} & \makecell[tl]{Type 1: \emph{Grouped Bar Chart}\\~~~Perceptual Task: \emph{Position}\\~ \\~ \\} &~& \makecell[tr]{~\\ $9.20E+16$}\\
+
+	\midrule
+	\raisebox{-.85\height}{\includegraphics[width=.5in]{figure4_type_2.pdf}} & \makecell[tl]{Type 2: \emph{Divided Bar Chart}\\~~~Perceptual Task: \emph{Position}\\~ \\~ \\} &~& \makecell[tr]{~\\ $9.20E+16$}\\
+	
+	\midrule
+	\raisebox{-.85\height}{\includegraphics[width=.5in]{figure4_type_3.pdf}} & \makecell[tl]{Type 3: \emph{Grouped Bar Chart}\\~~~Perceptual Task: \emph{Position}\\~ \\~ \\} &~& \makecell[tr]{~\\ $9.20E+16$}\\
+	
+	\midrule
+	\raisebox{-.85\height}{\includegraphics[width=.5in]{figure4_type_4.pdf}} & \makecell[tl]{Type 4: \emph{Divided Bar Chart}\\~~~Perceptual Task: \emph{Length}\\~ \\~ \\} &~& \makecell[tr]{~\\ $9.20E+16$}\\
+	
+	\midrule
+	\raisebox{-.85\height}{\includegraphics[width=.5in]{figure4_type_5.pdf}} & \makecell[tl]{Type 5: \emph{Divided Bar Chart}\\~~~Perceptual Task: \emph{Length}\\~ \\~ \\} &~& \makecell[tr]{~\\ $9.20E+16$}\\
+
+	\bottomrule
+\end{tabular}
+}
+\label{tab:pos_length_parameters}
+\end{table}
 
 \subsection{Discussion}
 

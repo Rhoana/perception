@@ -3,11 +3,32 @@
 
 The position-angle experiment was originally performed by Cleveland and McGill to measure whether humans can better perceive quantities encoded as positions or as angles~\cite{cleveland_mcgill}. The actual experiment then compares pie charts versus bar charts since these map down to elementary position and angle judgement. We create rasterized images mimicking Cleveland and McGill's proposed encoding and investigate computational perception of our four classifiers.
 
-\begin{figure}[t]
-	  \includegraphics[width=\linewidth]{figure3_overview}
-  \caption{\textbf{Position-Angle Experiment.} We create rasterized visualizations of pie charts and bar charts to follow Cleveland and McGill's position-angle experiment. The experimental task involves the judgement of different encoded values in comparison to the largest encoded values. The pie chart (left) and the bar chart (right) visualize the same data point. In their paper, Cleveland and McGill report less errors using bar charts.}
-	\label{fig:position_angle_experiment}
-\end{figure}
+%\begin{figure}[t]
+%	  \includegraphics[width=\linewidth]{figure3_overview}
+%  \caption{\textbf{Position-Angle Experiment.} We create rasterized visualizations of pie charts and bar charts to follow Cleveland and McGill's position-angle experiment. The experimental task involves the judgement of different encoded values in comparison to the largest encoded values. The pie chart (left) and the bar chart (right) visualize the same data point. In their paper, Cleveland and McGill report less errors using bar charts.}
+%	\label{fig:position_angle_experiment}
+%\end{figure}
+\begin{table}[h]
+\centering
+\caption{\textbf{Position-Angle Experiment.} We create rasterized visualizations of pie charts and bar charts to follow Cleveland and McGill's position-angle experiment. The experimental task involves the judgement of different encoded values in comparison to the largest encoded values. The pie chart and the bar chart visualize the same data point. In their paper, Cleveland and McGill report less errors using bar charts.}
+\resizebox{\linewidth}{!}{
+\begin{tabular}{lllr}
+	\toprule
+	\multicolumn{2}{l}{~} & ~ & Permutations\\
+
+	\midrule
+	\raisebox{-.85\height}{\includegraphics[width=.5in]{figure3_Bar_Chart.pdf}} & \makecell[tl]{Type 1: \emph{Bar Chart}\\~~~Perceptual Task: \emph{Position}\\~ \\~ \\} &~& \makecell[tr]{~\\ $244,827$}\\
+
+
+	\midrule
+	\raisebox{-.85\height}{\includegraphics[width=.5in]{figure3_Pie_Chart.pdf}} & \makecell[tl]{Type 2: \emph{Pie Chart}\\~~~Perceptual Task: \emph{Angle}\\~ \\~ \\} &~& \makecell[tr]{~\\ $244,827$}\\
+
+
+	\bottomrule
+\end{tabular}
+}
+\label{tab:pos_angle_parameters}
+\end{table}
 
 \subsection{Hypotheses}
 
