@@ -275,7 +275,7 @@ print 'Fitting done', time.time()-t0
 # PREDICTION
 #
 #
-y_pred = MLP.predict(X_test_3D)
+y_pred = model.predict(X_test_3D)
 
 
 #

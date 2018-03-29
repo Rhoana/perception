@@ -1,5 +1,10 @@
 .*
 
+PAPER/paper.aux
+PAPER/paper.bbl
+PAPER/paper.blg
+PAPER/paper.out
+
 .DS_Store
 
 # Byte-compiled / optimized / DLL files
