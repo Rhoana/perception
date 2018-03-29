@@ -82,7 +82,7 @@ Our classifiers are built upon a multilayer perceptron (MLP) which is a feedforw
 \label{sec:data}
 We create all visualizations as parametrized rasterized images without interpolation (except for the anti-alias experiment). The number of parameters differs per experiment as summarized in Table~\ref{tab:encoding_parameters} and section~\ref{sec:parametrizations}. 
 \\~\\
-\noindent\textbf{Noise.} We add subtle random noise ($0.05$) to each pixel to introduce additional variation.
+\noindent\textbf{Noise.} We add subtle random noise ($0.05$) to each pixel to introduce additional variation. This prevents the classifiers of learning the actual pixels.
 \\~\\
 \noindent\textbf{Training/Validation/Test Splits.} We specify the size of each split set as follows: 60,000 training images, 20,000 validation images, and 20,000 test images. We then randomly add parameterized visualizations to the sets while guaranteeing that each set is disjunct from each other in terms of encoded variables. This eliminates leakage during training and evaluation. We also scale each set independently: images to the range of $-0.5$ to $0.5$ and labels to the range of $0.0$ to $1.0$. 
 \\~\\
