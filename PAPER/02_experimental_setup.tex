@@ -1,8 +1,12 @@
 
 \section{Experimental Setup}
 
-We conduct quantitative experiments to measure how different convolutional neural networks ``perceive'' low-level visual encodings such as positions, angles, curvature, and lengths. We treat each network as a subject in a between-subjects experiment to evaluate supervised learning algorithms. For this, we formulate any estimation of single quantities or relations between multiple quantities as a logistic regression problem with single or multiple outputs between $0$ and $1$. The output indicates the percentage in regards to the degrees of freedom of the individual experiment but all experiments have different sets of parameters. As baseline, we use a standard multilayer perceptron (MLP) without the generation of additional feature maps through convolutions (Fig.~\ref{fig:classifiers}).
-For our experiments, we use a series of single factor between-subject designs with the factor \emph{classifier} (MLP, LeNet, VGG19, Xception, VGG19+ImageNet, Xception+ImageNet). Each experiment includes a training and a testing phase on data without any overlap (Section~\ref{sec:data}). All parameters such as network hyperparameters, optimization methods, and stopping conditions are fixed (Section~\ref{sec:classifiers}). However, since the classifiers are of different complexity, the number of trainable parameters changes (Table~\ref{tab:parameters}). We define a series of hypotheses prior to each experiment.
+We conduct quantitative experiments to measure how different convolutional neural networks perceive low-level visual encodings, such as positions, angles, curvatures, and lengths. We formulate measurement tasks as logistic regression problems, where the networks must estimate single quantities or ratio relations between multiple quantities. The output between $0$ and $1$ indicates the percent of the value to be measured in the individual experiment. 
+
+% The output between $0$ and $1$ indicates the percent of the value to be measured in the individual experiment. 
+
+As baseline, we use a standard multilayer perceptron (MLP) without the generation of additional feature maps through convolutions (Fig.~\ref{fig:classifiers}).
+For our experiments, we use a series of single factor between-subject designs with the factor \emph{network} (MLP, LeNet, VGG19, Xception, VGG19+ImageNet, Xception+ImageNet). We train each network in a supervised fashion, with each experiment including a training and a testing phase on data. without any overlap (Section~\ref{sec:data}). All parameters such as network hyperparameters, optimization methods, and stopping conditions are fixed (Section~\ref{sec:classifiers}). However, since the networks are of different complexity, the number of trainable parameters changes (Table~\ref{tab:parameters}). We define a series of hypotheses prior to each experiment.
 
 \subsection{Measures and Analysis}
 
