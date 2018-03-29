@@ -1,59 +1,51 @@
+% !TeX root = paper.tex
 \section{Elementary Perceptual Tasks}
 
-Cleveland and McGill describe the mapping of graphical elements to quantitative variables as \emph{elementary perceptual tasks} and introduce a list of ten different encodings in their paper~\cite{cleveland_mcgill}. We create visualizations of these tasks as rasterized images (Fig.~\ref{fig:elementary_perceptual_tasks}).
+Cleveland and McGill describe the mapping of graphical elements to quantitative variables as \emph{elementary perceptual tasks} and introduce a list of ten different encodings in their paper~\cite{cleveland_mcgill}. We create visualizations of these tasks as rasterized images (Table~\ref{tab:encoding_parameters}).
 
 \subsection{Parametrizations}
 \label{sec:parametrizations}
 We generate multiple parameterizations for each elementary perceptual task (Fig.~\ref{fig:elementary_perceptual_tasks}) and sequentially increase the number of parameters. For instance, for \emph{position non-aligned scale} we first only vary the origin of the coordinate system which yields just 10 different parameters. We then include translation along the y-axis with a significant increase in variability. We then also add x-movement and a variable spot size. This results in more complex datasets depending on the variability setting. Table~\ref{tab:encoding_parameters} shows the different settings. It is important to consider this variability when evaluating different classifiers with individual trainable parameters (Table~\ref{tab:parameters}).
 
-\begin{figure}[t]
-	  \includegraphics[width=\linewidth]{figure1_overview.pdf}
-  \caption{\textbf{Elementary Perceptual Tasks.} Rasterized visualizations of the elementary perceptual tasks as defined by Cleveland and McGill~\cite{cleveland_mcgill} (color saturation excluded). We vary the parameters of each perceptual task and then assess the interpretability of feed-forward neural networks.}
-	\label{fig:elementary_perceptual_tasks}
-\end{figure}
-
+%\begin{figure}[t]
+%	  \includegraphics[width=\linewidth]{figure1_overview.pdf}
+%  \caption{\textbf{Elementary Perceptual Tasks.} Rasterized visualizations of the elementary perceptual tasks as defined by Cleveland and McGill~\cite{cleveland_mcgill} (color saturation excluded). We vary the parameters of each perceptual task and then assess the interpretability of feed-forward neural networks.}
+%	\label{fig:elementary_perceptual_tasks}
+%\end{figure}
 \begin{table}[t]
 \centering
-\caption{\textbf{Variability of Elementary Perceptual Tasks.} We sequentially increase the number of parameters for every visual encoding of the elementary perceptual tasks. This introduces variability and increasingly more complex datasets.}
+\caption{\textbf{Elementary Perceptual Tasks.} Rasterized visualizations of the elementary perceptual tasks as defined by Cleveland and McGill~\cite{cleveland_mcgill} (color saturation excluded). We sequentially increase the number of parameters (e.g. by adding translation) for every task. This introduces variability and creates increasingly more complex datasets.}
 \resizebox{\linewidth}{!}{
-\begin{tabular}{llr}
-%	\toprule
-%	\makecell{Classifier} & \makecell{Convolutional\\Layers} & \makecell{Trainable\\Parameters} \\
-%	\midrule
-%	MLP & $0$ & $2,560,513$ \\
-%	\emph{LeNet} + MLP & $2$ & $8,026,083$ \\
-%	\emph{VGG19} + MLP & $16$ & $21,204,545$ \\
-%	\emph{Xception} + MLP & $36$ & $25,580,585$ \\
-%	\bottomrule
+\begin{tabular}{lllr}
 	\toprule
-	Elementary Perceptual Task & Variability & Parameters\\
+	\multicolumn{2}{l}{Elementary Perceptual Task} & ~ & Parameters\\
 	\midrule
-	\makecell[tl]{\emph{Position Common Scale}} & \makecell[tl]{Position Y\\+ Position X \\+ Spot Size \\} & \makecell[tr]{ $60$ \\ $3600$ \\ $21600$}\\
+	\raisebox{-.85\height}{\includegraphics[width=.5in]{position_common_scale.pdf}} & \makecell[tl]{\emph{Position Common Scale}\\~~~Position Y\\~~~+ Position X \\~~~+ Spot Size \\} &~& \makecell[tr]{~\\ $60$ \\ $3600$ \\ $21600$}\\
 
 	\midrule
-	\makecell[tl]{\emph{Position Non-Aligned Scale}} & \makecell[tl]{Position Y\\+ Position X \\+ Spot Size \\} & \makecell[tr]{ $600$ \\ $36000$ \\ $216000$}\\
+	\raisebox{-.85\height}{\includegraphics[width=.5in]{position_non_aligned_scale.pdf}} & \makecell[tl]{\emph{Position Non-Aligned Scale}\\~~~Position Y\\~~~+ Position X \\~~~+ Spot Size \\} &~& \makecell[tr]{~\\ $600$ \\ $36000$ \\ $216000$}\\
 
 	\midrule
-	\makecell[tl]{\emph{Length}} & \makecell[tl]{Length\\+ Position Y \\+ Position X \\+ Width} & \makecell[tr]{ $60$ \\ $2400$ \\ $144000$\\$864000$}\\
+	\raisebox{-.95\height}{\includegraphics[width=.5in]{length.pdf}} & \makecell[tl]{\emph{Length}\\~~~Length\\~~~+ Position Y \\~~~+ Position X \\~~~+ Width} &~& \makecell[tr]{ ~\\$60$ \\ $2400$ \\ $144000$\\$864000$}\\
 
 	\midrule
-	\makecell[tl]{\emph{Direction}} & \makecell[tl]{Angle\\+ Position Y \\+ Position X} & \makecell[tr]{ $360$ \\ $21600$ \\ $1296000$}\\
+	\raisebox{-.85\height}{\includegraphics[width=.5in]{direction.pdf}} & \makecell[tl]{\emph{Direction}\\~~~Angle\\~~~+ Position Y \\~~~+ Position X} &~& \makecell[tr]{ ~\\$360$ \\ $21600$ \\ $1296000$}\\
 
 	\midrule
-	\makecell[tl]{\emph{Angle}} & \makecell[tl]{Angle\\+ Position Y \\+ Position X} & \makecell[tr]{ $90$ \\ $5400$ \\ $324000$}\\
+	\raisebox{-.85\height}{\includegraphics[width=.5in]{angle.pdf}} & \makecell[tl]{\emph{Angle}\\~~~Angle\\~~~+ Position Y \\~~~+ Position X} &~& \makecell[tr]{ ~\\$90$ \\ $5400$ \\ $324000$}\\
 
 	\midrule
-	\makecell[tl]{\emph{Area}} & \makecell[tl]{Radius\\+ Position Y \\+ Position X} & \makecell[tr]{ $40$ \\ $800$ \\ $16000$}\\
+	\raisebox{-.85\height}{\includegraphics[width=.5in]{area.pdf}} & \makecell[tl]{\emph{Area}\\~~~Radius\\~~~+ Position Y \\~~~+ Position X} &~& \makecell[tr]{ ~\\$40$ \\ $800$ \\ $16000$}\\
 
 	\midrule
-	\makecell[tl]{\emph{Volume}} & \makecell[tl]{Cube Sidelength\\+ Position Y \\+ Position X} & \makecell[tr]{ $20$ \\ $400$ \\ $8000$}\\
+	\raisebox{-.85\height}{\includegraphics[width=.5in]{volume.pdf}} & \makecell[tl]{\emph{Volume}\\~~~Cube Sidelength\\~~~+ Position Y \\~~~+ Position X} &~& \makecell[tr]{ ~\\$20$ \\ $400$ \\ $8000$}\\
 	
 	\midrule
-	\makecell[tl]{\emph{Curvature}} & \makecell[tl]{Midpoint Curvature\\+ Position Y \\+ Position X} & \makecell[tr]{ $80$ \\ $1600$ \\ $64000$}\\	
+	\raisebox{-.85\height}{\includegraphics[width=.5in]{curvature.pdf}} & \makecell[tl]{\emph{Curvature}\\~~~Midpoint Curvature\\~~~+ Position Y \\~~~+ Position X} &~& \makecell[tr]{ ~\\$80$ \\ $1600$ \\ $64000$}\\	
 
 	\midrule
-	\makecell[tl]{\emph{Shading}} & \makecell[tl]{Density\\+ Position Y \\+ Position X} & \makecell[tr]{ $100$ \\ $2000$ \\ $40000$}\\	
-	
+	\raisebox{-.85\height}{\includegraphics[width=.5in]{shading.pdf}} & \makecell[tl]{\emph{Shading}\\~~~Density\\~~~+ Position Y \\~~~+ Position X} &~& \makecell[tr]{ ~\\$100$ \\ $2000$ \\ $40000$}\\	
+%	
 	\bottomrule
 \end{tabular}
 }
