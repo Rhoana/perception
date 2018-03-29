@@ -1,18 +1,18 @@
 % !TeX root = paper.tex
 \section{Elementary Perceptual Tasks}
 
-Cleveland and McGill describe the mapping of graphical elements to quantitative variables as \emph{elementary perceptual tasks} and introduce a list of ten different encodings in their paper~\cite{cleveland_mcgill}. We create visualizations of these tasks as rasterized images (Table~\ref{tab:encoding_parameters}).
+Cleveland and McGill describe the mapping of graphical elements to quantitative variables as \emph{elementary perceptual tasks} and introduce a list of ten different encodings in their paper~\cite{cleveland_mcgill}. These tasks are the low-level building blocks for information visualizations and encode quantities. Cleveland and McGill did not explicitly test human perception of single instances of these encodings. However, we test how each classifier measures encoded values using the elementary perceptual tasks and create visualizations of these tasks as rasterized images with different parametrizations (Table~\ref{tab:encoding_parameters}).
 
 \subsection{Parametrizations}
 \label{sec:parametrizations}
-We generate multiple parameterizations for each elementary perceptual task (Fig.~\ref{fig:elementary_perceptual_tasks}) and sequentially increase the number of parameters. For instance, for \emph{position non-aligned scale} we first only vary the origin of the coordinate system which yields just 10 different parameters. We then include translation along the y-axis with a significant increase in variability. We then also add x-movement and a variable spot size. This results in more complex datasets depending on the variability setting. Table~\ref{tab:encoding_parameters} shows the different settings. It is important to consider this variability when evaluating different classifiers with individual trainable parameters (Table~\ref{tab:parameters}).
+We generate multiple parameterizations for each elementary perceptual task and sequentially increase the number of parameters (Table~\ref{tab:encoding_parameters}). For instance, for \emph{Position Common Scale} we first only vary the $y$-position which yields just $60$ different parameters. We then include translation along the x-axis with a significant increase in variability. We then also add a variable spot size. This results in more complex datasets depending on the increase of variability. Table~\ref{tab:encoding_parameters} shows the different settings. It is important to consider this variability when evaluating different classifiers with individual trainable parameters (Table~\ref{tab:parameters}). In theory, classifiers can memorize the images if the data set has a low variability. We also counteract such behavior by adding noise.
 
 %\begin{figure}[t]
 %	  \includegraphics[width=\linewidth]{figure1_overview.pdf}
 %  \caption{\textbf{Elementary Perceptual Tasks.} Rasterized visualizations of the elementary perceptual tasks as defined by Cleveland and McGill~\cite{cleveland_mcgill} (color saturation excluded). We vary the parameters of each perceptual task and then assess the interpretability of feed-forward neural networks.}
 %	\label{fig:elementary_perceptual_tasks}
 %\end{figure}
-\begin{table}[t]
+\begin{table}[h]
 \centering
 \caption{\textbf{Elementary Perceptual Tasks.} Rasterized visualizations of the elementary perceptual tasks as defined by Cleveland and McGill~\cite{cleveland_mcgill} (color saturation excluded). We sequentially increase the number of parameters (e.g. by adding translation) for every task. This introduces variability and creates increasingly more complex datasets.}
 \resizebox{\linewidth}{!}{
