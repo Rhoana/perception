@@ -9,7 +9,7 @@ For each experiment, we use a single factor between-subject design, with the fac
 \subsection{Networks}
 \label{sec:networks}
 
-\noindent{\textbf{Multilayer Perceptron.}} As baseline, we use a multilayer perceptron (MLP), but without the prior convolutional layers as is typical in network designs for solving visual tasks (Fig.~\ref{fig:classifiers}). Our MLP contains a layer of $256$ perceptrons, which are activated as rectified linear units (ReLU)~(Fig.~\ref{fig:classifiers}). We train this layer with dropout (probability $= 0.5$) to prevent overfitting, and then combine these ReLU units to regress our output measurement.
+\noindent{\textbf{Multilayer Perceptron.}} As a baseline, we use a multilayer perceptron (MLP), but without the prior convolutional layers as is typical in network designs for solving visual tasks (Fig.~\ref{fig:classifiers}). Our MLP contains a layer of $256$ perceptrons, which are activated as rectified linear units (ReLU)~(Fig.~\ref{fig:classifiers}). We train this layer with dropout (probability $= 0.5$) to prevent overfitting, and then combine these ReLU units to regress our output measurement.
 \\~\\
 \noindent{\textbf{Convolutional Neural Networks.}} We compare different convolutional neural networks (CNNs) with both `trained from scratch' weights and pre-trained weights on a database of natural images (1000-class ImageNet \cite{imagenet}). These networks are the traditional LeNet-5 with 2 layers, which was designed to recognize hand-written digits~\cite{lenet}; the VGG19 network with 19 layers, which was designed to solve the ImageNet object recognition challenge~\cite{simonyan_very_deep2014}; and the Xception network with 36 layers~\cite{xception}, which was also designed to solve the ImageNet object recognition challenge plus the 15,000-class JFT object recognition challenge~\cite{Hinton2015}. Each of these networks has as its last layers an MLP architecture equivalent to our baseline, and so they act as earlier image and feature processors for this final regressor. Since the networks are of different architectures, the number of trainable parameters changes, with some networks having more capacity than others (Table~\ref{tab:parameters}).
 
@@ -70,8 +70,8 @@ For \emph{VGG19} and \emph{Xception}, we have two variants: the network trained 
 \subsection{Data}
 \label{sec:data}
 
-\noindent\textbf{Image Stimuli and Labels} 
-We create our stimuli visualizations as 100$\times$100 binary images, rasterized without interpolation. We write a parameterized stimuli generator for each elementary task. The number of possible parameter values differs per experiment, and we summarize these in Table~\ref{tab:encoding_parameters} and Section~\ref{sec:parametrizations}. Before use, we scale the generated images into an unbiased range: images to the range of $-0.5$ to $0.5$. Then, we add subtle random noise (between $0--0.05$) to each pixel to introduce variation which prevents the networks from simply `remembering' each different image.
+\noindent\textbf{Image Stimuli and Labels.} 
+We create our stimuli visualizations as 100$\times$100 binary images, rasterized without interpolation. We write a parameterized stimuli generator for each elementary task. The number of possible parameter values differs per experiment, and we summarize these in Table~\ref{tab:encoding_parameters} and Section~\ref{sec:parametrizations}. Before use, we scale the generated images into an unbiased range: images to the range of $-0.5$ to $0.5$. Then, we add subtle random noise (uniformly distributed between $0-0.05$) to each pixel to introduce variation which prevents the networks from simply `remembering' each different image.
 
 Each stimuli image also has an associated ground truth label representing the parameter set which generated the image, e.g., the length in pixels of a bar. As before, we scale these labels to the range of $0.0$ to $1.0$, which represent the maximum and minimum values that this parameter can take.
 \\~\\
@@ -87,15 +87,15 @@ Each stimuli image also has an associated ground truth label representing the pa
 \begin{equation}
 	\textnormal{MLAE} = log_2( | \textnormal{predicted percent} - \textnormal{true percent} | + .125)
 \end{equation}
-In addition to this metric, we also calculate standard error metrics such as the mean squared error (\emph{MSE}) and the mean absolute error (\emph{MAE}). This allow a more direct comparison of percent errors. However, please note that our networks were trained using MSE loss and not directly with MLAE.
+In addition to this metric, we also calculate standard error metrics such as the mean squared error (\emph{MSE}) and the mean absolute error (\emph{MAE}). This allows a more direct comparison of percent errors. Please note that our networks were trained using MSE loss and not directly with MLAE.
 \\~\\
-\noindent{\textbf{Task Confidence Intervals.}} We follow Cleveland and McGill and present $95\%$ confidence intervals. However, as our networks but rather than performing bootstrapping, we approximate the value of the $97.5$ percentile point of the normal distribution for simplicity. JT: What? Why 97.5\% ? Why not 95\% ?
+\noindent{\textbf{Task Confidence Intervals.}} We follow Cleveland and McGill and present $95\%$ confidence intervals. We approximate the value of the $97.5$ percentile point of the normal distribution for simplicity with $1.96$ as suggested by the central limit theorem~\cite{central_limit}.
 \\~\\
 \noindent{\textbf{Confirmatory Data Analysis.}} To accept or reject our hypotheses, we analyze dependent variables using analysis of variance (ANOVA) followed by parametric tests. JT: Which tests?
 \\~\\
 \noindent{\textbf{Training Efficiency.}} We use the training convergence rate as a measure of how easy or hard a particular task is for the network to learn to solve. This is defined as the MSE loss decrease per training epoch, which is an indicator of the training efficiency of the network with respect to the visual encoding.
 \\~\\
-\noindent\textbf{Network Generalizability.} We evaluate generalizability by asking a network previously trained upon one task parameterization to answer quetsions about the same type of task stimuli but with more complex parameterization, e.g., estimating bar length without and with changes in stroke width.
+\noindent\textbf{Network Generalizability.} We evaluate generalizability by asking a network previously trained upon one task parameterization to answer questions about the same type of task stimuli but with more complex parameterization, e.g., estimating bar length without and with changes in stroke width.
 
 Further, some experiments compare different visual encoding types, e.g., bar plot vs.~stacked bar plot. We train and evaluate individual networks for each parameterization, plus we also train and evaluate a networks on stimuli across the different types. This single decision-making software better mimics the judgements that a human would be able to make. 
 %This scenario affects the optimization process and result in networks with more flexible knowledge with the caveat of longer training times. -> JT: Save it for the results discussion.
