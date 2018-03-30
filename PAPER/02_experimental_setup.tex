@@ -1,42 +1,27 @@
-
 \section{Experimental Setup}
 
-We conduct quantitative experiments to measure how different convolutional neural networks perceive low-level visual encodings, such as positions, angles, curvatures, and lengths. We formulate measurement tasks as logistic regression problems, where the networks must estimate single quantities or ratio relations between multiple quantities. The output between $0$ and $1$ indicates the percent of the value to be measured in the individual experiment. 
+We conduct quantitative experiments to measure how different convolutional neural networks perceive low-level visual encodings, such as positions, angles, curvatures, and lengths. We formulate these measurement tasks as logistic regression problems: given a stimuli image of an elementary visualization, the networks must estimate the single quantity present or the ratio between multiple quantities present. 
 
-% The output between $0$ and $1$ indicates the percent of the value to be measured in the individual experiment. 
+For each experiment, we use a single factor between-subject design, with the factor being the network used. This lets us evaluate whether different network designs are competitive against existing human perception results. We train each network in a supervised fashion with a mean-squared error (MSE) loss between the ground-truth labels and the network's estimate of the measurement from observing the generated stimuli images. Then, we test each network's ability to generalize to new examples with a separate data, created using the same stimuli generator function but with unseen ground-truth measurements (Section~\ref{sec:data}).
 
-As baseline, we use a standard multilayer perceptron (MLP) without the generation of additional feature maps through convolutions (Fig.~\ref{fig:classifiers}).
-For our experiments, we use a series of single factor between-subject designs with the factor \emph{network} (MLP, LeNet, VGG19, Xception, VGG19+ImageNet, Xception+ImageNet). We train each network in a supervised fashion, with each experiment including a training and a testing phase on data. without any overlap (Section~\ref{sec:data}). All parameters such as network hyperparameters, optimization methods, and stopping conditions are fixed (Section~\ref{sec:classifiers}). However, since the networks are of different complexity, the number of trainable parameters changes (Table~\ref{tab:parameters}). We define a series of hypotheses prior to each experiment.
+% We define a series of hypotheses prior to each experiment.
 
-\subsection{Measures and Analysis}
+\subsection{Networks}
+\label{sec:networks}
 
-\textbf{Accuracy.} In their 1984 paper, Cleveland and McGill use the midmean logistic absolute error metric (\emph{MLAE}) to measure perception accuracy.
-\begin{equation}
-	\textnormal{MLAE} = log_2( | \textnormal{predicted percent} - \textnormal{true percent} | + .125)
-\end{equation}
-In addition to this metric, we also calculate standard error metrics such as the mean squared error (\emph{MSE}) and the mean absolute error (\emph{MAE}). This allow a more direct comparison of percent errors.
+\noindent{\textbf{Multilayer Perceptron.}} As baseline, we use a multilayer perceptron (MLP), but without the prior convolutional layers as is typical in network designs for solving visual tasks (Fig.~\ref{fig:classifiers}). Our MLP contains a layer of $256$ perceptrons, which are activated as rectified linear units (ReLU)~(Fig.~\ref{fig:classifiers}). We train this layer with dropout (probability $= 0.5$) to prevent overfitting, and then combine these ReLU units to regress our output measurement.
 \\~\\
-\noindent{\textbf{Efficiency.}} We use the convergence rate based on the decrease of loss per training epoch as an indicator for the efficiency of the classifier in combination with a visual encoding. For regression tasks the loss is defined as MSE.% and for classification tasks the loss is categorical cross-entropy.
-\\~\\
-\noindent{\textbf{Confidence Intervals.}} We follow the notion of Cleveland and McGill to compute the $95\%$ confidence intervals but rather than performing bootstrapping, we approximate the value of the $97.5$ percentile point of the normal distribution for simplicity.
-\\~\\
-\noindent{\textbf{Confirmatory Data Analysis.}} To accept or reject our hypotheses, we calculate these measures and treat them as continuous variables. We analyze these dependent variables using analysis of variance (ANOVA) followed by parametric tests.
+\noindent{\textbf{Convolutional Neural Networks.}} We compare different convolutional neural networks (CNNs) with both `trained from scratch' weights and pre-trained weights on a database of natural images (1000-class ImageNet \cite{imagenet}). These networks are the traditional LeNet-5 with 2 layers, which was designed to recognize hand-written digits~\cite{lenet}; the VGG19 network with 19 layers, which was designed to solve the ImageNet object recognition challenge~\cite{simonyan_very_deep2014}; and the Xception network with 36 layers~\cite{xception}, which was also designed to solve the ImageNet object recognition challenge plus the 15,000-class JFT object recognition challenge~\cite{Hinton2015}. Each of these networks has as its last layers an MLP architecture equivalent to our baseline, and so they act as earlier image and feature processors for this final regressor. Since the networks are of different architectures, the number of trainable parameters changes, with some networks having more capacity than others (Table~\ref{tab:parameters}).
 
-\subsection{Classifiers}
-\label{sec:classifiers}
-Our classifiers are built upon a multilayer perceptron (MLP) which is a feedforward artificial neural network. We combine this MLP with different convolutional neural networks (CNNs) for preprocessing and feature generation. These include the traditional LeNet-5 network as well as the VGG19 and Xception networks.
+For \emph{VGG19} and \emph{Xception}, we have two variants: the network trained from scratch on elementary perceptual tasks, plus the network using weights that were previously trained on the ImageNet object recognition challenge \emph{except} for the MLP layer. This is intended to produce early-layer features which mimic human vision, and then to see whether they are more or less useful than networks trained from scratch. 
 \\~\\
-\noindent{\textbf{Multilayer Perceptron.}} The multilayer perceptron in this paper has $256$ neurons which are activated as rectified linear units~(Fig.~\ref{fig:classifiers}). We then add a dropout layer to prevent overfitting and compute linear regression with MSE loss.
+\noindent{\textbf{Optimization.}} All network hyperparameters, optimization methods, and stopping conditions are fixed across networks (Table \ref{tab:parameters}). We train for $1000$ epochs using stochastic gradient descent with Nesterov momentum, but stop early if the loss does not decrease for ten epochs.
 \\~\\
-\noindent{\textbf{Convolutional Neural Networks.}} We use CNNs to generate additional features as input to the MLP. We train the \emph{LeNet} classifier, the \emph{VGG19} network, and the \emph{Xception} model specifically towards each visualization. For \emph{VGG19} and \emph{Xception}, we additionally generate features using previously trained weights on ImageNet to naively model human vision.
-\\~\\
-\noindent{\textbf{Optimization.}} All networks are optimized using stochastic gradient descent with Nesterov momentum using fixed parameters (Table \ref{tab:parameters}). We train for $1000$ epochs but stop early if the loss does not decrease for ten epochs.
-\\~\\
-\noindent{\textbf{Environment.}} We run all experiments on Tesla X and Tesla V100 graphical processing units. We use the KERAS framework with tensorflow and leverage the scikit-image and scikit-learn libraries.
+\noindent{\textbf{Environment.}} We run all experiments on Tesla X and Tesla V100 graphical processing units. We use the KERAS framework with a TensorFlow backend to train the networks, and use the scikit-image library to generate the stimuli. % and scikit-learn libraries - JT: What do we use this for?
 
 \begin{table}[t]
 \centering
-\caption{\textbf{Classifier Training.} We use different feature generators as input to a multilayer perceptron which performs linear regression. This results in different sets of trainable parameters. We also train the MLP directly on the visualizations without any additional feature generation as baseline.}
+\caption{\textbf{Network Training.} We use different feature generators as input to a multilayer perceptron which performs linear regression. This results in different sets of trainable parameters. As a baseline, we also train the MLP directly on the visualization images without any additional feature generation.}
 \resizebox{\linewidth}{!}{
 \begin{tabular}{lrl}
 %	\toprule
@@ -48,7 +33,7 @@ Our classifiers are built upon a multilayer perceptron (MLP) which is a feedforw
 %	\emph{Xception} + MLP & $36$ & $25,580,585$ \\
 %	\bottomrule
 	\toprule
-	Classifier & \makecell{Trainable\\Parameters} & Optimization \\
+	Network & \makecell{Trainable\\Parameters} & Optimization \\
 	\midrule
 	MLP & $2,560,513$ & SGD (Nesterov momentum)\\
 	\emph{LeNet} + MLP & $8,026,083$ & Learning rate: $0.0001$\\
@@ -78,20 +63,35 @@ Our classifiers are built upon a multilayer perceptron (MLP) which is a feedforw
 		\includegraphics[width=3.5cm,valign=c]{classifier_right.pdf}
 	}
 
-  \caption{\textbf{Classifier Architecture.} The multilayer perceptron (MLP) in our experiments has 256 neurons which are activated as rectified linear units (ReLU). We use Dropout regularization to prevent overfitting. As output, we perform linear regression for continuous variables. The MLP can learn the visualizations directly but we also learn features generated by LeNet (2 conv. layers, filter size $5\times5$), VGG19 (16 conv. layers, filter size $3\times3$), or Xception (36 conv. layers, filter size $3\times3$) to test different model complexities.}
+  \caption{\textbf{Network Architecture.} The multilayer perceptron (MLP) in our experiments has 256 neurons which are activated as rectified linear units (ReLU). We use Dropout regularization to prevent overfitting. As output, we perform linear regression for continuous variables. The MLP can learn to represent the visualizations directly, but we also learn features generated by LeNet (2 conv. layers, filter size $5\times5$), VGG19 (16 conv. layers, filter size $3\times3$), or Xception (36 conv. layers, filter size $3\times3$) to test different model complexities.}
 	\label{fig:classifiers}
 \end{figure}
 
 \subsection{Data}
 \label{sec:data}
-We create all visualizations as parametrized rasterized images without interpolation (except for the anti-alias experiment). The number of parameters differs per experiment as summarized in Table~\ref{tab:encoding_parameters} and section~\ref{sec:parametrizations}. 
+We create all visualizations as parametrized rasterized images without interpolation. The number of possible parameter values differs per experiment as summarized in Table~\ref{tab:encoding_parameters} and Section~\ref{sec:parametrizations}. 
 \\~\\
-\noindent\textbf{Noise.} We add subtle random noise ($0.05$) to each pixel to introduce additional variation. This prevents the classifiers of learning the actual pixels.
+\noindent\textbf{Noise.} We add subtle random noise ($0.05$) to each pixel to introduce additional variation. This prevents the networks of learning the actual pixels.
 \\~\\
-\noindent\textbf{Training/Validation/Test Splits.} We specify the size of each split set as follows: 60,000 training images, 20,000 validation images, and 20,000 test images. We then randomly add parameterized visualizations to the sets while guaranteeing that each set is disjunct from each other in terms of encoded variables. This eliminates leakage during training and evaluation. We also scale each set independently: images to the range of $-0.5$ to $0.5$ and labels to the range of $0.0$ to $1.0$. 
+\noindent\textbf{Training/Validation/Test Splits.} We specify the size of each split set as follows: 60,000 training images, 20,000 validation images, and 20,000 test images. Then, we randomly add parameterized visualizations to the sets while guaranteeing that each set is disjunct from each other in terms of encoded variables. This eliminates leakage during training and evaluation. We also scale each set independently: images to the range of $-0.5$ to $0.5$ and labels to the range of $0.0$ to $1.0$. This represents the percent of the value to be measured in the individual experiment. % JT: Moved; but what does this last sentence mean?
 \\~\\
 \noindent\textbf{Cross Validation.} For reproducibility, we perform repeated random sub-sampling validation, also known as Monte Carlo cross-validation, during our experiments. We run every experiment seperately multiple times (at least 4, up to 12) and randomly select (without replacement) the $60\%$ of our data as training data, $20\%$ as validation, and $20\%$ as test. Our large data sample size of 100,000 guarantees that every single observation of our parameterizations will be selected at least once (excluding noise patterns). Finally, we average the results over the runs.
 \\~\\
 \noindent\textbf{Intra-classifier Variability.} We also evaluate classifiers previously trained with one visualization on the same type of visualizations with different parameters by decreasing and increasing the variability of the generated images.
 \\~\\
 \noindent\textbf{Multi Classifiers.} Some experiments compare different types of visual encodings. We first train and evaluate each classifier on one type of encoding but we also train the classifiers on a random selection of multiple different types. These scenarios afflict the optimization process to find global minima and result in networks with more flexible knowledge with the caveat of longer training times.
+
+
+\subsection{Measures and Analysis}
+
+\noindent{\textbf{Accuracy.}} In their 1984 paper, Cleveland and McGill use the midmean logistic absolute error metric (\emph{MLAE}) to measure perception accuracy.
+\begin{equation}
+	\textnormal{MLAE} = log_2( | \textnormal{predicted percent} - \textnormal{true percent} | + .125)
+\end{equation}
+In addition to this metric, we also calculate standard error metrics such as the mean squared error (\emph{MSE}) and the mean absolute error (\emph{MAE}). This allow a more direct comparison of percent errors.
+\\~\\
+\noindent{\textbf{Efficiency.}} We use the convergence rate based on the decrease of loss per training epoch as an indicator for the efficiency of the classifier in combination with a visual encoding. For regression tasks the loss is defined as MSE.% and for classification tasks the loss is categorical cross-entropy.
+\\~\\
+\noindent{\textbf{Confidence Intervals.}} We follow the notion of Cleveland and McGill to compute the $95\%$ confidence intervals but rather than performing bootstrapping, we approximate the value of the $97.5$ percentile point of the normal distribution for simplicity.
+\\~\\
+\noindent{\textbf{Confirmatory Data Analysis.}} To accept or reject our hypotheses, we calculate these measures and treat them as continuous variables. We analyze these dependent variables using analysis of variance (ANOVA) followed by parametric tests.
