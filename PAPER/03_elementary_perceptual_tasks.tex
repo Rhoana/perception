@@ -1,7 +1,7 @@
 % !TeX root = paper.tex
-\section{Elementary Perceptual Tasks}
+\section{Experiment: Elementary Perceptual Tasks}
 
-Cleveland and McGill describe the mapping of graphical elements to quantitative variables as \emph{elementary perceptual tasks} and introduce a list of ten different encodings in their paper~\cite{cleveland_mcgill}. These tasks are the low-level building blocks for information visualizations and encode quantities. Cleveland and McGill did not explicitly test human perception of single instances of these encodings. However, we test how each classifier measures encoded values using the elementary perceptual tasks and create visualizations of these tasks as rasterized images with different parametrizations (Table~\ref{tab:encoding_parameters}).
+Cleveland and McGill describe the mapping of graphical elements to quantitative variables as \emph{elementary perceptual tasks} and introduce a list of ten different encodings in their paper~\cite{cleveland_mcgill,cleveland1985graphical}. These tasks are the low-level building blocks for information visualizations and encode quantities. Cleveland and McGill did not explicitly test human perception of single instances of these encodings. However, we test how each classifier measures encoded values using the elementary perceptual tasks and create visualizations of these tasks as rasterized images with different parametrizations (Table~\ref{tab:encoding_parameters}).
 
 \subsection{Parametrizations}
 \label{sec:parametrizations}
@@ -12,7 +12,7 @@ We generate multiple parameterizations for each elementary perceptual task and s
 %  \caption{\textbf{Elementary Perceptual Tasks.} Rasterized visualizations of the elementary perceptual tasks as defined by Cleveland and McGill~\cite{cleveland_mcgill} (color saturation excluded). We vary the parameters of each perceptual task and then assess the interpretability of feed-forward neural networks.}
 %	\label{fig:elementary_perceptual_tasks}
 %\end{figure}
-\begin{table}[h]
+\begin{table}[t]
 \centering
 \caption{\textbf{Elementary Perceptual Tasks.} Rasterized visualizations of the elementary perceptual tasks as defined by Cleveland and McGill~\cite{cleveland_mcgill} (color saturation excluded). We sequentially increase the number of parameters (e.g. by adding translation) for every task. This introduces variability and creates increasingly more complex datasets.}
 \resizebox{\linewidth}{!}{
@@ -68,19 +68,13 @@ We proposed four hypotheses entering the elementary perceptual task experiment:
 
 some are good and some are bad.. why?
 
-\begin{figure}[h]
+\begin{figure*}[t]
 	\centering
-	  \includegraphics[width=\linewidth]{figure1_slim_left.pdf}
-  \caption{\textbf{Computational results of Elementary Perceptual Tasks experiment.} Log absolute error means and 95\% confidence intervals for computed perception of different classifiers on the \emph{elementary perceptual tasks} introduced by Cleveland and McGill 1984~\cite{cleveland_mcgill}. We test the performance of a Multi-layer Perceptron (MLP), the LeNet Convolutional Neural Network, as well as feature generation using the VGG19 and Xception networks trained on ImageNet.}
+	\includegraphics[width=0.48\linewidth]{figure1_slim_left.pdf}
+	\includegraphics[width=0.48\linewidth]{figure1_slim_right.pdf}
+	\caption{\textbf{Computational results of Elementary Perceptual Tasks experiment.} Log absolute error means and 95\% confidence intervals for computed perception of different classifiers on the \emph{elementary perceptual tasks} introduced by Cleveland and McGill 1984~\cite{cleveland_mcgill}. We test the performance of a Multi-layer Perceptron (MLP), the LeNet Convolutional Neural Network, as well as feature generation using the VGG19 and Xception networks trained on ImageNet.}
 	\label{fig:figure1_results}
-\end{figure}
-
-\begin{figure}[h]
-	\centering
-	  \includegraphics[width=\linewidth]{figure1_slim_right.pdf}
-  \caption{\textbf{Computational results of Elementary Perceptual Tasks experiment.} Log absolute error means and 95\% confidence intervals for computed perception of different classifiers on the \emph{elementary perceptual tasks} introduced by Cleveland and McGill 1984~\cite{cleveland_mcgill}. We test the performance of a Multi-layer Perceptron (MLP), the LeNet Convolutional Neural Network, as well as feature generation using the VGG19 and Xception networks trained on ImageNet.}
-	\label{fig:figure1_results}
-\end{figure}
+\end{figure*}
 
 \textbf{Computational Perception Ranking.}
 
