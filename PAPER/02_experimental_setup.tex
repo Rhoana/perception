@@ -74,6 +74,7 @@ For \emph{VGG19} and \emph{Xception}, we have two variants: the network trained 
 We create our stimuli visualizations as 100$\times$100 binary images, rasterized without interpolation. We write a parameterized stimuli generator for each elementary task. The number of possible parameter values differs per experiment, and we summarize these in Table~\ref{tab:encoding_parameters} and Section~\ref{sec:parametrizations}. Before use, we scale the generated images into an unbiased range: images to the range of $-0.5$ to $0.5$. Then, we add subtle random noise (between $0--0.05$) to each pixel to introduce variation which prevents the networks from simply `remembering' each different image.
 
 Each stimuli image also has an associated ground truth label representing the parameter set which generated the image, e.g., the length in pixels of a bar. As before, we scale these labels to the range of $0.0$ to $1.0$, which represent the maximum and minimum values that this parameter can take.
+\\~\\
 \noindent\textbf{Training/Validation/Test Splits.} For each task, we use 60,000 training images, 20,000 validation images, and 20,000 test images. To create these datasets, we generate stimuli from random parameters and add them to the sets until the target number is reached, while maintaining distinct (random) parameter spaces for each set to ensure that there is no leakage between training and validation/testing.
 
 \subsection{Measures and Analysis}
