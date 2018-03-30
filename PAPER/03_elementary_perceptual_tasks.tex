@@ -12,7 +12,7 @@ We generate multiple parameterizations for each elementary perceptual task and s
 %  \caption{\textbf{Elementary Perceptual Tasks.} Rasterized visualizations of the elementary perceptual tasks as defined by Cleveland and McGill~\cite{cleveland_mcgill} (color saturation excluded). We vary the parameters of each perceptual task and then assess the interpretability of feed-forward neural networks.}
 %	\label{fig:elementary_perceptual_tasks}
 %\end{figure}
-\begin{table}[t]
+\begin{table}[!ht]
 \centering
 \caption{\textbf{Elementary Perceptual Tasks.} Rasterized visualizations of the elementary perceptual tasks as defined by Cleveland and McGill~\cite{cleveland_mcgill} (color saturation excluded). We sequentially increase the number of parameters (e.g. by adding translation) for every task. This introduces variability and creates increasingly more complex datasets.}
 \resizebox{\linewidth}{!}{
@@ -52,6 +52,9 @@ We generate multiple parameterizations for each elementary perceptual task and s
 \label{tab:encoding_parameters}
 \end{table}
 
+
+
+
 \subsection{Hypotheses}
 
 We proposed four hypotheses entering the elementary perceptual task experiment:
@@ -65,30 +68,111 @@ We proposed four hypotheses entering the elementary perceptual task experiment:
 
 \subsection{Results}
 
+The results of the elementary perceptual tasks experiment demonstrates that our networks are able to `measure' visually encoded quantities using low-level building blocks (Fig.~\cite{})figure1_results}). While the performance varies for the different encodings, we observe for all networks performance mostly better or at least equal compared to the estimated human performance of $9\%$~\cite{cleveland1985graphical}. These results confirm our initial hypotheses.
+\\~\\
+\noindent\textbf{Accuracy.} The average error across all tasks and all networks is $$.
 
-some are good and some are bad.. why?
 
-\begin{figure*}[t]
-	\centering
-	\includegraphics[width=0.48\linewidth]{figure1_slim_left.pdf}
-	\includegraphics[width=0.48\linewidth]{figure1_slim_right.pdf}
-	\caption{\textbf{Computational results of Elementary Perceptual Tasks experiment.} Log absolute error means and 95\% confidence intervals for computed perception of different classifiers on the \emph{elementary perceptual tasks} introduced by Cleveland and McGill 1984~\cite{cleveland_mcgill}. We test the performance of a Multi-layer Perceptron (MLP), the LeNet Convolutional Neural Network, as well as feature generation using the VGG19 and Xception networks trained on ImageNet.}
-	\label{fig:figure1_results}
-\end{figure*}
 
 \textbf{Computational Perception Ranking.}
 
 Cleveland McGills Ranking - can we observe something similar?
 
-\begin{enumerate}
-	\item Position along a common scale e.g. scatter plot
-	\item Position on identical but nonaligned scales e.g. multiple scatter plots
-	\item Length e.g. bar chart
-	\item Angle \& Slope (tie) e.g. pie chart
-	\item Area e.g. bubbles
-	\item Volume, density, and color saturation (tie) e.g. heatmap
-	\item Color hue e.g. newsmap
-\end{enumerate}
+%\begin{enumerate}
+%	\item Position along a common scale e.g. scatter plot
+%	\item Position on identical but nonaligned scales e.g. multiple scatter plots
+%	\item Length e.g. bar chart
+%	\item Angle \& Slope (tie) e.g. pie chart
+%	\item Area e.g. bubbles
+%	\item Volume, density, and color saturation (tie) e.g. heatmap
+%	\item Color hue e.g. newsmap
+%\end{enumerate}
+
+\begin{table}[!ht]
+\centering
+\caption{\textbf{Ranking of Elementary Perceptual Tasks.} We create a ranking of the elementary perceptual tasks for all of our networks. We report midmean logistic absolute errors (MLAE) for each network averaged across multiple runs on the most complex parametrization of the individual stimuli. The VGG19 network performs best compared on all tasks. For human performance, we report the ranking of Cleveland and McGill~\cite{cleveland_mcgill}. The VGG19 * and Xception * networks use ImageNet weights and yield identical rankings.}
+\resizebox{\linewidth}{!}{
+\begin{tabular}{cllllll}
+\toprule
+Human & MLP & LeNet & VGG19 * & \textbf{VGG19} & Xception * & Xception \\
+\midrule
+\multicolumn{7}{l}{\emph{Position Common Scale}} \\
+1. & 7. (3.84) & 2. (1.36) & 5. (1.02) & \textbf{3.} (-0.04) & 5. (1.65) & 1. (1.04)\\
+\multicolumn{7}{l}{\emph{Position Non aligned Scale}} \\
+2. & 6. (3.61) & 1. (1.35) & 6. (1.09) & \textbf{5.} (0.26) & 6. (1.71) & 2. (1.06)\\
+\multicolumn{7}{l}{\emph{Length}} \\
+3. & 1. (1.99) & 8. (3.19) & 4. (0.87) & \textbf{2.} (-0.14) & 4. (1.59) & 3. (1.11) \\
+\multicolumn{7}{l}{\emph{Direction}} \\
+3. & 9. (4.65) & 7. (3.07) & 9. (2.84) & \textbf{8.} (0.92) & 9. (3.46) & 6. (1.57) \\
+\multicolumn{7}{l}{\emph{Angle}} \\
+3. & 8. (4.61) & 9. (3.33) & 8. (2.31) & \textbf{9.} (0.99) & 8. (2.60) & 7. (1.72) \\
+\multicolumn{7}{l}{\emph{Area}} \\
+4. & 2. (2.01) & 5. (2.21) & 1. (0.49) & \textbf{1.} (-0.17) & 1. (0.80) & 5. (1.38) \\
+\multicolumn{7}{l}{\emph{Volume}} \\
+5. & 4. (2.38) & 4. (1.91) & 7. (1.16) & \textbf{7.} (0.87) & 7. (2.03) & 9. (2.10) \\
+\multicolumn{7}{l}{\emph{Curvature}} \\
+5. & 3. (2.34) & 3. (1.81) & 2. (0.71) & \textbf{6.} (0.28) & 2. (1.17) & 4. (1.13) \\
+\multicolumn{7}{l}{\emph{Shading}} \\
+6. & 5. (3.04) & 6. (2.23) & 3. (0.73) & \textbf{4.} (0.14) & 3. (1.57) & 8. (1.82) \\
+
+% 
+%\makecell[tl]{\emph{Position}\\~~\emph{Non-aligned Scale}} & 1 & 1 & 2 & 3 & \textbf{4} & 5 & 6 \\
+%\makecell[tl]{\emph{Length}} & 1 & 1 & 2 & 3 & \textbf{4} & 5 & 6 \\
+%\makecell[tl]{\emph{Direction}} & 1 & 1 & 2 & 3 & \textbf{4} & 5 & 6 \\
+%\makecell[tl]{\emph{Angle}} & 1 & 1 & 2 & 3 & \textbf{4} & 5 & 6 \\
+%\makecell[tl]{\emph{Area}} & 1 & 1 & 2 & 3 & \textbf{4} & 5 & 6 \\
+%\makecell[tl]{\emph{Volume}} & 1 & 1 & 2 & 3 & \textbf{4} & 5 & 6 \\
+%\makecell[tl]{\emph{Curvature}} & 1 & 1 & 2 & 3 & \textbf{4} & 5 & 6 \\
+%\makecell[tl]{\emph{Shading}} & 1 & 1 & 2 & 3 & \textbf{4} & 5 & 6 \\
+%\begin{tabular}{ll}
+%	\toprule
+%	Task & \begin{tabular}{ccccccc}
+%			Human & MLP & LeNet & VGG19 * & VGG19 & Xception * & Xception
+%			\end{tabular}\\
+%	\midrule
+%	\raisebox{-.85\height}{\includegraphics[width=.5in]{position_common_scale.pdf}} & \makecell[tl]{\emph{Position Common Scale}\\ \begin{tabular}{ccccccc}
+%
+%\end{tabular}} \\
+%
+%	\midrule
+%	\raisebox{-.85\height}{\includegraphics[width=.5in]{position_non_aligned_scale.pdf}} & \makecell[tl]{\emph{Position Non-Aligned Scale}\\~~~Position Y\\~~~+ Position X \\~~~+ Spot Size \\} &~& \makecell[tr]{~\\ $600$ \\ $36,000$ \\ $216,000$}\\
+%
+%	\midrule
+%	\raisebox{-.95\height}{\includegraphics[width=.5in]{length.pdf}} & \makecell[tl]{\emph{Length}\\~~~Length\\~~~+ Position Y \\~~~+ Position X \\~~~+ Width} &~& \makecell[tr]{ ~\\$60$ \\ $2,400$ \\ $144,000$\\$864,000$}\\
+%
+%	\midrule
+%	\raisebox{-.85\height}{\includegraphics[width=.5in]{direction.pdf}} & \makecell[tl]{\emph{Direction}\\~~~Angle\\~~~+ Position Y \\~~~+ Position X} &~& \makecell[tr]{ ~\\$360$ \\ $21,600$ \\ $1,296,000$}\\
+%
+%	\midrule
+%	\raisebox{-.85\height}{\includegraphics[width=.5in]{angle.pdf}} & \makecell[tl]{\emph{Angle}\\~~~Angle\\~~~+ Position Y \\~~~+ Position X} &~& \makecell[tr]{ ~\\$90$ \\ $5,400$ \\ $324,000$}\\
+%
+%	\midrule
+%	\raisebox{-.85\height}{\includegraphics[width=.5in]{area.pdf}} & \makecell[tl]{\emph{Area}\\~~~Radius\\~~~+ Position Y \\~~~+ Position X} &~& \makecell[tr]{ ~\\$40$ \\ $800$ \\ $16,000$}\\
+%
+%	\midrule
+%	\raisebox{-.85\height}{\includegraphics[width=.5in]{volume.pdf}} & \makecell[tl]{\emph{Volume}\\~~~Cube Sidelength\\~~~+ Position Y \\~~~+ Position X} &~& \makecell[tr]{ ~\\$20$ \\ $400$ \\ $8,000$}\\
+%	
+%	\midrule
+%	\raisebox{-.85\height}{\includegraphics[width=.5in]{curvature.pdf}} & \makecell[tl]{\emph{Curvature}\\~~~Midpoint Curvature\\~~~+ Position Y \\~~~+ Position X} &~& \makecell[tr]{ ~\\$80$ \\ $1,600$ \\ $64,000$}\\	
+%
+%	\midrule
+%	\raisebox{-.85\height}{\includegraphics[width=.5in]{shading.pdf}} & \makecell[tl]{\emph{Shading}\\~~~Density\\~~~+ Position Y \\~~~+ Position X} &~& \makecell[tr]{ ~\\$100$ \\ $2,000$ \\ $40,000$}\\	
+
+	\bottomrule
+\end{tabular}
+}
+\label{tab:ranking}
+\end{table}
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=.8\linewidth]{figure1_slim_only_last.pdf}
+%	\includegraphics[width=0.48\linewidth]{figure1_slim_right.pdf}
+	\caption{\textbf{Computational results of Elementary Perceptual Tasks experiment.} Log absolute error means and 95\% confidence intervals for computed perception of different classifiers on the \emph{elementary perceptual tasks} introduced by Cleveland and McGill 1984~\cite{cleveland_mcgill}. We test the performance of a Multi-layer Perceptron (MLP), the LeNet Convolutional Neural Network, as well as feature generation using the VGG19 and Xception networks on the most complex parametrizations. The * indicates networks which use ImageNet weights. We also compare against an approximate human baseline of $9%$ accuracy reported by Cleveland and McGill.}
+	\label{fig:figure1_results}
+\end{figure}
+
+
 
 \noindent{\textbf{Cross-classifier variability.}}
 
