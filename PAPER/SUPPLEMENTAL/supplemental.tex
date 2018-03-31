@@ -146,14 +146,14 @@ This material contains several plots accompanying the main manuscript.
 \begin{figure*}[t]
 	\centering
 	  \includegraphics[width=.8\linewidth]{error_inspection_new.pdf}
-  \caption{\textbf{Error Distributions.} Error distributions of our networks when decoding elementary perceptual tasks.}
+  \caption{\textbf{Error distributions.} Error distributions of our networks when decoding elementary perceptual tasks.}
 	\label{fig:errors}
 \end{figure*}
 
 \begin{figure*}[t]
 	\centering
 	  \includegraphics[width=\linewidth]{cross_network_new.pdf}
-  \caption{\textbf{Cross-Network Validation.} Our networks fail when the stimuli is translated.}
+  \caption{\textbf{Cross-network variability.} Our networks fail when the stimuli changes through translation or stroke width. The x-labels indicate the training configuration while the y-labels indicate the stimuli variation. Numbers represent MLAE.}
 	\label{fig:cross_network}
 \end{figure*}
 
@@ -161,14 +161,21 @@ This material contains several plots accompanying the main manuscript.
 	\centering
 		\includegraphics[width=.48\linewidth]{../gfx/figure1_slim_left.pdf}
 	  \includegraphics[width=.48\linewidth]{../gfx/figure1_slim_right.pdf}
-  \caption{\textbf{Cross-Network Validation.} Our networks fail when the stimuli is translated.}
+  \caption{\textbf{Elementary perceptual tasks.} Midmean logistic absolute errors (MLAE) for all generated stimuli and across all networks. The * indicates networks which use ImageNet weights instead of bein trained from scratch.}
+	\label{fig:cross_network}
+\end{figure*}
+
+\begin{figure*}[t]
+	\centering
+		\includegraphics[width=\linewidth]{../gfx/figure1_boxplot_new.pdf}
+  \caption{\textbf{Elementary perceptual tasks.} Midmean logistic absolute errors (MLAE) visualized as box plots.}
 	\label{fig:cross_network}
 \end{figure*}
 
 \begin{figure}[t]
 	\centering
 	  \includegraphics[width=\linewidth]{../gfx/figure3_mlae_better_all_AA.pdf}
-  \caption{\textbf{Anti-Aliasing.} We test whether anti-aliasing effects the performance of our networks on pie charts by measuring MLAE. The difference is not statistically significant ($F(1,30)=0.341,p>0.5$).}
+  \caption{\textbf{Anti-aliasing.} We test whether anti-aliasing effects the performance of our networks on pie charts by measuring MLAE. The difference is not statistically significant ($F(1,30)=0.341,p>0.5$).}
 	\label{fig:aa}
 \end{figure}
 
