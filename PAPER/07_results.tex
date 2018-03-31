@@ -1,31 +1,13 @@
 \section{Results and Discussion}
 
-General discussion..
-
-\subsection{Classifiers}
-
+\textbf{Graphical Perception by CNNs.} In all experiments, CNNs were able to regress visual encodings to their quantitative variables reasonably with error rates comparable to humans. This suggests that future work can enable full-blown understanding of different chart types, e.g. a classifier which can identify one type of bar charts.
+\\~\\
+\textbf{Understanding Infographics by CNNs.} While elementary perceptual tasks can be learned by CNNs, it seems to be a very challenging task to have CNNs `understand' information visualizations which come in all variations. A simple \textit{google search} for barchart yields an incredible amount of variations.
+\\~\\
+\textbf{Stimuli Variability.} All our generated stimuli exhibit a certain variability which ranges from a very low number of permutations of 20, for the most simple volume elementary perceptual task, to millions, for the position-length experiment. We additionally add random noise to each stimuli to ensure that the CNNs do not just memorize images. We do not observe a direct correlation between variability and `perceptability' by our networks which suggests that the networks do not just memorize images. We also perform a direct noise and no-noise comparison (see supplemental) without any significant effect.
+\\~\\
+\textbf{Concept Learning.} Our cross-network experiments show that simple variations throw off the networks and result in high error rates. This suggests that the networks are not actually learning concepts but rather learn slight variations of pixel values. While we try to counteract this with our variability settings, it seems that this is the way the networks work.
+\\~\\
 \textbf{Transfer Learning using ImageNet.} Classifiers trained on imagenet are tuned towards natural images. While VGG19 and Xception perform better than the shallower LeNet, their full performance only develops when training from scratch. This shows how natural images are truely different than infographics.
 \\~\\
-\textbf{Anti-aliasing.} Does it help? Not sure yet!
-
-
-
-
-%
-%\subsection{Elementary Perceptual Tasks}
-%
-%
-%\subsection{Position-Angle Experiment}
-%
-%
-%\subsection{Position-Length Experiment}
-%
-%\subsection{Bars and Framed Rectangles Experiment}
-%
-
-
-%\begin{figure}[t]
-%	  \includegraphics[width=\linewidth]{figure12_val_loss.png}
-%  \caption{\textbf{Classifier Efficiency of the Bars and Framed Rectangles experiment.} Categorical Cross-Entropy loss for the \emph{bars and framed rectangles experiment} as described by Cleveland and McGill~\cite{cleveland_mcgill}. The frame around the bars adds an additional visual cue enables faster network convergence. This is not yet reproducible!}
-%	\label{fig:figure12_val_loss}
-%\end{figure}
+\textbf{Anti-aliasing.} To keep things simple, we choose to create rasterized visualizations without interpolation. However, there might be a bias from networks trained on natural images (such as VGG19 * and Xception *, with ImageNet weights) which prefer smoother and not so prominent edges. We compare anti-aliased stimuli against the original ones without any significant effect (see supplemental). 
