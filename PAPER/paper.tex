@@ -56,6 +56,22 @@
 \usepackage[export]{adjustbox}
 \usepackage{subfig}
 
+\newenvironment{hypolist}
+{
+  \begin{itemize}
+    \renewcommand\labelitemi{}
+    \setlength{\itemsep}{1pt}
+    \setlength{\parskip}{1pt}
+    \setlength{\parsep}{1pt}
+    \setlength{\leftmargin}{0em}
+    %\setlength{\itemindent}{0em} -> JT: Doesn't work...
+    \addtolength{\itemindent}{-2.3em}
+
+}
+{
+  \end{itemize}
+}
+
 %% We encourage the use of mathptmx for consistent usage of times font
 %% throughout the proceedings. However, if you encounter conflicts
 %% with other math-related packages, you may want to disable it.
