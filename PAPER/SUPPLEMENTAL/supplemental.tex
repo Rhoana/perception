@@ -95,7 +95,7 @@
 \item Daniel Haehn, and Hanspeter Pfister are with the Paulson School of Engineering and Applied Sciences at Harvard University. \\
 E-mail: \{haehn,pfister\}@seas.harvard.edu.
 %
-\item James Tompkin is with the Thomas J. Watson Sr. Center for Information Technology at Brown University. \\E-mail: james\_tompkin@brown.edu.
+\item James Tompkin is with Brown University. \\E-mail: james\_tompkin@brown.edu.
 }
 
 %other entries to be set up for journal
@@ -134,50 +134,57 @@ E-mail: \{haehn,pfister\}@seas.harvard.edu.
 
 \begin{document}
 \maketitle
+
+We present several plots which contain complete results for the elementary perceptual task experiment, for which, given the number of experiments, the main paper presented only a selection. We report MLAE for all added parameters to the stimuli, rather than just the most complex parameterization as in the main paper (Figures~\ref{fig:epc_mlae} and \ref{fig:epc_mlae_boxplots}). From this, we see that performance is largely equal across parameters, showing that most networks have sufficient capacity for the given parameterizations.
+
+We also report complete results for the cross-network variability experiment on the elementary perceptual task experiment (Figure \ref{fig:cross_network}). As in the main paper, this shows that our networks are not able to generalize to additional translation or stroke width parameters without representative training data.
+
+Further, we show how the errors for each network are distributed, across elementary perceptual tasks and across different cross-validation splits (Figure~\ref{fig:errors}). Most errors are approximately normally distributed, though our CNN with less parameters (LeNet) and our MLP often have errors which are farther from a normal distribution, and show structure.
+
+\section{Experiment: Anti-aliasing}
+We also include an experimental result showing that, for our stimuli, adding anti-aliasing to the line generation was not important to the tested CNNs (Figure~\ref{fig:aa}).
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\linewidth]{../gfx/figure3_mlae_better_all_AA.pdf}
+\caption{\textbf{Anti-aliasing.} We test whether anti-aliasing effects the performance of our networks on pie charts by measuring MLAE. The difference is not statistically significant ($F(1,30)=0.341,p>0.5$).}
+\label{fig:aa}
+\end{figure}
+
 %% The ``\maketitle'' command must be the first command after the
 %% ``\begin{document}'' command. It prepares and prints the title block.
 
 %% the only exception to this rule is the \firstsection command
-\begin{figure*}
-\centering
-This material contains several plots accompanying the main manuscript.
-\end{figure*}
-\clearpage
-\begin{figure*}[t]
+
+\begin{figure*}[p]
 	\centering
-	  \includegraphics[width=.8\linewidth]{error_inspection_new.pdf}
-  \caption{\textbf{Error distributions.} Error distributions of our networks when decoding elementary perceptual tasks.}
-	\label{fig:errors}
+		\includegraphics[width=.48\linewidth]{../gfx/figure1_slim_left.pdf}
+	  \includegraphics[width=.48\linewidth]{../gfx/figure1_slim_right.pdf}
+  \caption{\textbf{Elementary perceptual tasks.} Midmean logistic absolute errors (MLAE) for all generated stimuli and across all networks. The * indicates networks which use ImageNet weights instead of bein trained from scratch.}
+	\label{fig:epc_mlae}
 \end{figure*}
 
-\begin{figure*}[t]
+\begin{figure*}[p]
+	\centering
+		\includegraphics[width=\linewidth]{../gfx/figure1_boxplot_new.pdf}
+  \caption{\textbf{Elementary perceptual tasks.} Midmean logistic absolute errors (MLAE) visualized as box plots.}
+	\label{fig:epc_mlae_boxplots}
+\end{figure*}
+
+\begin{figure*}[p]
 	\centering
 	  \includegraphics[width=\linewidth]{cross_network_new.pdf}
   \caption{\textbf{Cross-network variability.} Our networks fail when the stimuli changes through translation or stroke width. The x-labels indicate the training configuration while the y-labels indicate the stimuli variation. Numbers represent MLAE.}
 	\label{fig:cross_network}
 \end{figure*}
 
-\begin{figure*}[t]
+\begin{figure*}[p]
 	\centering
-		\includegraphics[width=.48\linewidth]{../gfx/figure1_slim_left.pdf}
-	  \includegraphics[width=.48\linewidth]{../gfx/figure1_slim_right.pdf}
-  \caption{\textbf{Elementary perceptual tasks.} Midmean logistic absolute errors (MLAE) for all generated stimuli and across all networks. The * indicates networks which use ImageNet weights instead of bein trained from scratch.}
-	\label{fig:cross_network}
+	  \includegraphics[width=.8\linewidth]{error_inspection_new.pdf}
+  \caption{\textbf{Error distributions.} Error distributions of our networks when decoding elementary perceptual tasks.}
+	\label{fig:errors}
 \end{figure*}
 
-\begin{figure*}[t]
-	\centering
-		\includegraphics[width=\linewidth]{../gfx/figure1_boxplot_new.pdf}
-  \caption{\textbf{Elementary perceptual tasks.} Midmean logistic absolute errors (MLAE) visualized as box plots.}
-	\label{fig:cross_network}
-\end{figure*}
-
-\begin{figure}[t]
-	\centering
-	  \includegraphics[width=\linewidth]{../gfx/figure3_mlae_better_all_AA.pdf}
-  \caption{\textbf{Anti-aliasing.} We test whether anti-aliasing effects the performance of our networks on pie charts by measuring MLAE. The difference is not statistically significant ($F(1,30)=0.341,p>0.5$).}
-	\label{fig:aa}
-\end{figure}
 
 %% if specified like this the section will be committed in review mode
 %\acknowledgments{
@@ -185,11 +192,11 @@ This material contains several plots accompanying the main manuscript.
 %a grant from XYZ (\# 12345-67890).}
 
 %\bibliographystyle{abbrv}
-\bibliographystyle{abbrv-doi}
+%\bibliographystyle{abbrv-doi}
 %\bibliographystyle{abbrv-doi-narrow}
 %\bibliographystyle{abbrv-doi-hyperref}
 %\bibliographystyle{abbrv-doi-hyperref-narrow}
 
-\bibliography{../paper.bib}
+%\bibliography{../paper}
 \end{document}
 
