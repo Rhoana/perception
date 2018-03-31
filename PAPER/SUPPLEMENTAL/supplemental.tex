@@ -150,6 +150,18 @@ We also include an experimental result showing that, for our stimuli, adding ant
 \caption{\textbf{Anti-aliasing.} We test whether anti-aliasing effects the performance of our networks on pie charts by measuring MLAE. The difference is not statistically significant ($F(1,30)=0.341,p>0.5$).}
 \label{fig:aa}
 \end{figure}
+\vfill\null
+\section{Experiment: Noise}
+For all our experiments, we add subtle $5\%$ noise to every pixel to enhance variability. We did not observe a significant effect on regression performance when comparing the weber-fechner's law experiment with and without noise averaged over 4 runs (Figure~\ref{fig:noise}). However, the variability of our stimuli increases.
+
+\begin{figure}[th]
+\centering
+\includegraphics[width=.8\linewidth]{../gfx/weber_mlae_no_noise.pdf}
+\includegraphics[width=.8\linewidth]{../gfx/weber_mlae_noise.pdf}
+\caption{\textbf{Noise.} We test whether noise (top: off, bottom: on) effects the performance of our networks on the weber-fechner's law experiment by measuring MLAE. With noise, $MLAE=4.511$ ($SD=0.512$) and without noise $MLAE=4.491$ ($SD=0.543$). The difference is not statistically significant ($F(1,22)=0.008,p>0.5$).}
+\label{fig:noise}
+\end{figure}
+
 
 %% The ``\maketitle'' command must be the first command after the
 %% ``\begin{document}'' command. It prepares and prints the title block.
@@ -185,6 +197,38 @@ We also include an experimental result showing that, for our stimuli, adding ant
 	\label{fig:errors}
 \end{figure*}
 
+\begin{figure}[p]
+	\centering
+	  \includegraphics[width=\linewidth]{../gfx/figure4_training_loss_with_multi.pdf}
+	  \includegraphics[width=\linewidth]{../gfx/figure4_val_loss_with_multi.pdf}
+  \caption{\textbf{Loss plots for the position-length experiment.} We visualize the MSE loss on training data and for unseen validation data after each epoch. There is no significant difference in convergence for either encoding but spiky outliers due to monte-carlo cross validation are visible.}
+	\label{fig:fig4_loss}
+\end{figure}
+
+\begin{figure}[p]
+	\centering
+	  \includegraphics[width=\linewidth]{../gfx/figure12_training_loss.pdf}
+	  \includegraphics[width=\linewidth]{../gfx/figure12_val_loss.pdf}
+  \caption{\textbf{Loss plots for the bars-and-framed-rectangles experiment.} We visualize the MSE loss on training data and for unseen validation data after each epoch. There is no significant difference in convergence for either encoding.}
+	\label{fig:fig12_loss}
+\end{figure}
+
+\begin{figure*}[t]
+	\centering
+	
+    \subfloat[without noise]{
+	  \includegraphics[width=.48\linewidth]{../gfx/weber_training_loss_no_noise.pdf}
+	  \includegraphics[width=.48\linewidth]{../gfx/weber_validation_loss_no_noise.pdf}
+	}
+	\hfill
+    \subfloat[with noise]{
+	  \includegraphics[width=.48\linewidth]{../gfx/weber_training_loss.pdf}
+	  \includegraphics[width=.48\linewidth]{../gfx/weber_validation_loss.pdf}
+	}
+
+  \caption{\textbf{Loss plots for the weber-fechner's law experiment.} We visualize the MSE loss on training data (left) and for unseen validation data (right) after each epoch (a) without noise and (b) with subtle $5\%$ noise per pixel. There is no significant difference when noise is added. The LeNet network seems to overfit with Weber Base 100 in both cases even with dropout regularization.}
+	\label{fig:weber_loss}
+\end{figure*}
 
 %% if specified like this the section will be committed in review mode
 %\acknowledgments{
