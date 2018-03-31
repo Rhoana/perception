@@ -4,11 +4,22 @@
 \@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces \textbf  {Anti-aliasing.} We test whether anti-aliasing effects the performance of our networks on pie charts by measuring MLAE. The difference is not statistically significant ($F(1,30)=0.341,p>0.5$).\relax }}{1}}
 \providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
 \newlabel{fig:aa}{{1}{1}}
-\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces \textbf  {Elementary perceptual tasks.} Midmean logistic absolute errors (MLAE) for all generated stimuli and across all networks. The * indicates networks which use ImageNet weights instead of bein trained from scratch.\relax }}{2}}
-\newlabel{fig:epc_mlae}{{2}{2}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces \textbf  {Elementary perceptual tasks.} Midmean logistic absolute errors (MLAE) visualized as box plots.\relax }}{3}}
-\newlabel{fig:epc_mlae_boxplots}{{3}{3}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces \textbf  {Cross-network variability.} Our networks fail when the stimuli changes through translation or stroke width. The x-labels indicate the training configuration while the y-labels indicate the stimuli variation. Numbers represent MLAE.\relax }}{4}}
-\newlabel{fig:cross_network}{{4}{4}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces \textbf  {Error distributions.} Error distributions of our networks when decoding elementary perceptual tasks.\relax }}{5}}
-\newlabel{fig:errors}{{5}{5}}
+\@writefile{toc}{\contentsline {section}{\numberline {2}Experiment: Noise}{1}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces \textbf  {Noise.} We test whether noise (top: off, bottom: on) effects the performance of our networks on the weber-fechner's law experiment by measuring MLAE. With noise, $MLAE=4.511$ ($SD=0.512$) and without noise $MLAE=4.491$ ($SD=0.543$). The difference is not statistically significant ($F(1,22)=0.008,p>0.5$).\relax }}{1}}
+\newlabel{fig:noise}{{2}{1}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces \textbf  {Elementary perceptual tasks.} Midmean logistic absolute errors (MLAE) for all generated stimuli and across all networks. The * indicates networks which use ImageNet weights instead of bein trained from scratch.\relax }}{2}}
+\newlabel{fig:epc_mlae}{{3}{2}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces \textbf  {Elementary perceptual tasks.} Midmean logistic absolute errors (MLAE) visualized as box plots.\relax }}{3}}
+\newlabel{fig:epc_mlae_boxplots}{{4}{3}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces \textbf  {Cross-network variability.} Our networks fail when the stimuli changes through translation or stroke width. The x-labels indicate the training configuration while the y-labels indicate the stimuli variation. Numbers represent MLAE.\relax }}{4}}
+\newlabel{fig:cross_network}{{5}{4}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces \textbf  {Error distributions.} Error distributions of our networks when decoding elementary perceptual tasks.\relax }}{5}}
+\newlabel{fig:errors}{{6}{5}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces \textbf  {Loss plots for the position-length experiment.} We visualize the MSE loss on training data and for unseen validation data after each epoch. There is no significant difference in convergence for either encoding but spiky outliers due to monte-carlo cross validation are visible.\relax }}{6}}
+\newlabel{fig:fig4_loss}{{7}{6}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces \textbf  {Loss plots for the bars-and-framed-rectangles experiment.} We visualize the MSE loss on training data and for unseen validation data after each epoch. There is no significant difference in convergence for either encoding.\relax }}{6}}
+\newlabel{fig:fig12_loss}{{8}{6}}
+\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces \textbf  {Loss plots for the weber-fechner's law experiment.} We visualize the MSE loss on training data (left) and for unseen validation data (right) after each epoch (a) without noise and (b) with subtle $5\%$ noise per pixel. There is no significant difference when noise is added. The LeNet network seems to overfit with Weber Base 100 in both cases even with dropout regularization.\relax }}{7}}
+\newlabel{fig:weber_loss}{{9}{7}}
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(a)}{\ignorespaces {without noise}}}{7}}
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(b)}{\ignorespaces {with noise}}}{7}}
