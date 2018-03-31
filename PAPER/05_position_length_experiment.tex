@@ -1,19 +1,29 @@
 \section{Experiment: Position-Length}
 
-This is the one where we estimate two selected bars compared to the longest one - very similar to the previous one but, not yet done. We basically test divided versus grouped barchart and we estimate one relation between two marked quanitities: what percent the smaller is of the larger.
+The position-length experiment by Cleveland and McGill involves the perception of five types of visualizations~\cite{cleveland_mcgill}. The visualizations are either grouped bar charts or divided bar charts (Fig.~\ref{fig:figure4_mlae}. Both types of graphs can show the same information but the elementary perceptual task is different. According to the theory by Cleveland and McGill, a grouped bar chart always involves the judgement of positions along a common scale. On the other hand, a divided bar chart might require length judgements in addition. Figure~\ref{fig:figure4_mlae} shows different charts of both types on the left. As identified by Cleveland and McGill, types 1, 2, and 3 involve the judgement of positions along a common scale while types 4 and 5 involve the measure of length. This means that this experiment does not just compare grouped versus divided bar charts but rather comparing position and length judgements.
 
-There are five types: type 1-3 this is a position judgement along a common scale. (btw all classifiers seem to do that extremely well in the elementary tasks so we assume this will work well here too). Types 4-5 are length judgements and we know that the classifiers struggle with that quite a bit.
+For data generation we follow the same approach as in the original experiment. We generate pairs from ten values generated using Cleveland and McGill's equation
 
-The setup from Cleveland McGill is first a classification task: which one is smaller? and then a regression task: how much smaller. So we have to see how to encode this.
+\begin{equation}
+s_i = 10\times10^{(i-1)/12},\textnormal{~~~~~}i=1,...,10,
+\end{equation}
 
+with two different values for each pair. We then generate 8 other random values in the range of 10 and 93. These boundaries were chosen because we create rasterized visualizations using $100\times100$ pixel and want to stay in frame for a convolutional filter size of $5\times5$ in LeNet. We then visually encode the ten values as type 1--5. The paired quantities get marked by a single pixel. These are our quantities of interest and the task is to estimate the ratio of the smaller to the larger. We model this task as a single value regression. For type 4, we follow Cleveland and McGill's constraint that neither the top or the bottom of the marked quantities match to force length estimations rather than position.
+
+We model this experiment as a single value regression task and ask networks to estimate the percentage of the smaller to the larger marked quantity in each visual encoding. The network first has to find the two marked quantities, then identify the smaller one, and finally estimate the ratio in comparison to the larger quantitiy. The 8 random quantities (which should be ignored by the network) push the number of possible permutations to a massive $9.20E+16$ and creates a very challenging problem.
+
+Finally, we also train `multi' networks which include all five types which creates an even bigger challenge.
 
 \subsection{Hypotheses}
 
 We proposed two hypotheses entering the elementary perceptual task experiment:
 
 \begin{itemize}
-	\item \textbf{H3.1} \textbf{Grouped bar charts are better computational perceivable than divided bar charts.} A grouped bar chart involves judging a position while a divided bar chart most likely (if not the bottom is looked at) requires length judgements. Classifiers are better at judging position than at judging length so grouped bar charts are easier to grasp in terms of computational perception.
-	\item \textbf{H3.2} \textbf{not yet} Any ideas?
+	\item \textbf{H3.1} \textbf{Our networks can estimate grouped bar charts better than divided bar charts.} 
+	
+	Grouped bar charts are better computational perceivable than divided bar charts.} A grouped bar chart involves judging a position while a divided bar chart most likely (if not type 2) requires length judgements. 
+	
+	\item \textbf{H3.2} \textbf{Training `multi' networks } Any ideas?
 \end{itemize}
 
 
@@ -23,33 +33,33 @@ We proposed two hypotheses entering the elementary perceptual task experiment:
 %  \caption{\textbf{Position-Length Experiment.} (Not yet) Rasterized versions of the graphs of Cleveland and McGill's position-length experiment. The perceptual task involves comparing. the two dot-marked quantities across five different visual encodings of either grouped or divided bar charts. We evaluate which type of bar chart performs better with our neural networks as a combined classification and regression problem. The first task is to select which of the marked quantities is smaller (classification) and the second task is to specify how much smaller it is (regression).}
 %	\label{fig:position_length_experiment}
 %\end{figure*}
-\begin{table}[h]
-\centering
-\caption{\textbf{Position-Length Experiment.} Rasterized versions of the graphs of Cleveland and McGill's position-length experiment. The perceptual task involves comparing the two dot-marked quantities across five different visual encodings of either grouped or divided bar charts. We evaluate which type of bar chart performs better with our neural networks. The two marked values are chosen from a set of ten pairs which defines the dual regression task. Since the other 8 values are chosen randomly, the parameter space for images of this experiment is massive.}
-\resizebox{\linewidth}{!}{
-\begin{tabular}{lllr}
-	\toprule
-	\multicolumn{2}{l}{~} & ~ & Permutations\\
-	\midrule
-	\raisebox{-.85\height}{\includegraphics[width=.5in]{figure4_type_1.pdf}} & \makecell[tl]{Type 1: \emph{Grouped Bar Chart}\\~~~Perceptual Task: \emph{Position}\\~ \\~ \\} &~& \makecell[tr]{~\\ $9.20E+16$}\\
-
-	\midrule
-	\raisebox{-.85\height}{\includegraphics[width=.5in]{figure4_type_2.pdf}} & \makecell[tl]{Type 2: \emph{Divided Bar Chart}\\~~~Perceptual Task: \emph{Position}\\~ \\~ \\} &~& \makecell[tr]{~\\ $9.20E+16$}\\
-	
-	\midrule
-	\raisebox{-.85\height}{\includegraphics[width=.5in]{figure4_type_3.pdf}} & \makecell[tl]{Type 3: \emph{Grouped Bar Chart}\\~~~Perceptual Task: \emph{Position}\\~ \\~ \\} &~& \makecell[tr]{~\\ $9.20E+16$}\\
-	
-	\midrule
-	\raisebox{-.85\height}{\includegraphics[width=.5in]{figure4_type_4.pdf}} & \makecell[tl]{Type 4: \emph{Divided Bar Chart}\\~~~Perceptual Task: \emph{Length}\\~ \\~ \\} &~& \makecell[tr]{~\\ $9.20E+16$}\\
-	
-	\midrule
-	\raisebox{-.85\height}{\includegraphics[width=.5in]{figure4_type_5.pdf}} & \makecell[tl]{Type 5: \emph{Divided Bar Chart}\\~~~Perceptual Task: \emph{Length}\\~ \\~ \\} &~& \makecell[tr]{~\\ $9.20E+16$}\\
-
-	\bottomrule
-\end{tabular}
-}
-\label{tab:pos_length_parameters}
-\end{table}
+%\begin{table}[h]
+%\centering
+%\caption{\textbf{Position-Length Experiment.} Rasterized versions of the graphs of Cleveland and McGill's position-length experiment. The perceptual task involves comparing the two dot-marked quantities across five different visual encodings of either grouped or divided bar charts. We evaluate which type of bar chart performs better with our neural networks. The two marked values are chosen from a set of ten pairs which defines the dual regression task. Since the other 8 values are chosen randomly, the parameter space for images of this experiment is massive.}
+%\resizebox{\linewidth}{!}{
+%\begin{tabular}{lllr}
+%	\toprule
+%	\multicolumn{2}{l}{~} & ~ & Permutations\\
+%	\midrule
+%	\raisebox{-.85\height}{\includegraphics[width=.5in]{figure4_type_1.pdf}} & \makecell[tl]{Type 1: \emph{Grouped Bar Chart}\\~~~Perceptual Task: \emph{Position}\\~ \\~ \\} &~& \makecell[tr]{~\\ $9.20E+16$}\\
+%
+%	\midrule
+%	\raisebox{-.85\height}{\includegraphics[width=.5in]{figure4_type_2.pdf}} & \makecell[tl]{Type 2: \emph{Divided Bar Chart}\\~~~Perceptual Task: \emph{Position}\\~ \\~ \\} &~& \makecell[tr]{~\\ $9.20E+16$}\\
+%	
+%	\midrule
+%	\raisebox{-.85\height}{\includegraphics[width=.5in]{figure4_type_3.pdf}} & \makecell[tl]{Type 3: \emph{Grouped Bar Chart}\\~~~Perceptual Task: \emph{Position}\\~ \\~ \\} &~& \makecell[tr]{~\\ $9.20E+16$}\\
+%	
+%	\midrule
+%	\raisebox{-.85\height}{\includegraphics[width=.5in]{figure4_type_4.pdf}} & \makecell[tl]{Type 4: \emph{Divided Bar Chart}\\~~~Perceptual Task: \emph{Length}\\~ \\~ \\} &~& \makecell[tr]{~\\ $9.20E+16$}\\
+%	
+%	\midrule
+%	\raisebox{-.85\height}{\includegraphics[width=.5in]{figure4_type_5.pdf}} & \makecell[tl]{Type 5: \emph{Divided Bar Chart}\\~~~Perceptual Task: \emph{Length}\\~ \\~ \\} &~& \makecell[tr]{~\\ $9.20E+16$}\\
+%
+%	\bottomrule
+%\end{tabular}
+%}
+%\label{tab:pos_length_parameters}
+%\end{table}
 
 \subsection{Discussion}
 
@@ -58,9 +68,9 @@ JT: Look at the relative difficulty of the tasks. In Cleveland and McGill, types
 \subsection{Results}
 
 
-\begin{figure}[t]
+\begin{figure}[!ht]
 	\centering
-	  \includegraphics[width=.8\linewidth]{figure4_mlae_with_multi_and_humans_all.pdf}
-  \caption{\textbf{Computational results of the Position-Length experiment.} Log absolute error means and 95\% confidence intervals for the \emph{position-length experiment} as described by Cleveland and McGill~\cite{cleveland_mcgill}. We test the performance of a Multi-layer Perceptron (MLP), the LeNet Convolutional Neural Network, as well as feature generation using the VGG19 and Xception networks trained on ImageNet.}
+	  \includegraphics[width=\linewidth]{figure4_mlae_with_multi_and_humans_all.pdf}
+  \caption{\textbf{Computational results of the position-length experiment.} \textit{Left:} Rasterized visualizations of type 1--5 for divided and grouped bar charts of Cleveland and McGill's position-length experiment. \textit{Right:} MLAE and $95\%$ confidence intervals for different regressors estimating the value of marked quantities in the visualizations. The VGG19 * and Xception * networks are using ImageNet weights. The top 5 rows represent networks trained on a single encoding while the last row shows `multi' networks which were trained on a random stream of types 1--5. We visually compare against human performance from the original experiment.}
 	\label{fig:figure4_mlae}
 \end{figure}
