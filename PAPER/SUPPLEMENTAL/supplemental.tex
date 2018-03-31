@@ -116,19 +116,17 @@ E-mail: \{haehn,pfister\}@seas.harvard.edu.
 %% Uncomment below to include a teaser figure.
 %\teaser{
 %  \centering
-%  \includegraphics[width=\linewidth]{teaser.pdf}
-%  \caption{\textbf{Computing Cleveland and McGill's Position-Angle Experiment using Convolutional Neural Networks.} We replicate the original experiment by asking visual cortex inspired machine learning classifiers to assess the relationship between values encoded in pie charts and bar charts. Similar to the findings of Clevenland and McGill~\cite{cleveland_mcgill}, our experiments show that CNNs read quantities more accurately from bar charts (mean squared error, MSE in green).}
-%	\label{fig:teaser}
+%\par{\\~\\~\\~\\}
 %}
 
 %% Uncomment below to disable the manuscript note
-%\renewcommand{\manuscriptnotetxt}{}
+\renewcommand{\manuscriptnotetxt}{}
 
 %% Copyright space is enabled by default as required by guidelines.
 %% It is disabled by the 'review' option or via the following command:
 % \nocopyrightspace
 
-\vgtcinsertpkg
+%\vgtcinsertpkg
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%% START OF THE PAPER %%%%%%%%%%%%%%%%%%%%%%
@@ -140,7 +138,39 @@ E-mail: \{haehn,pfister\}@seas.harvard.edu.
 %% ``\begin{document}'' command. It prepares and prints the title block.
 
 %% the only exception to this rule is the \firstsection command
+\begin{figure*}
+\centering
+This material contains several plots accompanying the main manuscript.
+\end{figure*}
+\clearpage
+\begin{figure*}[t]
+	\centering
+	  \includegraphics[width=.8\linewidth]{error_inspection_new.pdf}
+  \caption{\textbf{Error Distributions.} Error distributions of our networks when decoding elementary perceptual tasks.}
+	\label{fig:errors}
+\end{figure*}
 
+\begin{figure*}[t]
+	\centering
+	  \includegraphics[width=\linewidth]{cross_network_new.pdf}
+  \caption{\textbf{Cross-Network Validation.} Our networks fail when the stimuli is translated.}
+	\label{fig:cross_network}
+\end{figure*}
+
+\begin{figure*}[t]
+	\centering
+		\includegraphics[width=.48\linewidth]{../gfx/figure1_slim_left.pdf}
+	  \includegraphics[width=.48\linewidth]{../gfx/figure1_slim_right.pdf}
+  \caption{\textbf{Cross-Network Validation.} Our networks fail when the stimuli is translated.}
+	\label{fig:cross_network}
+\end{figure*}
+
+\begin{figure}[t]
+	\centering
+	  \includegraphics[width=\linewidth]{../gfx/figure3_mlae_better_all_AA.pdf}
+  \caption{\textbf{Anti-Aliasing.} We test whether anti-aliasing effects the performance of our networks on pie charts by measuring MLAE. The difference is not statistically significant ($F(1,30)=0.341,p>0.5$).}
+	\label{fig:aa}
+\end{figure}
 
 %% if specified like this the section will be committed in review mode
 %\acknowledgments{
