@@ -71,13 +71,14 @@ For \emph{VGG19} and \emph{Xception}, we have two variants: the network trained 
 \label{sec:data}
 
 \noindent\textbf{Image Stimuli and Labels.} 
-We create our stimuli visualizations as 100$\times$100 binary images, rasterized without interpolation. We write a parameterized stimuli generator for each elementary task. The number of possible parameter values differs per experiment, and we summarize these in Table~\ref{tab:encoding_parameters} and Section~\ref{sec:parametrizations}. Before use, we scale the generated images into an unbiased range: images to the range of $-0.5$ to $0.5$. Then, we add subtle random noise (uniformly distributed between $0-0.05$) to each pixel to introduce variation which prevents the networks from simply `remembering' each different image.
+We create our stimuli visualizations as 100$\times$100 binary images, rasterized without interpolation. We write a parameterized stimuli generator for each elementary task. The number of possible parameter values differs per experiment, and we summarize these in Table~\ref{tab:encoding_parameters} and Section~\ref{sec:parametrizations}. Before use, we scale the generated images into an unbiased range: images to the range of $-0.5$ to $0.5$. Then, we add subtle random noise (uniformly distributed between $-0.025$--$0.025$) to each pixel to introduce variation which prevents the networks from simply `remembering' each different image.
 
 Each stimuli image also has an associated ground truth label representing the parameter set which generated the image, e.g., the length in pixels of a bar. As before, we scale these labels to the range of $0.0$ to $1.0$, which represent the maximum and minimum values that this parameter can take.
 \\~\\
 \noindent\textbf{Training/Validation/Test Splits.} For each task, we use 60,000 training images, 20,000 validation images, and 20,000 test images. To create these datasets, we generate stimuli from random parameters and add them to the sets until the target number is reached, while maintaining distinct (random) parameter spaces for each set to ensure that there is no leakage between training and validation/testing.
 
 \subsection{Measures and Analysis}
+\label{sec:measuresandanalysis}
 
 \noindent\textbf{Cross Validation.} For reproducibility, we perform repeated random sub-sampling validation, also known as Monte Carlo cross-validation, during our experiments. We run every experiment seperately twelve times, and randomly select (without replacement) the $60\%$ of our data as training data, $20\%$ as validation, and $20\%$ as test. 
 %Our large data sample size of 100,000 guarantees that every single observation of our parameterizations will be selected at least once (excluding noise patterns). -> JT: No it doesn't.
@@ -95,7 +96,7 @@ In addition to this metric, we also calculate standard error metrics such as the
 \\~\\
 \noindent{\textbf{Training Efficiency.}} We use the training convergence rate as a measure of how easy or hard a particular task is for the network to learn to solve. This is defined as the MSE loss decrease per training epoch, which is an indicator of the training efficiency of the network with respect to the visual encoding.
 \\~\\
-\noindent\textbf{Network Generalizability.} We evaluate generalizability by asking a network previously trained upon one task parameterization to answer questions about the same type of task stimuli but with more complex parameterization, e.g., estimating bar length without and with changes in stroke width.
+\noindent\textbf{Network Generalizability.} With sufficient capacity of trainable parameters, it is often said that a network can `memorize' the images if the data set has a low variability, and so it is important to consider this variability when evaluating different networks with fixed numbers of trainable parameters (Table~\ref{tab:parameters}). As discussed, we add noise to each stimulus image to prevent this. We also evaluate generalizability by asking a network previously trained upon one task parameterization to answer questions about the same type of task stimuli but with more complex parameterization, e.g., estimating bar length without and with changes in stroke width.
 
 Further, some experiments compare different visual encoding types, e.g., bar plot vs.~stacked bar plot. We train and evaluate individual networks for each parameterization, plus we also train and evaluate a networks on stimuli across the different types. This single decision-making software better mimics the judgements that a human would be able to make. 
 %This scenario affects the optimization process and result in networks with more flexible knowledge with the caveat of longer training times. -> JT: Save it for the results discussion.
