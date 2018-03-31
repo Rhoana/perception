@@ -3,11 +3,8 @@
 
 Cleveland and McGill describe a set of elementary graphical perceptual tasks across ten encodings, where each encodes a quantitative variable in a graphical element or visual mark~\cite{cleveland_mcgill,cleveland1985graphical}. These tasks are the low-level building blocks for information visualizations (Table~\ref{tab:encoding_parameters}): estimating position on a common scale, position on non-aligned scales, length, direction (or slope), angle, area, volume, curvature,  shading (or ink density), and color saturation. As human color perception is complex, and because Cleveland and McGill perform no experiments with it, for now we leave it for future work. 
 
-For the remaining nine tasks, we create visualizations as 100$\times$100 raster images, and test whether each of our networks is able to regress values from the images. As discussed in Section~\ref{sec:measuresandanalysis}, we generate multiple parameterizations for each elementary perceptual task to allow us to increase the number of parameters that the networks must estimate, and to measure performance as we move closer towards a general representation of visual marks. For instance, for \emph{Position Common Scale}, first we only vary the $y$-position of the spot to estimate against the scale, then we include translation along the x-axis, and then we vary the size of the spot size. These parameterizations are still simple---each increase is only slightly more complex for a human to solve---but it rapidly increases the number of possible images that the network must `learn' (Table~\ref{tab:encoding_parameters}).
+For the remaining nine tasks, we create visualizations as 100$\times$100 raster images, and test whether each of our networks is able to regress absolute values from the images. As discussed in Section~\ref{sec:measuresandanalysis}, we generate multiple parameterizations for each elementary perceptual task to allow us to increase the number of parameters that the networks must estimate, and to measure performance as we move closer towards a general representation of visual marks. For instance, for \emph{Position Common Scale}, first we only vary the $y$-position of the spot to estimate against the scale, then we include translation along the x-axis, and then we vary the size of the spot size (Table~\ref{tab:encoding_parameters}). These parameterizations are still simple---each increase is only slightly more complex for a human to solve---but it increases the number of possible images for the network to `learn'.
 
-JT: Write something about comparison to Cleveland and McGill's 1985 experimental encoding?
-
-JT: Write something more intelligent about the different kinds of parameter variations.
 
 %Cleveland and McGill did not explicitly test human perception of single instances of these encodings. -> JT: We now know this isn't true.
 
@@ -64,14 +61,13 @@ JT: Write something more intelligent about the different kinds of parameter vari
 %
 \subsection{Hypotheses}
 
-We state four hypotheses for the elementary perceptual task experiment:
+\noindent \textbf{H1.1} \textbf{The CNNs tested will be able to regress quantitative variables from graphical elements.} We parametrize different visual encodings (Table~\ref{tab:encoding_parameters}) and test whether the CNNs can measure them, and relate the results to accuracies obtained by humans on similar tasks.
 
-\begin{itemize}
-	\item \textbf{H1.1} \textbf{The CNNs tested will be able to regress quantitative variables from graphical elements.} We parametrize different visual encodings (Table~\ref{tab:encoding_parameters}) and test whether the CNNs can measure them, and relate the results to accuracies obtained by humans on similar tasks.
-	\item \textbf{H1.2} \textbf{Computed perceptual performance is dependent on network architexture.} We evaluate multiple regressors with different numbers of trainable parameters. We expect a more complex network (with a higher number of trainable parameters) to perform better on elementary perceptual tasks.
-	\item \textbf{H1.3} \textbf{Some visual encodings will be easier to learn than others for the CNNs tested.} Cleveland and McGill order the elementary perceptual tasks by accuracy. We investigate whether this order is also relevant for computing graphical perception.
-	\item \textbf{H1.4} \textbf{Networks trained on perceptual tasks can generalize to more and less complex variations of the same task.} Empirical evidence suggests that CNNs are able to generalize by interpolating between different training data points. This property allows them to perform on variations of a similar perceptual task. We create visual representations of the elementary perceptual tasks with different variability, and expect that networks will be able to generalize when presented with slight task variations.
-\end{itemize}
+\noindent \textbf{H1.2} \textbf{CNN perceptual performance will depend on network architexture.} We evaluate multiple regressors with different numbers of trainable parameters. We expect a more complex network (with more trainable parameters) to perform better on elementary perceptual tasks.
+
+\noindent \textbf{H1.3} \textbf{Some visual encodings will be easier to learn than others for the CNNs tested.} Cleveland and McGill order the elementary perceptual tasks by accuracy. We investigate whether this order is also relevant for computing graphical perception.
+
+\noindent \textbf{H1.4} \textbf{Networks trained on perceptual tasks will generalize to more complex variations of the same task.} Empirical evidence suggests that CNNs are able to generalize by interpolating between different training data points, and so perform on variations of a similar perceptual task. We create visual representations of the elementary perceptual tasks with different variability, and expect that networks will be able to generalize when presented with slight task variations.
 
 %	
 %	We suspect that CNNs are able to 'learn` absolute quantities encoded using low-level visual 
@@ -81,9 +77,11 @@ We state four hypotheses for the elementary perceptual task experiment:
 
 \subsection{Results}
 
+% These values are similar or better than the range of MLAE=$3.02$--$3.82$ ($8-14\%$ error) for a similar experiment by Cleveland and McGill testing human estimation of relations between elementary perceptual tasks~\cite{cleveland1985graphical}. 
+
 %While the performance varies for the different encodings, we observe for all networks performance similar to the measured human performance by Cleveland and McGill~\cite{cleveland1985graphical}. These results confirm our initial hypotheses.
 \noindent{\textbf{Overall Accuracy.}} The tested CNNs and MLP are able to regress the visually encoded quantities in most cases (Fig.~\ref{fig:figure1_results}), with average error across all classifiers and tasks as \textit{MLAE}$=1.597$ ($SD=0.394$). % and \textit{MAE}=$2.89$ ($SD=0.848$). 
-These values are similar or better than the range of MLAE=$3.02$--$3.82$ ($8-14\%$ error) for a similar experiment by Cleveland and McGill testing human estimation of relations between elementary perceptual tasks~\cite{cleveland1985graphical}. From these results, we \textbf{accept H1.1}.
+From these results, we \textbf{accept H1.1}.
 \\~\\
 \noindent{\textbf{Comparing Networks.}} 
 Across network architectures and training schemes, there is considerable difference in performance. In order of decreasing error: 
@@ -96,7 +94,9 @@ and VGG19 trained from scratch $0.404$ ($SD=0.407$).
 
 Across tasks, we compare the average regression performances for our networks and report the effect of the network as statistically significant ($F_{5,48}=20.392,p<0.01$). Post hoc comparisons show that the differences between LeNet and the VGG19 network, independent of the used weights, are significant ($t_48=4.674,p<0.01$). VGG19 from scratch and Xception (both versions) perform significantly differently, with Xception from scratch ($t_48=4.87,p<0.01$) and Xception with ImageNet weights ($t_48=5.621,p<0.01$). However, differences between LeNet and both Xception networks are not significant. Taken collectively, we \textbf{partially accept H1.2}, in that more tunable parameters does not automatically infer greater performance.
 \\~\\
-\noindent{\textbf{Ranking of Visual Encodings.}} Cleveland and McGill provide an ordering of elementary visual encodings based on theoretical arguments and experimental results. We compare their ranking with rankings of our networks in Table~\ref{tab:ranking}. We note that the rankings between networks using ImageNet weights is identical; however, overall, there is significant variability, and we \textbf{reject H1.3}. 
+\noindent{\textbf{Ranking of Visual Encodings.}} Cleveland and McGill provide an ordering of elementary visual encodings based on theoretical arguments and experimental results. We compare their ranking with rankings of our networks in Table~\ref{tab:ranking}. Overall, there is significant variability in the rankings between architectures (Fig.~\ref{fig:figure1_results}). However, area estimation is an easier task for all networks, while direction and angle estimation are more difficult. It is harder to distinguish differences between position, length, curvature, and shading tasks. Further, the volume tasks suffers high variability in performance across cross-validation splits, which suggests that the image noise affects the outcome more than for other tasks. In sum, we \textbf{partially accept H1.3}. Finally, we note that the rankings between networks using ImageNet weights is identical, which suggests that the information about elementary perceptual tasks gained from those natural images is similar (given a sufficiently-complex network).
+\\~\\
+\noindent{\textbf{Cross-network Variability and Network Generalizability.}} We measure regression performance across networks trained with different parameterizations of the elementary perceptual tasks (Fig.~\ref{fig:cross_network}). For our best performing network (VGG19 trained from scratch), we observe that accuracy decreases only slightly as the parameterization becomes more complex so long as training examples expressing all variability are included (diagonal entries in each matrix).  However, VGG19 is unable to generalize to added translation or stroke width variations in the encodings, leading to increases in error. As such, we \textbf{reject H1.4}. 
 
 %Observing Figure~\ref{fig:figure1_results}, -> JT: we should do this.
 
@@ -104,7 +104,7 @@ Across tasks, we compare the average regression performances for our networks an
 
 \begin{table}[tb]
 \centering
-\caption{\textbf{Ranking of Elementary Perceptual Tasks.} We create a ranking of the elementary perceptual tasks for all of our networks. We report midmean logistic absolute errors (MLAE) for each network averaged across multiple runs on the most complex parametrization of the individual stimuli. The VGG19 network performs best compared on all tasks. For human performance, we report the ranking of Cleveland and McGill~\cite{cleveland_mcgill}. The VGG19 * and Xception * networks use ImageNet weights and yield identical rankings.}
+\caption{\textbf{Elementary Perceptual Task Ranking.} We report midmean logistic absolute errors (MLAE) for each network averaged across multiple runs on the most complex parametrization of each task. For human performance, we report the ranking of Cleveland and McGill~\cite{cleveland_mcgill}. VGG19 performs best overall, while VGG19 * and Xception * networks using ImageNet weights yield identical rankings.}
 \resizebox{\linewidth}{!}{
 \begin{tabular}{cllllll}
 \toprule
@@ -178,23 +178,23 @@ Human (CMcG) & MLP & LeNet & VGG19 * & \textbf{VGG19} & Xception * & Xception \\
 \label{tab:ranking}
 \end{table}
 
-\begin{figure}[!ht]
+\begin{figure}[p]
 	\centering
-	\includegraphics[width=.8\linewidth]{figure1_slim_only_last.pdf}
+	\includegraphics[width=\linewidth]{figure1_slim_only_last.pdf}
 %	\includegraphics[width=0.48\linewidth]{figure1_slim_right.pdf}
 	\caption{\textbf{Elementary perceptual tasks results for most complex task parameterization.} \emph{Left:} Example stimuli image. \emph{Right:} MLAE and 95\% confidence intervals for different networks. The * indicates networks which use ImageNet weights up until the MLP, rather than being trained from scratch.}
 	\label{fig:figure1_results}
+%	\vspace*{1in}
 \end{figure}
 
-\noindent{\textbf{Cross-classifier Variability and Network Generalizability.}} We measure regression performance across classifiers trained on the different parameterizations of the elementary perceptual tasks. Looking at the results in Fig.~\ref{fig:cross_network}, we can observe that even slight variations of an encoding such as added translation in Y or X drastically increases the error. We think that the networks are not really learning concepts of perception but rather learn the variation of pixel values.
 
-\begin{figure}[!ht]
+\begin{figure}[p]
 	\centering
-	  \includegraphics[width=.75\linewidth]{cross_network_small_VGG19_area.pdf}
-	  \includegraphics[width=.75\linewidth]{cross_network_small_VGG19_length.pdf}
-	  \includegraphics[width=.75\linewidth]{cross_network_small_VGG19_position_common_scale.pdf}
-	  \includegraphics[width=.75\linewidth]{cross_network_small_VGG19_shading.pdf}
-  \caption{\textbf{Cross-classifier variability for perceptual tasks.} We use predictions of the VGG19 network trained on different parametrizations of \emph{area}, \emph{length}, \emph{position common scale}, and \emph{shading}. These are the top 4 encodings in the ranking for this network. We measure the mean logistic absolute error (MLAE) -- the lower score, the better. Regressors trained on stimuli with variable position can generalize even if the axis of translation varies. However, if they are trained on fixed positions of the stimuli they are not able to measure translated encodings.}
+	  \includegraphics[width=.8\linewidth]{cross_network_small_VGG19_position_common_scale.pdf}
+	  \includegraphics[width=.8\linewidth]{cross_network_small_VGG19_length.pdf}
+	  \includegraphics[width=.8\linewidth]{cross_network_small_VGG19_area.pdf}
+	  \includegraphics[width=.8\linewidth]{cross_network_small_VGG19_shading.pdf}
+  \caption{\textbf{Cross-classifier variability for perceptual tasks.} VGG19 networks trained on different parametrizations (X-axis) tested across different parameterizations (Y-axis), for the top four performing encodings. Diagonal matrix entries represent networks trained and tested on the same parameterizations. Below diagonal entries are scenarios where the test data has more parameters than the training data; below diagonal entries have fewer. We measure the mean logistic absolute error (MLAE)---the lower the score, the better. VGG19 becomes only slightly less accurate as the parameterization becomes more complex; however, it is unable to generalize to unseen element translations as error increases rapidly. Note that all networks showed similar behavior.}
 	\label{fig:cross_network}
 \end{figure}
 
