@@ -173,9 +173,36 @@ shading
 
   
 
+(12 * 9 * 4 + 4 * 9 * 2) * 5
+
 
 #
 # VIDEO
+
+
+1. Evaluating Graphical Perception with CNNs
+
+2. Which chart would you choose?
+
+3. Cleveland and McGill studied this in 1984.
+
+4. But today, not only humans perceive information. CNNs are used for many computer vision tasks.
+   Can they perceive visual encodings?
+
+5. We study how CNNs perceive low-level visuals such as lengths, curvature and position
+
+6. We also replicate Cleveland and McGills position-angle experiment
+
+7. .. the position-length experiment
+
+8. .. and the bars and framed rectangles experiment
+
+9. for this, we train over 2500 different networks
+
+10. and report successes, failures, and insights for computing graphical perception with CNNs
+
+11. all our code, data and results are freely available.    Thank you very much!
+
 
 
 # Which chart would you choose? Probably the bar chart. 
@@ -196,9 +223,15 @@ shading
 #
 # and the bar framed rectangles experiment built upon webers law of just noticable differences
 #
-# after careful quantitative evaluation as one result, we propose a ranking of visual encodings best suited towards modern CNNs
-#
-# all our code, data, and results are publicly available on github
+
+# for this, we trained over 2500 different networks
+
+# we report successes, failure, and insights for computing graphical perception using CNNs
+
+# all our code, data, and results are publicly available
+
+
+
 
 
 #
