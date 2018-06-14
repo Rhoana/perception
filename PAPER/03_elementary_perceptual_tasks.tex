@@ -61,13 +61,15 @@ For the remaining nine tasks, we create visualizations as 100$\times$100 raster 
 %
 \subsection{Hypotheses}
 
-\noindent \textbf{H1.1} \textbf{The CNNs tested will be able to regress quantitative variables from graphical elements.} We parametrize different visual encodings (Table~\ref{tab:encoding_parameters}) and test whether the CNNs can measure them, and relate the results to accuracies obtained by humans on similar tasks.
+\begin{hypolist}
+\item \textbf{H1.1} \textbf{The CNNs tested will be able to regress quantitative variables from graphical elements.} We parametrize different visual encodings (Table~\ref{tab:encoding_parameters}) and test whether the CNNs can measure them. %, and relate the results to accuracies obtained by humans on similar tasks.
 
-\noindent \textbf{H1.2} \textbf{CNN perceptual performance will depend on network architexture.} We evaluate multiple regressors with different numbers of trainable parameters. We expect a more complex network (with more trainable parameters) to perform better on elementary perceptual tasks.
+\item \textbf{H1.2} \textbf{CNN perceptual performance will depend on network architexture.} We evaluate multiple regressors with different numbers of trainable parameters. We expect a more complex network (with more trainable parameters) to perform better on elementary perceptual tasks.
 
-\noindent \textbf{H1.3} \textbf{Some visual encodings will be easier to learn than others for the CNNs tested.} Cleveland and McGill order the elementary perceptual tasks by accuracy. We investigate whether this order is also relevant for computing graphical perception.
+\item \textbf{H1.3} \textbf{Some visual encodings will be easier to learn than others for the CNNs tested.} Cleveland and McGill order the elementary perceptual tasks by accuracy. We investigate whether this order is also relevant for computing graphical perception.
 
-\noindent \textbf{H1.4} \textbf{Networks trained on perceptual tasks will generalize to more complex variations of the same task.} Empirical evidence suggests that CNNs are able to generalize by interpolating between different training data points, and so perform on variations of a similar perceptual task. We create visual representations of the elementary perceptual tasks with different variability, and expect that networks will be able to generalize when presented with slight task variations.
+\item \textbf{H1.4} \textbf{Networks trained on perceptual tasks will generalize to more complex variations of the same task.} Empirical evidence suggests that CNNs are able to generalize by interpolating between different training data points, and so perform on variations of a similar perceptual task. We create visual representations of the elementary perceptual tasks with different variability, and expect that networks will be able to generalize when presented with slight task variations.
+\end{hypolist}
 
 %	
 %	We suspect that CNNs are able to 'learn` absolute quantities encoded using low-level visual 
