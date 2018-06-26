@@ -1,10 +1,10 @@
 #!/bin/bash
-#SBATCH -p seas_dgx1
+#SBATCH -p cox
 #SBATCH -n 1 # Number of cores
 #SBATCH -N 1 # Ensure that all cores are on one machine
 #SBATCH --gres=gpu
-#SBATCH --array=1-4
-#SBATCH --mem=20000
+#SBATCH --array=5-8
+#SBATCH --mem=32000
 #SBATCH -t 3-00:00
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=haehn@seas.harvard.edu
