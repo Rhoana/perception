@@ -1,39 +1,38 @@
-@book{abbott1885flatland,
-  title={Flatland: Romance of Many Dimensions},
-  author={Edwin A. Abbott},
-  lccn={06039826},
-  url={https://books.google.com/books?id=R6E0AAAAMAAJ},
-  year={1885},
+@InProceedings{pmlr-v15-glorot11a,
+  title = 	 {Deep Sparse Rectifier Neural Networks},
+  author = 	 {Xavier Glorot and Antoine Bordes and Yoshua Bengio},
+  booktitle = 	 {Proceedings of the Fourteenth International Conference on Artificial Intelligence and Statistics},
+  pages = 	 {315--323},
+  year = 	 {2011},
+  editor = 	 {Geoffrey Gordon and David Dunson and Miroslav Dudík},
+  volume = 	 {15},
+  series = 	 {Proceedings of Machine Learning Research},
+  address = 	 {Fort Lauderdale, FL, USA},
+  month = 	 {11--13 Apr},
+  publisher = 	 {PMLR},
+  pdf = 	 {http://proceedings.mlr.press/v15/glorot11a/glorot11a.pdf},
+  url = 	 {http://proceedings.mlr.press/v15/glorot11a.html},
+  abstract = 	 {While logistic sigmoid neurons are more biologically plausible than hyperbolic tangent neurons, the latter work better for training multi-layer neural networks. This paper shows that rectifying neurons are an even better model of biological neurons and yield equal or better performance than hyperbolic tangent networks in spite of the hard non-linearity and non-differentiability at zero, creating sparse representations with true zeros which seem remarkably suitable for naturally sparse data. Even though they can take advantage of semi-supervised setups with extra-unlabeled data, deep rectifier networks can reach their best performance without requiring any unsupervised pre-training on purely supervised tasks with large labeled datasets. Hence, these results can be seen as a new milestone in the attempts at understanding the difficulty in training deep but purely supervised neural networks, and closing the performance gap between neural networks learnt with and without unsupervised pre-training. [pdf]}
+}
+
+@InProceedings{Zeiler2014,
+author="Zeiler, Matthew D.
+and Fergus, Rob",
+editor="Fleet, David
+and Pajdla, Tomas
+and Schiele, Bernt
+and Tuytelaars, Tinne",
+title="Visualizing and Understanding Convolutional Networks",
+booktitle="Computer Vision -- ECCV 2014",
+year="2014",
+publisher="Springer International Publishing",
+address="Cham",
+pages="818--833",
+abstract="Large Convolutional Network models have recently demonstrated impressive classification performance on the ImageNet benchmark Krizhevsky et al. [18]. However there is no clear understanding of why they perform so well, or how they might be improved. In this paper we explore both issues. We introduce a novel visualization technique that gives insight into the function of intermediate feature layers and the operation of the classifier. Used in a diagnostic role, these visualizations allow us to find model architectures that outperform Krizhevsky et al on the ImageNet classification benchmark. We also perform an ablation study to discover the performance contribution from different model layers. We show our ImageNet model generalizes well to other datasets: when the softmax classifier is retrained, it convincingly beats the current state-of-the-art results on Caltech-101 and Caltech-256 datasets.",
+isbn="978-3-319-10590-1"
 }
 
 
-@inproceedings{cohen2016group,
-  title={Group equivariant convolutional networks},
-  author={Cohen, Taco and Welling, Max},
-  booktitle={International Conference on Machine Learning},
-  pages={2990--2999},
-  year={2016}
-}
-
-@inproceedings{worrall2017harmonic,
-  title={Harmonic Networks: Deep Translation and Rotation Equivariance},
-  author={Worrall, Daniel E and Garbin, Stephan J and Turmukhambetov, Daniyar and Brostow, Gabriel J},
-  booktitle={Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition},
-  pages={5028--5037},
-  year={2017}
-}
-
-@misc{Viegas2016,
- author = {Fernanda Vi\'{e}gas and Martin Wattenberg and Daniel Smilkov and James Wexler and Daniel Gundrum},
- title = {Generating charts from data in a data table},
- year = {2018},
- month = {09},
- day = {29},
- number = {US 20180088753},
- url = {https://patents.google.com/patent/US20180088753A1/en},
- note = {US 20180088753 A1},
- abstract = {A method for generating a chart suggestion list using data present in a data table includes parsing cells of the data table to identify one or more columns and one or more data types of the cells, performing a statistical analysis of the one or more columns to obtain one or more statistics about the one or more columns, and creating one or more suggested charts based on the one or more statistics about the one or more columns and the one or more data types of the cells. Each of the one or more suggested charts represents at least a subset of the data in the data table. The method also includes generating a chart suggestion list including at least one of the one or more suggested charts.}
-}
 
 @inproceedings{Savva2011-revision,
   title = {ReVision: Automated Classification, Analysis and Redesign of Chart Images},
@@ -58,7 +57,7 @@
                {\'{A}}kos K{\'{a}}d{\'{a}}r and
                Adam Trischler and
                Yoshua Bengio},
-  title     = {{FigureQA}: An Annotated Figure Dataset for Visual Reasoning},
+  title     = {FigureQA: An Annotated Figure Dataset for Visual Reasoning},
   journal   = {CoRR},
   volume    = {abs/1710.07300},
   year      = {2018},
@@ -70,8 +69,9 @@
   bibsource = {dblp computer science bibliography, https://dblp.org}
 }
 
+
 @inproceedings{kafle2018dvqa,
-  title={{DVQA}: Understanding Data Visualizations via Question Answering},
+  title={DVQA: Understanding Data Visualizations via Question Answering},
   author={Kafle, Kushal and Cohen, Scott and Price, Brian and Kanan, Christopher},
   booktitle={CVPR},
   year={2018}
@@ -92,7 +92,7 @@
 
 @article{Azulay2018,
   author    = {Aharon Azulay and Yair Weiss},
-  title     = {Why do Deep Convolutional Networks Generalize so Poorly to Small Image Transformations?},
+  title     = {Why do deep convolutional networks generalize so poorly to small image transformations?},
   journal   = {CoRR},
   volume    = {abs/1805.12177},
   year      = {2018},
@@ -107,7 +107,7 @@
                Dimitris Tsipras and
                Ludwig Schmidt and
                Aleksander Madry},
-  title     = {A Rotation and a Translation Suffice: Fooling {CNNs} with Simple Transformations},
+  title     = {A Rotation and a Translation Suffice: Fooling CNNs with Simple Transformations},
   journal   = {CoRR},
   volume    = {abs/1712.02779},
   year      = {2017},
@@ -203,7 +203,7 @@ booktitle = {NIPS Deep Learning and Representation Learning Workshop},
 
 @inproceedings{maneesh_deconstructing_d3,
 author = {Harper, Jonathan and Agrawala, Maneesh},
-title = {Deconstructing and Restyling {D3} Visualizations},
+title = {Deconstructing and Restyling D3 Visualizations},
 booktitle = {Proceedings of the 27th Annual ACM Symposium on User Interface Software and Technology},
 series = {UIST '14},
 year = {2014},
@@ -557,7 +557,7 @@ archivePrefix = "arXiv",
 }
 
 @article{transfer_learning,
-  title={Deep convolutional neural networks for computer-aided detection: {CNN} architectures, dataset characteristics and transfer learning},
+  title={Deep convolutional neural networks for computer-aided detection: CNN architectures, dataset characteristics and transfer learning},
   author={Shin, Hoo-Chang and Roth, Holger R and Gao, Mingchen and Lu, Le and Xu, Ziyue and Nogues, Isabella and Yao, Jianhua and Mollura, Daniel and Summers, Ronald M},
   journal={IEEE transactions on medical imaging},
   volume={35},
@@ -691,8 +691,7 @@ month={Nov},}
   title={Considering visual variables as a basis for information visualisation},
   author={Carpendale, MST},
   year={2003},
-  publisher={University of Calgary},
-  doi={10.5072/PRISM/30495}
+  publisher={University of Calgary}
 }
 
 @inproceedings{widgor_perception2007,

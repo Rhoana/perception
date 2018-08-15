@@ -1,0 +1,38 @@
+\section{Conclusions}
+
+%Convolutional neural networks can regress quantities from visual encodings with reasonable error rates around 10\% in most cases. However, it seems that the networks do not learn perceptional concepts but rather learn variations of pixels. This can be seen in large margins of error when there is slight variability in stimuli. Also, severely complex tasks such as the position-length experiment are not solvable by modern CNNs.
+
+%Future work shall address these issues and maybe find certain properties of network architectures which overcome these challenges. In our experiments, VGG19 -- even though not the most complex architecture -- performed better than others. Indeed there are plenty of directions to explore: How do CNNs react to other visual encodings?, Can we leverage adversarial networks to generate more machine perceivable visualizations?, Can CNNs correlate two-dimensional encodings properly? 
+
+%A more practical application could be the replacement of one-hot encoding in CNNs with the elementary shading task. VGG19 can quantify the shading with low error (Tab.~ \ref{tab:ranking}). This would reduce data dimensionality when one needs to encode unordered quantities.
+
+%We hope that our experiments allow initial claims of what is easily possible and what is not. We certainly wish that we stimulate further research in this direction. Understanding infographics with full variability is an ambitious undertaking and we are excited to see what the future brings.
+
+% Are results from CNN analysis of visualizations meaningful perceptually, and at what level? 
+
+% Can we build on CNNs and construct useful insights into human perception for visualization?
+
+% How can we show a positive? If all we show are negatives, what is the next design where we show a positive?
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Repeat the introduction
+
+\change{
+We set out to investigate how current CNNs perform on graphical perception tasks, and our findings are mixed. In the constrained settings of the elementary perceptual tasks of experiment 1, CNNs perform better than humans and were able to more accurately estimate quantities directly from visual marks on images. For the CNN, these tasks require learning to predict from training stimuli with relatively minor differences (which, for it, is easy), whereas for the human these tasks require making precise geometric estimates (which, for us, is hard). In other experiments, such as the position-length experiment, CNNs cannot complete the task. These tasks require identifying the bars of interest and then measuring the ratios of their lengths. Such visual relations are much harder for CNNs to predict as the space of outcomes is much larger, requiring exhaustive training~\cite{not_so_clevr}. In contrast, humans can generalize their concept of length to the new task from few examples. Finally, in the point cloud task, which is largely impossible for humans for 1,000 points, we see that VGG19 can solve this task to a high accuracy through its aggregation over layers.
+
+Overall, the variation in our findings suggest that CNNs are not currently a good model for human graphical perception, in that they do not predict human performance and in that their successes and failures are at odds with human ability. This implicitly shows that the respective mechanisms for graphical perception are not comparable. As such, researchers and practitioners should be careful when applying and drawing conclusions from these models in their work. 
+%
+%Through these endeavors, our experiments lead to the practical insights that VGG19 is a better starting point for visualization analysis than more modern networks because it better generalizes information through its layers~\cite{Azulay2018}, and that even VGG with these properties must be fed a comprehensive training set which covers the visualization design space.
+}
+%
+%Given our findings, it would seem a mistake to apply CNNs to graphical perception tasks
+%
+%
+%However, performance alone is not sufficient to establish the CNNs as good models. Once similar performance was achieved, one would like to see the models demonstrate similar failure modes or biases that humans did. Seems clear that they work differently, but might be interesting to investigate correlation between human and CNN task performance for this effort. ???
+%
+\\~\\
+\noindent \textbf{Future Work.} \change{In general, we are optimistic about machine graphical perception. Our findings suggest that this requires approaches that are different from the recent architectural developments like residual and inception blocks included in Xception to aid natural image classification. Networks that explicitly preserve geometric invariances, like scale, rotation, or translation, are potentially useful for graphical perception tasks~\cite{cohen2016group,worrall2017harmonic}. For instance, in the elementary angle task, rotation invariance would factor out the overall rotation and leave only the angle estimation problem; however, this must be controlled as, in the direction task, rotation invariance would remove the signal we wish to estimate.} New capsule networks also hold promise as they include specific architectural mechanisms to compartmentalize the learning of visual attributes like position, size, and orientation~\cite{capsules}. \change{Likewise, given that most visualization designs are easily described procedurally, there is promise in investigating generative approaches for learning probabilistic programs from visual stimuli~\cite{lake2015human}. Again, these would explicitly represent visual attributes. In general, approaches that attempt to represent higher-level abstractions are a key requirement for machine graphical perception to develop beyond a memorization and interpolation task. We release our open source code and data to help spur new machine perception systems more adept at graphical perception: \url{http://vcglab.org/perception}}
+
+% Understanding Hinton's capsule networks
+% https://medium.com/ai%C2%B3-theory-practice-business/understanding-hintons-capsule-networks-part-i-intuition-b4b559d1159b

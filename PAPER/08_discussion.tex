@@ -1,0 +1,73 @@
+\section{Discussion}
+\change{
+\noindent \textbf{Performance Across Experiments.} In the elementary perceptual tasks, CNNs were able to regress at least some parameter variant to error rates of around 3--10\%. This suggests that, for well-constrained tasks, we can use CNNs to directly predict quantities from individual visual marks or shapes. Area is one such task in which the multi-layer hierarchy of receptive fields and pooling layers can aid in solving this task via summation, whereas these help less for prediction in our direction task. In general, our humans were less proficient at these direct estimation tasks, as they require precise geometric reasoning. CNNs solve this problem in a different way to humans, as they interpolate from similar training examples within the learned representation.
+
+However, the CNNs approach is not able to solve the visual relation task of the position-length experiment where it must identify and compare multiple bars. The problem has many more permutations of stimuli than the capacity of any of our networks~\cite{not_so_clevr}. Conversely, this visual relation task is relatively simple for humans given our ability to abstract the concept of length to identify bars and compute their ratio. This suggests that new network designs are needed to solve these problems in generalizable ways and not via exhaustive training.
+
+Finally, some tasks that we did not expect to be solved, such as the 1000-point cloud JND task, were solvable by at least one network (VGG19). In principle, estimating the number of points added to the point cloud can be computed exactly by summing over the stimuli and subtracting the base number of points (10, 100, 1,000). This is a task that is virtually impossible at a glance for a human, but one that is made possible due to the CNNs layer aggregation methodology.
+%
+%
+%All our generated stimuli exhibit parameter variability on top of the added noise, which ranged from $\approx20$ permutations up to tens of orders of magnitudes of variability. We found no clear correlation between task parameterization and network capacity, and it appears that some tasks are easier for networks to learn. 
+%
+%Our networks were able to solve the constrained position-angle experiment as well as a human. 
+%Estimating vs.~Relating Visual Mark Quantities
+%- elementary perceptual task -> single variable, able. Could use CNNs
+%- position-length -> variable relations, unable. Need something else
+%
+\\~\\
+\noindent \textbf{Architecture Surprises and Generalizability.} We see high variance in performance across our networks. The MLP is usually least able to solve the tasks as it contains no explicit visual processing convolution layers. Next, while it has convolutional layers, the LeNet often does not have the network capacity to solve the task. Next, we find that VGG19 is the best architecture for solving graphical perception tasks, regularly outperforming the newer Xception. This is surprising because Xception has more parameters and is deeper, giving it stronger ImageNet natural image performance. Further, in our elementary perceptual task (E1) multi networks (Figure~\ref{fig:figure1_results}), even with this extra capacity, Xception was less able to exploit the 9$\times$ increase in training data than VGG.
+
+So why is VGG19 consistently better? Recent works have discovered a similar effect in comparisons with the more complex ResNet50 and InceptionV3 networks for classification under simple geometric transformations~\cite{Engstrom2017}. VGG19 is better able to generalize to image translations because it better anti-aliases the input and feature map signals (in the Nyquist–-Shannon sense) though the pooling and stride subsampling operations across its layers~\cite{Azulay2018}. %, which is a requirement for convolution to be translation invariant.
+
+%VGG better preserves shiftability better avoids aliasing in feature maps by combining pooling with matching kernel stride operations) .
+
+This property helps in our E1 tasks as we vary the X and Y location of the visual marks and is a useful invariance or generalizability for visualization tasks in general. Networks that do not preserve shiftability as well, like Xception, must have the capacity to learn translation invariance through the data~\cite{kauderer2017quantifying}. For instance, through data augmentations which translates the stimuli artificially. This is a less efficient use of each trainable parameter, which also helps to explain the less efficient training on the `multi' network with nine times the data.
+
+%We posit that this is because Xception dedicates more of its parameters to inception blocks, which attempt to provide the network with some scale invariance (a property useful for natural image object detection). However, for our 2D graphical perception tasks, this property is rarely useful.
+%
+%, and it relates to the generalizability of the network. VGG better preserves information (in the Shannon sense) through its layers, and is more invariant to translation (which is normally a property assumed by networks).
+%- More parameters doesn't necessarily mean more training data, but VGG benefitted
+%
+%One takeaway
+%- Clear that, going forward, visualization tasks needs their own network designs to cope with specific problem
+\\~\\
+\noindent \textbf{Cross-parameterization Generalizability.} That said, our cross-network and cross-parameterization experiments (Fig.~\ref{fig:cross_network}) show that, even for VGG, this ability only goes so far to interpolate between training stimuli to new test stimuli. Without seeing any examples of X or Y translation, VGG performance deteriorates rapidly (for the other networks, too; see supplemental). This applies even to simple design variations like stroke width changes. Imagine scraping visualizations from the Web---a simple web search for `bar chart' yields high design variation. We can hardly expect to standardize visualization designs for computational analysis, and so this means that CNN training data for general applications must include representation from across the design space~\cite{kafle2018dvqa}. Thankfully, generating visualization designs with parametric models is relatively simple, unlike for natural images.
+
+Further, we note that task performance can drop if the number of parameters is higher than the network capacity (in a loose sense), meaning that CNNs for understanding graphical data across visual designs must be large. In these respects, applying CNNs to understanding real-world visualizations remains a challenge~\cite{Kahou2018}.
+%
+%Many of our parameter variations introduce translation to the mark in X or Y. CNNs are often said to be `translation invariant', but this relies on the translation being present in the training data to begin with~\cite{kauderer2017quantifying}. In effect, this asks the network to learn many versions of the elementary prediction problem across image positions. Many of our networks have the capacity to accomplish this task.
+%
+% Discussion titles
+% Generalizability to Designs
+% - Not particularly present
+% - Use other paragraph
+% - Suggest that they could be applied when the output is standardized, though we're not expecting this to happen across science.
+% - Our added translations are a form of data augmentation, which can help, but this is a learned generalizability rather than a specific invariance to a geometric or style transformation like stroke width
+% \\~\\
+% \noindent \textbf{Training and Data Strategies.} Our VGG and XCeption networks did benefit from being trained on multiple tasks (E1), so long as they could solve the original task individually---our multi network for position length (E3) was not able to learn anything useful across tasks to help it complete the task. Likewise, our networks did benefit from seeing more training data, even for the simple elementary tasks.
+% - Xception network architecture could not as easily; underlying data variability may still be too sparse as engineered for ImageNet. Inception blocks try to explicitly separate spatial and cross-channel combination, which should in principle apply to our problem (e.g., allowing line translation to be separated from line stroke). Needs further investigation.
+% - Going forward, easy to generate large variations of style - required for even the simple tasks (cite Kahle)
+%
+\\~\\
+\noindent \textbf{From Scratch vs.~Fine Tuned.} Our networks fine-tuned on ImageNet were not better than those trained from scratch on the perceptual tasks, performing worse overall. This may be unsurprising given that our from-scratch networks are `specialized'. This confounds prior comparisons made between networks trained on natural images and the visual cortex, given that humans are also able to solve graphical perception tasks with the same visual system that sees the world. %This suggests that graphical perception is a higher-level task involving more than low-level vision.
+%
+%Our experiments suggest that researchers looking to apply existing network architectures to elementary visualization problems should do so without using existing weights.
+%
+%From Scratch vs. Pretrained
+%- From scratch better; makes sense given limited number of systems seen.
+%- No specific reason why to use natural image weights, unless need a combined natural image/visualization network (e.g., robot looking at the world and your powerpoint slides in a meeting). 
+%
+%
+\\~\\
+\noindent \textbf{Practical Insight Summary:}
+Across our experiments, we gained insights with practical application for other researchers or practitioners investigating machine graphical perception:
+\begin{enumerate}[label=\arabic*.,itemsep=0.5pt, topsep=1pt, parsep=0.5pt]
+\item CNN architecture performance on natural images is not a good predictor for performance on graphical perception tasks. 
+\item While the general network capacity trend of `more is better' is borne out by our experiments, other factors like generalization power through invariances are important for visualization tasks.
+\item VGG19 or similar architectures are reasonable starting points.
+\item Training weights from scratch is a better strategy for visualization task performance than fine tuning natural image weights.
+\item Be aware when using natural image augmentations like zoom, rotation, or skew, as these have specific meanings for visualizations.
+\item For training sets, we can use parametric models to explore large visualization design spaces, where data augmentation is replaced by parameter and design variations (e.g., stroke width).
+%\item Take care drawing conclusions - way of solving problem is different
+\end{enumerate}%
+}% end \change{

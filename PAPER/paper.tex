@@ -55,6 +55,9 @@
 \usepackage{multirow}
 \usepackage[export]{adjustbox}
 \usepackage{subfig}
+\usepackage{amsmath}
+\usepackage{enumitem}
+\usepackage{flushend}
 
 \newenvironment{hypolist}
 {
@@ -71,6 +74,21 @@
 {
   \end{itemize}
 }
+
+\usepackage{xcolor}
+\newcommand{\tnote}[3]{{\color{#2}#1: #3}}
+%\newcommand{\change}[1]{\textcolor{red}{#1}}
+%\newcommand{\removed}[1]{\textcolor{red}{\sout{#1}}}
+% \newcommand{\change}[1]{{\color{red}#1}}
+\newcommand{\change}[1]{{#1}}
+\newcommand{\chek}[1]{{\color{red}#1}}
+
+\newcommand{\removed}[1]{}
+\newcommand{\DaH}[1]{\tnote{DaH}{red}{#1}}
+\newcommand{\HP}[1]{\tnote{HP}{green}{#1}}
+\newcommand{\JT}[1]{\tnote{JT}{blue}{#1}}
+\newcommand{\IGNORE}[1]{}
+
 
 %% We encourage the use of mathptmx for consistent usage of times font
 %% throughout the proceedings. However, if you encounter conflicts
@@ -120,12 +138,12 @@ E-mail: \{haehn,pfister\}@seas.harvard.edu.
 
 %% Abstract section.
 \abstract{
-Convolutional neural networks can successfully perform many computer vision tasks on images, and their learned representations are often said to mimic the early layers of the visual cortex. But can CNNs understand graphical perception for visualization? We investigate this question by reproducing Cleveland and McGill's seminal 1984 experiments, which measured human perception efficiency of different visual encodings and defined elementary perceptual tasks for visualization. We measure the graphical perceptual capabilities of four classifiers on a) elementary perceptual tasks with increasing parametric complexity, b) the position-angle experiment that compares pie charts to bar charts, c) the position-length experiment that compares grouped and divided bar charts, and d) the bars and framed rectangles experiment where visual cues aid perception. We also study how feed-forward neural networks obey Weber's law, which defines the proportional relation between perceivable information and distribution density. We present the results of these experiments to foster the understanding of how CNN classifiers succeed and fail when applied to data visualizations.
+Convolutional neural networks can successfully perform many computer vision tasks on images. \change{For visualization, how do CNNs perform when applied to graphical perception tasks?} We investigate this question by reproducing Cleveland and McGill's seminal 1984 experiments, which measured human perception efficiency of different visual encodings and defined elementary perceptual tasks for visualization. We measure the graphical perceptual capabilities of four network architectures on five different visualization tasks and compare to existing and new human performance baselines. \change{While under limited circumstances CNNs are able to meet or outperform human task performance, we find that CNNs are not currently a good model for human graphical perception.} We present the results of these experiments to foster the understanding of how CNNs succeed and fail when applied to data visualizations.
 } % end of abstract
 
 %% Keywords that describe your work. Will show as 'Index Terms' in journal
 %% please capitalize first letter and insert punctuation after last keyword
-\keywords{Machine Perception, Deep Learning}
+\keywords{Machine Perception, Graphical Perception, Deep Learning, Convolutional Neural Networks.}
 
 %% ACM Computing Classification System (CCS). 
 %% See <http://www.acm.org/class/1998/> for details.
@@ -140,8 +158,8 @@ Convolutional neural networks can successfully perform many computer vision task
 %% Uncomment below to include a teaser figure.
 \teaser{
   \centering
-  \includegraphics[width=\linewidth]{teaser.pdf}
-  \caption{\textbf{Computing Cleveland and McGill's Position-Angle Experiment using Convolutional Neural Networks.} We replicate the original experiment by asking visual cortex inspired machine learning classifiers to assess the relationship between values encoded in pie charts and bar charts. Similar to the findings of Cleveland and McGill~\cite{cleveland_mcgill}, our experiments show that CNNs read quantities more accurately from bar charts (mean squared error, MSE in green).}
+  \includegraphics[width=\linewidth]{teaser_v2.pdf}
+  \caption{\textbf{Computing Cleveland and McGill's Position-Angle Experiment using Convolutional Neural Networks.} We replicate the original experiment by asking CNNs to assess the relationship between values encoded in pie charts and bar charts. We find that CNNs can predict quantities more accurately from bar charts (mean squared error (MSE) in green).}
 	\label{fig:teaser}
 }
 
@@ -179,15 +197,18 @@ Convolutional neural networks can successfully perform many computer vision task
 
 \input{06_bars_and_framed_rectangles_experiment.tex}
 
-\input{07_results.tex}
+\input{07_webers_law_experiment.tex}
 
-\input{08_conclusions.tex}
+\input{08_discussion.tex}
+
+\input{09_conclusions.tex}
 
 
 %% if specified like this the section will be committed in review mode
-%\acknowledgments{
-%The authors wish to thank A, B, and C. This work was supported in part by
-%a grant from XYZ (\# 12345-67890).}
+\acknowledgments{
+\change{We thank Junkyung Kim, Matthew Ricci, Daniel Pineo, Thomas Serre, John Tsotsos, Li Zhaoping, and our reviewers for helpful discussions and feedback. We thank the staff of the Harvard Human Research Protection Program for fast IRB approval and the Harvard Research Computing crew for their substantial support. We also thank the Boston Fire Department for \href{https://www.universalhub.com/2018/shorting-power-supplies-spark-fire-downtown}{extinguishing flames in our data center}, which we promise was not caused by us training over 2,500 models for this paper. This research is supported in part by grants NSF IIS-1447344 and NIH 5U01CA198935.}}
+
+\vfill
 
 %\bibliographystyle{abbrv}
 \bibliographystyle{abbrv-doi}

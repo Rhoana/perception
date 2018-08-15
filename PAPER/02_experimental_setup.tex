@@ -1,29 +1,45 @@
 \section{Experimental Setup}
 
-First, we describe the commonalities across all of our experiments. We measure how different convolutional neural networks perceive low-level visual encodings, such as positions, angles, curvatures, and lengths. We formulate these measurement tasks as logistic regression problems: given a stimuli image of an elementary visualization, the networks must estimate the single quantity present or the ratio between multiple quantities present. 
+\change{
+We compare CNNs to human baselines across five experiments:
+\begin{enumerate}[label=E\arabic*.,itemsep=0.5pt, topsep=1pt, parsep=0.5pt]
+    \item We use Cleveland and McGill's elementary perceptual tasks to directly estimate quantities for visual marks (position, length, direction, angle, area, volume, curvature, and shading) (Section~\ref{sec:elementary}).
+    \item We reproduce Cleveland and McGill's position-angle experiment that compares pie charts to bar charts (Section~\ref{sec:positionangle}).
+    \item We reproduce Cleveland and McGill's position-length experiment that compares grouped and divided bar charts (Section~\ref{sec:positionlength}).
+    \item We assess the bars and framed rectangles setting from Cleveland and McGill, where visual cues aid perception (Section~\ref{sec:barsframedrectangles}). 
+    \item We conduct a Weber's law point cloud experiment (Section~\ref{sec:weberslaw}).
+\end{enumerate} 
+}
 
-For each experiment, we use a single factor between-subject design, with the factor being the network used. This lets us evaluate whether different network designs are competitive against existing human perception results. We train each network in a supervised fashion with a mean-squared error (MSE) loss between the ground-truth labels and the network's estimate of the measurement from observing the generated stimuli images. Then, we test each network's ability to generalize to new examples with a separate data, created using the same stimuli generator function but with unseen ground-truth measurements (Section~\ref{sec:data}).
+First, we describe the commonalities across all our experiments. In each, we measure whether different CNNs can predict values from low-level visual marks. \change{We formulate these measurement tasks as logistic regression rather than classification problems, so that we can estimate continuous variables such as directions and angles.} Given a stimuli image, the networks must estimate the single quantity present or the ratio between multiple quantities present.
+
+For each experiment, we use a single factor between-subject design, with the factor being the network used. This lets us evaluate whether different network designs are competitive against human perception results. We train each network in a supervised fashion with a mean squared error (MSE) loss between the ground-truth labels and the network's estimate of the measurement from observing the generated stimuli images. Then, we test each network's ability to generalize to new examples with separate test data, created using the same stimuli generator function but with unseen ground-truth measurement labels. % (Section~\ref{sec:data}).
+
+%This means that not only the stimuli are distinct for train and test sets but also the associated labels (Section~\ref{sec:data}).
 
 % We define a series of hypotheses prior to each experiment.
 
 \subsection{Networks}
 \label{sec:networks}
 
-\noindent{\textbf{Multilayer Perceptron.}} As a baseline, we use a multilayer perceptron (MLP), but without the prior convolutional layers as is typical in network designs for solving visual tasks (Fig.~\ref{fig:classifiers}). Our MLP contains a layer of $256$ perceptrons, which are activated as rectified linear units (ReLU)~(Fig.~\ref{fig:classifiers}). We train this layer with dropout (probability $= 0.5$) to prevent overfitting, and then combine these ReLU units to regress our output measurement.
+\noindent{\textbf{Multilayer Perceptron.}} As a baseline, we use a multilayer perceptron (MLP). \change{The MLP does not have the convolutional layers which help CNNs solve visual tasks, and so we include it to tests whether a CNN is really needed to solve our simple graphical perception tasks} (Fig.~\ref{fig:classifiers}). Our MLP contains a layer of $256$ perceptrons that are activated as Rectified Linear Units (ReLU). We train this layer with dropout (probability $= 0.5$) to prevent overfitting, and then combine these ReLU units to regress our output measurement.
 \\~\\
-\noindent{\textbf{Convolutional Neural Networks.}} We compare different convolutional neural networks (CNNs) with both `trained from scratch' weights and pre-trained weights on a database of natural images (1000-class ImageNet \cite{imagenet}). These networks are the traditional LeNet-5 with 2 layers, which was designed to recognize hand-written digits~\cite{lenet}; the VGG19 network with 19 layers, which was designed to solve the ImageNet object recognition challenge~\cite{simonyan_very_deep2014}; and the Xception network with 36 layers~\cite{xception}, which was also designed to solve the ImageNet object recognition challenge plus the 15,000-class JFT object recognition challenge~\cite{Hinton2015}. Each of these networks has as its last layers an MLP architecture equivalent to our baseline, and so they act as earlier image and feature processors for this final regressor. Since the networks are of different architectures, the number of trainable parameters changes, with some networks having more capacity than others (Table~\ref{tab:parameters}).
+\noindent{\textbf{Convolutional Neural Networks.}} \change{We test three CNN architectures of increasing sophistication. Each has more layers than the last, which is an indicator for the network's capacity to hierarchically represent information. Each network also has more trainable parameters than the last, which is an indicator for how much information the network is able to learn overall. While larger networks need more data to train, we expect them to perform better than simpler networks.}
 
-For \emph{VGG19} and \emph{Xception}, we have two variants: the network trained from scratch on elementary perceptual tasks, plus the network using weights that were previously trained on the ImageNet object recognition challenge \emph{except} for the MLP layer. This is intended to produce early-layer features which mimic human vision, and then to see whether they are more or less useful than networks trained from scratch. 
+\change{
+Our smallest CNN is the traditional LeNet-5 with 2 layers, which was designed to recognize hand-written digits~\cite{lenet}. Next, we use the VGG19 network with 16 layers, which achieved 90\% top 5 performance in the 1000-class ImageNet object recognition challenge in 2014~\cite{simonyan_very_deep2014}. Finally, we use the Xception network with 36 layers~\cite{xception}, which achieved 95\% top 5 performance on ImageNet in 2017 and was also designed to solve the 17,000-class JFT object recognition challenge~\cite{Hinton2015}. Xception includes state-of-the-art architecture elements: residual blocks to allow it to be deeper, and depth-wise separable convolutions (or Inception blocks) to separate spatial from cross-channel correlations for more efficient parameter use. All three networks have as their last layers an MLP architecture equivalent to our baseline, and so they act as earlier image and feature processors for this final regressor. Table~\ref{tab:parameters} lists the number of trainable parameters per network.}
+
+For \emph{VGG19} and \emph{Xception}, we train all network parameters on elementary perceptual tasks (\emph{from scratch}); and we use network parameters previously trained on the ImageNet object recognition challenge but retrain the parameters in the final MLP layers (\emph{fine tuning}). \change{We know that humans are able to perform graphical perception tasks, and so maybe these pre-trained parameters that mimic early-layer human vision features are useful for the task. However, parameters trained from scratch are unlikely to mimic human features, as the network has only seen visualization tasks and not natural images (i.e., growing up not in Flatland \cite{abbott1885flatland}, but in Visland).}
 \\~\\
-\noindent{\textbf{Optimization.}} All network hyperparameters, optimization methods, and stopping conditions are fixed across networks (Table \ref{tab:parameters}). We train for $1000$ epochs using stochastic gradient descent with Nesterov momentum, but stop early if the loss does not decrease for ten epochs.
+\noindent{\textbf{Optimization.}} All hyperparameters, optimization methods, and stopping conditions are fixed across networks (Table \ref{tab:parameters}). We train for $1000$ epochs using stochastic gradient descent with Nesterov momentum but stop early if the validation loss does not decrease for ten epochs. \change{Each epoch trains the network upon every stimuli, with model updates after every mini-batch of 32 stimuli.}
 \\~\\
-\noindent{\textbf{Environment.}} We run all experiments on Tesla X and Tesla V100 graphical processing units. We use the KERAS framework with a TensorFlow backend to train the networks, and use the scikit-image library to generate the stimuli. % and scikit-learn libraries - JT: What do we use this for?
+\noindent{\textbf{Environment.}} We run all experiments on NVIDIA Titan X and Tesla V100 GPUs. We use Python scikit-image to generate the stimuli and use Keras with TensorFlow to train the networks. % and scikit-learn libraries - JT: What do we use this for?
 
 \begin{table}[t]
 \centering
-\caption{\textbf{Network Training.} We use different feature generators as input to a multilayer perceptron which performs linear regression. This results in different sets of trainable parameters. As a baseline, we also train the MLP directly on the visualization images without any additional feature generation.}
+\caption{\textbf{Network Training.} We use different CNN feature generators as input to a multilayer perceptron, which results in different sets of trainable parameters. As a baseline, we also train the MLP directly. Optimization conditions are fixed across networks and experiments.}
 \resizebox{\linewidth}{!}{
-\begin{tabular}{lrl}
+\begin{tabular}{lr}
 %	\toprule
 %	\makecell{Classifier} & \makecell{Convolutional\\Layers} & \makecell{Trainable\\Parameters} \\
 %	\midrule
@@ -33,13 +49,24 @@ For \emph{VGG19} and \emph{Xception}, we have two variants: the network trained 
 %	\emph{Xception} + MLP & $36$ & $25,580,585$ \\
 %	\bottomrule
 	\toprule
-	Network & \makecell{Trainable\\Parameters} & Optimization \\
+	Network & \makecell{Trainable\\Parameters} \\
 	\midrule
-	MLP & $2,560,513$ & SGD (Nesterov momentum)\\
-	\emph{LeNet} + MLP & $8,026,083$ & Learning rate: $0.0001$\\
-	\emph{VGG19} + MLP & $21,204,545$ & Momentum: $0.9$ \\
-	\emph{Xception} + MLP & $25,580,585$ & \makecell[tl]{Batchsize: 32\\Epochs: $1000$ (Early Stopping)}\\
+	MLP & $2,560,513$ \\
+	\emph{LeNet} + MLP & $8,026,083$ \\
+	\emph{VGG19} + MLP & $21,204,545$ \\
+	\emph{Xception} + MLP & $25,580,585$ \\
 	\bottomrule
+\end{tabular}
+\begin{tabular}{lr}
+\toprule
+\multicolumn{2}{l}{Optimization (SGD)} \\
+\midrule
+Learning rate & $0.0001$ \\
+Momentum & Nesterov \\
+\hspace{0.2cm} Value & $0.9$ \\
+Batch size & 32 \\
+Epochs & $1000$ (Early stop) \\
+\bottomrule
 \end{tabular}
 }
 \label{tab:parameters}
@@ -63,40 +90,51 @@ For \emph{VGG19} and \emph{Xception}, we have two variants: the network trained 
 		\includegraphics[width=3.5cm,valign=c]{classifier_right.pdf}
 	}
 
-  \caption{\textbf{Network Architecture.} The multilayer perceptron (MLP) in our experiments has 256 neurons which are activated as rectified linear units (ReLU). We use Dropout regularization to prevent overfitting. As output, we perform linear regression for continuous variables. The MLP can learn to represent the visualizations directly, but we also learn features generated by LeNet (2 conv. layers, filter size $5\times5$), VGG19 (16 conv. layers, filter size $3\times3$), or Xception (36 conv. layers, filter size $3\times3$) to test different model complexities.}
-	\label{fig:classifiers}
+  \caption{\textbf{Network Architecture.} We use a multilayer perceptron (MLP) to perform linear regression for continuous variable output. We also learn convolutional features through LeNet (2 layers, filter size $5\times5$), VGG19 (16 layers, filter size $3\times3$), or Xception (36 layers, filter size $3\times3$) to test different model complexities.}
+  \label{fig:classifiers}
+  \vspace{-0.5cm}
 \end{figure}
 
 \subsection{Data}
 \label{sec:data}
 
 \noindent\textbf{Image Stimuli and Labels.} 
-We create our stimuli visualizations as 100$\times$100 binary images, rasterized without interpolation. We write a parameterized stimuli generator for each elementary task. The number of possible parameter values differs per experiment, and we summarize these in Table~\ref{tab:encoding_parameters} and Section~\ref{sec:parametrizations}. Before use, we scale the generated images into an unbiased range: images to the range of $-0.5$ to $0.5$. Then, we add subtle random noise (uniformly distributed between $-0.025$--$0.025$) to each pixel to introduce variation which prevents the networks from simply `remembering' each different image.
+We create our stimuli as 100$\times$100 binary images, rasterized without interpolation. We develop a parameterized stimuli generator for each elementary task, with the number of possible parameter values differing per experiment (we summarize these in Table 1 of the supplemental material). Before use, we scale the generated images to the range of $-0.5$ to $0.5$ for value balance. Then, we add 5\% random noise (uniformly distributed between $-0.025$--$0.025$) to each pixel to introduce variation that prevents the networks from simply `remembering' each individual image. \change{In supplemental material Section 2, we visually compare how our stimuli vary from Cleveland and McGill's original stimuli for E1--5, and justify any differences.}
 
-Each stimuli image also has an associated ground truth label representing the parameter set which generated the image, e.g., the length in pixels of a bar. As before, we scale these labels to the range of $0.0$ to $1.0$, which represent the maximum and minimum values that this parameter can take.
+Each stimuli image also has an associated ground truth label representing the parameter set that generated the image.
+%, e.g., the length in pixels of a bar. As before, 
+We scale these labels to the range of $0.0$ to $1.0$ and normalize to the maximum and minimum value range for each parameter.
+%, which represent the maximum and minimum values that this parameter can take.
 \\~\\
 \noindent\textbf{Training/Validation/Test Splits.} For each task, we use 60,000 training images, 20,000 validation images, and 20,000 test images. To create these datasets, we generate stimuli from random parameters and add them to the sets until the target number is reached, while maintaining distinct (random) parameter spaces for each set to ensure that there is no leakage between training and validation/testing.
 
 \subsection{Measures and Analysis}
 \label{sec:measuresandanalysis}
 
-\noindent\textbf{Cross Validation.} For reproducibility, we perform repeated random sub-sampling validation, also known as Monte Carlo cross-validation, during our experiments. We run every experiment seperately twelve times, and randomly select (without replacement) the $60\%$ of our data as training data, $20\%$ as validation, and $20\%$ as test. 
+\noindent\textbf{Cross Validation.} For experiment reproducibility, we perform repeated random sub-sampling validation, also known as Monte Carlo cross-validation~\cite{xu2001monte}. We run every experiment separately twelve times (four times for the `from scratch' networks due to significantly-longer training times), and randomly select (without replacement) the $60\%$ of our data as training data, $20\%$ as validation, and $20\%$ as test. 
 %Our large data sample size of 100,000 guarantees that every single observation of our parameterizations will be selected at least once (excluding noise patterns). -> JT: No it doesn't.
 % Finally, we average the results over the runs. -> JT: Fine, but we'll do distributions anyway, so not worth saying.
 \\~\\
-\noindent{\textbf{Task Accuracy.}} In their 1984 paper, Cleveland and McGill use the midmean logistic absolute error metric (\emph{MLAE}) to measure perception accuracy. To allow comparison between their human results and our machine results, we also use MLAE as a presentation metric:
+\noindent{\textbf{Task Accuracy.}} In their 1984 paper, Cleveland and McGill use the midmean logistic absolute error metric (\emph{MLAE}) to measure perception accuracy. To allow comparison between their human results and our machine results, we also use MLAE for presentation:
 \begin{equation}
 	\textnormal{MLAE} = log_2( | \textnormal{predicted percent} - \textnormal{true percent} | + .125)
 \end{equation}
 In addition to this metric, we also calculate standard error metrics such as the mean squared error (\emph{MSE}) and the mean absolute error (\emph{MAE}). This allows a more direct comparison of percent errors. Please note that our networks were trained using MSE loss and not directly with MLAE.
 \\~\\
-\noindent{\textbf{Task Confidence Intervals.}} We follow Cleveland and McGill and present $95\%$ confidence intervals. We approximate the value of the $97.5$ percentile point of the normal distribution for simplicity with $1.96$ as suggested by the central limit theorem~\cite{central_limit}.
+\noindent{\textbf{Error Distributions/Confidence Intervals.}} \change{We check for normality in our error distributions using the D'Agostino-Pearson test: 1.14\% of our networks did not pass. These were typically from the smaller MLP or LeNet networks (see supplemental material for example error distributions). As such, we broadly assume normality of errors and follow Cleveland and McGill in presenting $95\%$ confidence intervals, computed via bootstrapping (with 10,000 rather than 1,000 samples for a more accurate estimate)}. %We approximate the value of the $97.5$ percentile point of the normal distribution for simplicity with $1.96$ as suggested by the central limit theorem~\cite{central_limit}.
 \\~\\
-\noindent{\textbf{Confirmatory Data Analysis.}} To accept or reject our hypotheses, we analyze dependent variables using analysis of variance (ANOVA) followed by parametric tests. JT: Which tests?
+\noindent{\textbf{Confirmatory Data Analysis.}} To accept or reject our hypotheses under this normality, we analyze dependent variables using analysis of variance (ANOVA) followed by parametric tests. % this is clear from the notation t_test... no need to mention it otherwise
 \\~\\
-\noindent{\textbf{Training Efficiency.}} We use the training convergence rate as a measure of how easy or hard a particular task is for the network to learn to solve. This is defined as the MSE loss decrease per training epoch, which is an indicator of the training efficiency of the network with respect to the visual encoding.
+\noindent{\textbf{Training Efficiency.}} We use the training convergence rate as a measure of how easy or hard a particular task is for the network to solve. This is defined as the MSE loss decrease per training epoch, which is an indicator of the training efficiency of the network with respect to the visual encoding. Lower MSE values are better. % and show that the network learned the task.
 \\~\\
-\noindent\textbf{Network Generalizability.} With sufficient capacity of trainable parameters, it is often said that a network can `memorize' the images if the data set has a low variability, and so it is important to consider this variability when evaluating different networks with fixed numbers of trainable parameters (Table~\ref{tab:parameters}). As discussed, we add noise to each stimulus image to prevent this. We also evaluate generalizability by asking a network previously trained upon one task parameterization to answer questions about the same type of task stimuli but with more complex parameterization, e.g., estimating bar length without and with changes in stroke width.
+\noindent\textbf{Network Generalizability.} With sufficient capacity of trainable parameters, it is often said that a network can `memorize' the images if the data set has a low variability. Therefore it is important to consider this variability when evaluating different networks with fixed numbers of trainable parameters (Table~\ref{tab:parameters}). As discussed, we add noise to each stimulus image to increase variability. We also evaluate generalizability by asking a network previously trained for one task parameterization to answer questions about the same type of task stimuli but with more variability, e.g., estimating bar length without and with changes in stroke width.
 
-Further, some experiments compare different visual encoding types, e.g., bar plot vs.~stacked bar plot. We train and evaluate individual networks for each parameterization, plus we also train and evaluate a networks on stimuli across the different types. This single decision-making software better mimics the judgements that a human would be able to make. 
+Further, some experiments compare different visual encoding types, e.g., bar plot vs.~stacked bar plot. We train and evaluate individual networks for each task, and we also train and evaluate networks with stimuli from across the encoding types. These single decision-making \change{networks} better mimic judgments that a human would be able to make. 
 %This scenario affects the optimization process and result in networks with more flexible knowledge with the caveat of longer training times. -> JT: Save it for the results discussion.
+
+\subsection{Human Baselines}
+\change{
+We take human baseline measurements for the position-angle (E2) and position-length (E3) experiments from Cleveland and McGill~\cite{cleveland_mcgill}, which had 51 participants. For the position-length experiment, we are also able to take human baseline measurements from Heer and Bostock's crowdsourced reproduction of Cleveland and McGill's experiments~\cite{HeerBostock2010}, which had 50 participants. Each participant in both experiments reviewed 10 stimuli for each condition.
+
+For the three remaining experiments (E1,E4,E5), we use Amazon Mechanical Turk to crowdsource new human baselines from 25 participants. Each participant was shown 10 stimuli for each experiment condition (nine for E1, two for E4, and three for E5), with three stimuli per condition presented as practice stimuli. This totaled 182 HITs per participant, with each HIT worth \$0.06. Average HIT time was 27 seconds. 85 HITs total were rejected for out of range values. Participants were recruited from the US, with Master Worker or better qualification. As in Cleveland and McGill, participants were requested to perform ``a quick visual judgment and not try to make precise measurements, either mentally or with a physical object such as a pencil or your finger.''
+}

@@ -1,26 +1,17 @@
-\begin{figure}[!t]
-	  \includegraphics[width=\linewidth]{figure12_mlae_better_all.pdf}
-  \caption{\textbf{Computational results of the bars-and-framed-rectangles experiment.} \textit{Left:} Visual encodings of two bars for a task of length judgement (bottom) following Cleveland and McGill's proposed experiment. Perceiving which bar is longer is much easier for humans when a frame is added (top). For networks (trained from scratch, or * indicates ImageNet weights), there seems no significant difference between the encodings as reported by MLAE and 95\% confidence intervals.}
-	\label{fig:figure12_mlae}
-\end{figure}
+\section{Experiment 4: Bars and Framed Rectangles}
+\label{sec:barsframedrectangles}
 
+Visual cues can help in converting graphical elements back to their real-world variables. Cleveland and McGill introduced the bars-and-framed-rectangles experiment to compare the perceptual judgment of length and position along non-aligned scales. Fig.~\ref{fig:figure12_mlae} shows both variations on the left. Without framing, it is difficult to judge which bar is larger (bottom). However, with a frame showing maximum length, this length judgment \change{can be} converted into a position judgment along non-aligned scales, which simplifies the perceptual problem.
 
-\section{Experiment: Bars and Framed Rectangles}
+Cleveland and McGill theorize that judging the framed whitespace could be considered a length rather than a position judgment. Given this, they relate the task to Weber's Law: the perceivable difference within a distribution is proportional to the initial size of the distribution~\cite{householder1940weber}. For this experiment, Weber's Law implies that humans can more easily measure the difference in the white scale since its initial size is small, whereas estimating the small change in lengths of the black bars is harder. The Just Noticeable Difference (JND) is higher when the initial stimulus is smaller in size. 
 
-Visual cues can help converting graphical elements back to their real world variables. Cleveland and McGill introduced the bars-and-framed-rectangles experiment which compares the perceptual judgement tasks  of length and position along non-aligned scales~\cite{cleveland_mcgill}. Figure~\ref{fig:figure12_mlae} shows both variations on the left. It is not easy to judge which bar is larger in the bottom picture which involves a length judgement. However, when adding a little frame as a reference, this length judgement is transferred to a position judgement along non-aligned scales. Based on this little frame, it is easy to see that the right bar is slightly larger than the left since the whitespace in the top of the frame is smaller than the one on the left. 
+We set up the experiment as a two value regression task (Fig.~\ref{fig:figure12_mlae}). \change{Each bar length varies randomly by between 1 and 12 of 60 pixels, with each bar undergoing an individual vertical shift of up to 20 pixels. There are 132 different labels over 50,160 possible stimuli.}
 
-As Cleveland and McGill explain in their theories, judging the whitespace is actually also a length judgement rather than a position~\cite{cleveland_mcgill}. They now relate this task to Weber's Law which states that the perceivable difference within a distribution is proportional to the initial size of the distribution~\cite{householder1940weber}. Here, it means that humans can easily measure the difference in the white scale since its initial size is small while estimating the small change in lengths of the black bars is not easily perceivable. The Just Noticable Difference (JND) is higher when the initial stimuli is smaller in size (here the white bars).
+%\subsection{Hypothesis}
 
-We mimmick the bars-and-framed rectangles experiment as a two value regression task. We create rasterized visualizations of size $100\times100$ as shown in Figure~\ref{fig:figure12_mlae} and let our networks estimate the sizes of the stimuli.
-
-\subsection{Hypotheses}
-
-We proposed two hypotheses entering the elementary perceptual task experiment:
-
-\begin{itemize}
-	\item \textbf{H4.1} \textbf{Classifiers can leverage additional visual cues.} The original bar and framed rectangle experiment shows how visual cues aid humans in mapping graphical elements to quantitative variables. This should be the same for feed-forward neural networks since they are inspired by the visual system.
-	\item \textbf{H4.2} \textbf{Weber's law can be transferred to computational perception.} Cleveland and McGill confirmed Weber's law based on the bar and framed rectangle experiment. For humans, the ability to perceive change within a distribution is proportional to the size of the initial distribution.
-\end{itemize}
+\begin{hypolist}
+	\item \textbf{H4.1} \textbf{Networks performance will improve with additional visual cues.} The original bar and framed rectangle setting shows how visual cues aid humans in mapping graphical elements to quantitative variables. This should be the same for feed-forward neural networks, as we give them more signal from which to learn.
+\end{hypolist}
 
 %\begin{figure}[t]
 %	  \includegraphics[width=\linewidth]{figure12_overview}
@@ -59,7 +50,7 @@ We proposed two hypotheses entering the elementary perceptual task experiment:
 %\end{figure}
 %\begin{table}[h]
 %\centering
-%\caption{\textbf{Weber-Fechner Law.} The Weber-Fechner law states that the perceivable differences within a distribution is proportional to the initial size of the distribution. We create three different types of images initialized with 10, 100, and 1000 dots. We then mark randomly up to 10  dots in previously free pixels (here visualized in red). For humans, the difference is easily perceivable when the initial dot count is 10 but is hard when it is higher. We evaluate our classifiers on these rasterized visualizations.}
+%\caption{\textbf{Weber-Fechner Law.} The Weber-Fechner law states that the perceivable differences within a distribution is proportional to the initial size of the distribution. We create three different types of images initialized with 10, 100, and 1000 dots. We then mark randomly up to 10 dots in previously free pixels (here visualized in red). For humans, the difference is easily perceivable when the initial dot count is 10 but is hard when it is higher. We evaluate our classifiers on these rasterized visualizations.}
 %\resizebox{\linewidth}{!}{
 %\begin{tabular}{lllr}
 %	\toprule
@@ -81,18 +72,19 @@ We proposed two hypotheses entering the elementary perceptual task experiment:
 %\label{tab:weber_law}
 %\end{table}
 
-
-\subsection{Point Cloud Experiment}
-
-We conduct an additional experiment testing whether Weber's law applies to convolutional neural networks for graphical perception. For this, we generate three 2D point clouds as base stimuli -- each is created randomly by activating 10, 100, or 1000 pixels in a $100\times100$ raster image. We then additionally activate from 1 to 10 random pixels within the initial distribution but by carefully only selecting inactive pixels. We show examples for this in Figure~\ref{fig:weber_law} (left). This means that the number of additional points is harder to identify if they are added to the 1000 pixel set while the 10 pixel set allows to easily count. We then let our networks solve a regression task to estimate the number of added points.
-
+\begin{figure}[tb]
+  \centering
+  \includegraphics[width=0.9\linewidth]{figure12_mlae_better_all_NEW.pdf}
+  \caption{\textbf{Computational results of the bars-and-framed-rectangles experiment.} \textit{Left:} Stimuli of two bars for length judgment (bottom) following Cleveland and McGill's setting. Perceiving which bar is longer is \change{significantly} easier for humans when a frame is added (top). \textit{Right:} For networks (trained from scratch, or * indicates ImageNet weights), there seems no significant difference between the encodings as reported by MLAE and \change{bootstrapped} 95\% confidence intervals.}
+	\label{fig:figure12_mlae}
+\end{figure}
 
 \subsection{Results}
 
+\change{Midmean random performance in this task is equal to $MLAE=4.8$.} We observe varying performance for our networks. Averaged across networks: the framed rectangle encoding $MLAE=1.982$ ($SD=0.89$) and for the bars encoding $1.867$ ($SD=0.709$). This difference was not significant, and so we \textbf{reject H4.1}. VGG19 again can regress the length in both cases, for the framed rectangle encoding $MLAE=0.595$ ($SD=0.225$) and for the bar encoding $MLAE=0.735$ ($SD=0.410$), though with higher variance without the added visual cues. The difference in relation to the visual cue is not significant. %\JT{Rejection of 4.1 calls into question the memorization of networks.}
 
+\change{Further, our user study provides evidence that humans can more easily measure the frame rectangles. Participants were able to estimate the bar length with less error when frames are present $MLAE= 3.336 $ ($SD= 0.828 $) than without this visual aid $MLAE= 3.928 $ ($SD= 0.42 $). This difference is significant $F_{1,48}=9.765, p<0.01$.}
 
-\begin{figure}[t]
-	  \includegraphics[width=\linewidth]{weber_mlae_noise_all.pdf}
-  \caption{\textbf{Computational results of the point cloud experiment.} Log absolute error means and 95\% confidence intervals for the \emph{bars-and-framed-rectangles experiment} as described by Cleveland and McGill~\cite{cleveland_mcgill}. We test the performance of a Multi-layer Perceptron (MLP), the LeNet Convolutional Neural Network, as well as feature generation using the VGG19 and Xception networks trained on ImageNet.}
-	\label{fig:weber_law}
-\end{figure}
+%\\~\\
+%Unfortunately, both hypotheses were rejected for this experiment. However, it was great to see a partial validation of our ranking of elementary perceptual tasks (Table~\ref{tab:ranking}).
+
