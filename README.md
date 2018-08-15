@@ -41,7 +41,7 @@ The environment can then be directly activated
 
 And now `jupyter notebook` allows for execution of the `IPY/` stuff! Or the driver codes can be run directly from the `EXP/` folder.
 
-### Starting Points
+### Stimuli Generation
 
 * For the 'elementary perceptual tasks': https://github.com/Rhoana/perception/blob/master/IPY/Figure1.ipynb
 
@@ -53,7 +53,13 @@ And now `jupyter notebook` allows for execution of the `IPY/` stuff! Or the driv
 
 * And finally, for 'Webers Law': https://github.com/Rhoana/perception/blob/master/IPY/Weber_Fechner_Law.ipynb
 
-* **Also, here is the code for training and testing the regression:** https://github.com/Rhoana/perception/blob/master/EXP/run_regression.py
+### Regression code
+
+* **This code runs training and testing of MLP, LeNet, VGG19 (ImageNet), Xception (ImageNet):** https://github.com/Rhoana/perception/blob/master/EXP/run_regression.py
+
+* **This code runs training and testing of VGG19 and Xception from scratch:** https://github.com/Rhoana/perception/blob/master/EXP/run_regression_from_scratch.py
+
+* Job permutations are realized using SLURM!
 
 * Other good stuff is hidden in IPY/ and EXP/ - please browse :)
 
