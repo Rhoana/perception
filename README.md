@@ -7,6 +7,8 @@
 
 **Convolutional neural networks can successfully perform many computer vision tasks on images. For visualization, how do CNNs perform when applied to graphical perception tasks? We investigate this question by reproducing Cleveland and McGill’s seminal 1984 experiments, which measured human perception efficiency of different visual encodings and defined elementary perceptual tasks for visualization. We measure the graphical perceptual capabilities of four network architectures on five different visualization tasks and compare to existing and new human performance baselines. While under limited circumstances CNNs are able to meet or outperform human task performance, we find that CNNs are not currently a good model for human graphical perception. We present the results of these experiments to foster the understanding of how CNNs succeed and fail when applied to data visualizations.**
 
+Note: This paper will be presented at [IEEE Vis 2018](http://ieeevis.org/) in Berlin!
+
 ## Data
 
 <img src='https://dataverse.harvard.edu/logos/navbar/logo.png' width=150>
