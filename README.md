@@ -29,7 +29,7 @@ Access it [here](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10
 
 ### Setup
 
-We need Anaconda or Miniconda (tested version 5.0.1 on Linux)! Get it [here](https://www.anaconda.com/download/)
+We need Anaconda or Miniconda (tested version 5.0.1 on Linux)! Get it [here](https://www.anaconda.com/download/) !
 
 The virtual environment with all dependencies (keras, tensorflow, yadayada..) can then be created like this:
 
