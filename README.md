@@ -11,11 +11,11 @@ Note: This paper will be presented at [IEEE Vis 2018](http://ieeevis.org/) in Be
 
 ## Data
 
-<img src='https://dataverse.harvard.edu/logos/navbar/logo.png' width=150>
+<img src='https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Dropbox_logo.svg/600px-Dropbox_logo.svg.png' width=100>
 
-The data including trained models, experiments, and results are available as part of the Harvard Dataverse.
+The data including trained models, experiments, and results are available on Dropbox.
 
-Access it [here](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/7HFT8D)!
+Access it [here](https://www.dropbox.com/sh/cavjnb91vbwh2n9/AADaCakrMkPqOFF8gm_oWSaHa?dl=0)!
 
 ## Code
 
