@@ -150,7 +150,7 @@ class Figure1:
     MAX_LENGTH = Y_RANGE[1]-Y_RANGE[0]
     # print 'Max length', MAX_LENGTH
 
-    X = Figure1.SIZE[1] / 2
+    X = math.floor(Figure1.SIZE[1] / 2)
     if var_x:
       X, p = Util.parameter(X_RANGE[0], X_RANGE[1])
       parameters *= p
@@ -173,9 +173,9 @@ class Figure1:
     image = np.zeros(Figure1.SIZE, dtype=np.bool)
 
 
-    half_width = WIDTH / 2 # this always floors
+    half_width = math.floor(WIDTH / 2) # this always floors
     
-
+    # print(Y,LENGTH,X,half_width,WIDTH)
     image[Y:Y+LENGTH, X-half_width:X+half_width+1] = 1
 
 
