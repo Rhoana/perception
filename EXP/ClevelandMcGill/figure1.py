@@ -268,12 +268,12 @@ class Figure1:
 
     LENGTH = Figure1.DELTA_MIN
 
-    X = Figure1.SIZE[1] / 2
+    X = int(Figure1.SIZE[1] / 2)
     if var_x:
       X, p = Util.parameter(X_RANGE[0], X_RANGE[1])
       parameters *= p
 
-    Y = Figure1.SIZE[0] / 2
+    Y = int(Figure1.SIZE[0] / 2)
     if var_y:
       Y, p = Util.parameter(Y_RANGE[0], Y_RANGE[1])
       parameters *= p

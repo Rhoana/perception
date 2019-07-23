@@ -115,13 +115,15 @@ class Figure3:
   def data_to_piechart(data):
     '''
     '''
+    LENGTH = 50
+
     piechart = np.zeros((100,100), dtype=np.bool)
     RADIUS = 30
-    rr,cc = skimage.draw.circle_perimeter(50,50,RADIUS)
-    piechart[rr,cc] = 1
+    # rr,cc = skimage.draw.circle_perimeter(50,50,RADIUS)
+    # piechart[rr,cc] = 1
     random_direction = np.random.randint(360)
     theta = -(np.pi / 180.0) * random_direction
-    END = (50 - RADIUS * np.cos(theta), 50 - RADIUS * np.sin(theta))
+    END = (LENGTH - RADIUS * np.cos(theta), LENGTH - RADIUS * np.sin(theta))
     rr, cc = skimage.draw.line(50, 50, int(np.round(END[0])), int(np.round(END[1])))
     piechart[rr, cc] = 1
 
