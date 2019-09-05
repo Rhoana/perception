@@ -223,9 +223,9 @@ if CLASSIFIER == 'VGG19' or CLASSIFIER == 'XCEPTION':
   print 'memory usage', (X_train_3D.nbytes + X_val_3D.nbytes + X_test_3D.nbytes) / 1000000., 'MB'
 
   if CLASSIFIER == 'VGG19':  
-    feature_generator = keras.applications.VGG19(include_top=False, input_shape=(100,100,3))
+    feature_generator = keras.applications.VGG19(weights=None, include_top=False, input_shape=(100,100,3))
   elif CLASSIFIER == 'XCEPTION':
-    feature_generator = keras.applications.Xception(include_top=False, input_shape=(100,100,3))
+    feature_generator = keras.applications.Xception(weights=None, include_top=False, input_shape=(100,100,3))
   elif CLASSIFIER == 'RESNET50':
     print 'Not yet - we need some padding and so on!!!'
     sys.exit(1)
