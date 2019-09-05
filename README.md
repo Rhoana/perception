@@ -2,6 +2,8 @@
 
 ![Image](http://danielhaehn.com/papers/haehn2018evaluating.png) 
 
+**WARNING** We are currently investigating a potential bug in the 'from scratch'-training of VGG19 and Xception. 
+
 **[PAPER](http://danielhaehn.com/papers/haehn2018evaluating.pdf)** | **[SUPPLEMENTAL](http://danielhaehn.com/papers/haehn2018evaluating_supplemental.pdf)** | **[FASTFORWARD](https://vimeo.com/285106317)** | **[VIDEO](https://vimeo.com/280506639)**
   
 
